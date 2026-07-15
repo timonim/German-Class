@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hallo! — Motia's German classes</title>
+  <style>
+    :root {
+      --ink: #17231e;
+      --muted: #69736e;
+      --paper: #f7f4ed;
+      --card: #fffdf8;
+      --line: #e7e1d6;
+      --green: #1f6b4f;
+      --green-dark: #174d3a;
+      --lime: #b8d44f;
+      --orange: #f28b50;
+      --blue: #cce6ee;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 19px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, select { font: inherit; color: inherit; }
+    button, summary, select, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 18px 20px;
+      color: #fff;
+      background: var(--green-dark);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 8px 26px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--green-dark);
+      background: var(--lime);
+    }
+
+    .progress-card {
+      margin: 0 4px 20px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+    }
+
+    .progress-card p { margin: 0 0 10px; color: #cfe0d9; font-size: 14px; font-weight: 700; }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 9px;
+      background: rgba(255,255,255,.13);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--lime);
+      transition: width .25s ease;
+    }
+
+    .progress-copy { margin-top: 8px; color: #c9d8d2; font-size: 14px; }
+
+    nav { overflow: auto; padding-right: 3px; }
+
+    .lesson-nav {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px 1fr 18px;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 12px;
+      color: #c5d5cf;
+      text-align: left;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .lesson-nav:hover { background: rgba(255,255,255,.06); }
+    .lesson-nav.active { color: #fff; background: rgba(255,255,255,.12); }
+
+    .lesson-number {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      font-size: 18px;
+    }
+
+    .lesson-nav.active .lesson-number { background: var(--lime); }
+    .nav-title { overflow: hidden; font-size: 16px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-check { color: var(--lime); font-weight: 900; }
+
+    main { min-width: 0; padding: 48px 52px 80px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+
+    .top-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 750;
+      background: var(--card);
+      cursor: pointer;
+    }
+
+    .button:hover { border-color: #c9c0b0; }
+    .button.primary { color: #fff; border-color: var(--green); background: var(--green); }
+    .button.primary:hover { background: var(--green-dark); }
+    .button.done { color: var(--green-dark); border-color: var(--lime); background: var(--lime); }
+
+    .lesson-shell { max-width: 900px; margin: auto; display: grid; gap: 48px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(200px, .6fr);
+      border-radius: 24px;
+      color: #fff;
+      background: linear-gradient(135deg, #1f6b4f 0%, #2d8a6a 50%, #3a9d7a 100%);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(214, 241, 95, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-dots {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+      background-size: 40px 40px;
+      opacity: 0.3;
+    }
+
+    .hero-copy { 
+      z-index: 1; 
+      padding: 56px 60px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eyebrow { margin: 0 0 12px; color: var(--lime); font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    h1 { max-width: 640px; margin: 0 0 16px; font-size: clamp(38px, 5vw, 60px); line-height: 1.05; letter-spacing: -1.5px; font-weight: 900; }
+    .hero p { max-width: 560px; margin: 0; color: #d7e5df; font-size: 20px; line-height: 1.5; }
+
+    .hero-art {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .hero-emoji {
+      font-size: 120px;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .outcome { padding: 22px; border-radius: 14px; background: #f2f0e9; }
+    .outcome span { display: block; margin-bottom: 10px; color: var(--green); font-size: 20px; }
+    .outcome p { margin: 0; font-size: 17px; font-weight: 650; }
+
+    .panel {
+      padding: 40px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--card);
+    }
+
+    .panel-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+    h2 { margin: 0; font-size: 26px; letter-spacing: -.5px; }
+    .subtle { color: var(--muted); font-size: 15px; }
+
+    .timeline { position: relative; display: grid; gap: 32px; }
+
+    .plan-step {
+      padding: 28px 30px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #faf8f2;
+    }
+
+    .plan-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+
+    .plan-number {
+      display: grid;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green-dark);
+      background: var(--blue);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .plan-step:nth-of-type(2) .plan-number { background: var(--lime); }
+    .plan-step:nth-of-type(3) .plan-number { background: #ffd9c4; }
+    .plan-step:nth-of-type(4) .plan-number { background: #e8dcff; }
+    .plan-step:nth-of-type(5) .plan-number { background: #ffeeb8; }
+
+    .plan-step h3 { margin: 0; font-size: 19px; }
+    .plan-minutes { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 800; white-space: nowrap; }
+    .plan-step p { margin: 28px 0 0 46px; color: #53615b; font-size: 17px; line-height: 1.6; }
+
+
+
+    .step-phrases { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0 46px; }
+    .step-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-size: 15px; }
+    .step-chip b { font-weight: 800; }
+    .step-chip small { color: var(--muted); font-weight: 500; }
+
+    .step-dialogue { margin: 18px 0 0 46px; display: grid; gap: 16px; }
+    .step-turn { display: flex; align-items: flex-start; gap: 12px; }
+    .step-turn:nth-child(even) { flex-direction: row-reverse; }
+    .step-turn span {
+      display: grid; flex: 0 0 auto; width: 34px; height: 34px; place-items: center;
+      border-radius: 50%; color: #fff; background: var(--green);
+      font-size: 13px; font-weight: 900;
+    }
+    .step-turn:nth-child(even) span { color: var(--green-dark); background: var(--lime); }
+    .step-turn div {
+      position: relative;
+      padding: 14px 18px;
+      border-radius: 18px 18px 18px 4px;
+      background: #eef3f0;
+      font-size: 17px;
+      font-weight: 650;
+      line-height: 1.4;
+      max-width: 75%;
+    }
+    .step-turn:nth-child(even) div { border-radius: 18px 18px 4px 18px; background: #f2f0e9; }
+    .step-turn div::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      width: 14px;
+      height: 14px;
+      background: inherit;
+      border-radius: 3px;
+    }
+    .step-turn:not(:nth-child(even)) div::after {
+      left: -4px;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+    .step-turn:nth-child(even) div::after {
+      right: -4px;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+    .step-turn small { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 14px; }
+
+    .simple-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+    .simple-list li { position: relative; padding-left: 24px; color: #53615b; font-size: 17px; }
+    .simple-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
+
+    .dialogue { display: grid; gap: 28px; padding: 12px 0; }
+    .turn { display: flex; align-items: flex-end; gap: 14px; max-width: 80%; }
+    .turn:nth-child(even) { justify-self: end; flex-direction: row-reverse; }
+    .speaker {
+      display: grid; flex: 0 0 auto; width: 48px; height: 48px; place-items: center;
+      border-radius: 50%; color: #fff; background: var(--green);
+      font-size: 16px; font-weight: 900;
+    }
+    .turn:nth-child(even) .speaker { color: var(--green-dark); background: var(--lime); }
+    .turn-copy {
+      position: relative;
+      padding: 20px 24px;
+      border-radius: 22px 22px 22px 6px;
+      background: #eef3f0;
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 1.5;
+    }
+    .turn:nth-child(even) .turn-copy { border-radius: 22px 22px 6px 22px; background: #f2f0e9; }
+    .turn-copy::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      width: 20px;
+      height: 20px;
+      background: inherit;
+      border-radius: 4px;
+    }
+    .turn:not(:nth-child(even)) .turn-copy::after {
+      left: -6px;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+    .turn:nth-child(even) .turn-copy::after {
+      right: -6px;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+    .turn-copy small { display: block; margin-top: 6px; color: var(--muted); font-weight: 500; font-size: 15px; }
+    .variation-title { margin: 36px 0 16px; font-size: 14px; font-weight: 850; letter-spacing: .7px; text-transform: uppercase; }
+    .variations { display: flex; flex-wrap: wrap; gap: 14px; }
+    .variation { padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: #53615b; background: #faf8f2; font-size: 15px; }
+
+    .phrase-list { display: grid; gap: 16px; }
+    .phrase {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      text-align: left;
+      background: var(--card);
+      cursor: pointer;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+
+    .phrase:hover { border-color: #b9c9c2; transform: translateY(-1px); }
+    .german { font-weight: 800; font-size: 19px; }
+    .english { color: var(--muted); text-align: right; font-size: 17px; }
+    body.hide-english .english { color: transparent; background: #e9e5dc; border-radius: 6px; user-select: none; }
+    body.hide-english .phrase.revealed .english,
+    body.hide-english .phrase:focus .english { color: var(--muted); background: transparent; }
+
+    .picture-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .picture-card { position: relative; min-height: 180px; padding: 0; overflow: hidden; border: 2px solid var(--line); border-radius: 16px; background: #faf8f2; cursor: pointer; }
+    .picture-card:active { transform: scale(.98); }
+    .card-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px; transition: opacity .18s ease, transform .18s ease; }
+    .card-emoji { display: block; margin-bottom: 10px; font-size: 52px; line-height: 1; }
+    .card-language { margin-bottom: 4px; color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: 1px; text-transform: uppercase; }
+    .card-word { font-size: 20px; font-weight: 850; line-height: 1.2; }
+    .card-hint { margin-top: 9px; color: var(--muted); font-size: 12px; }
+    .card-back { opacity: 0; color: #fff; background: var(--green); transform: rotateY(10deg) scale(.96); }
+    .card-back .card-language, .card-back .card-hint { color: #cfe0d9; }
+    .picture-card.flipped { border-color: var(--green); }
+    .picture-card.flipped .card-front { opacity: 0; transform: rotateY(-10deg) scale(.96); }
+    .picture-card.flipped .card-back { opacity: 1; transform: none; }
+    .cards-reset { white-space: nowrap; }
+
+    .challenge { overflow: hidden; padding: 0; }
+    .challenge-top { padding: 36px; background: #fff3dc; }
+    .challenge-top .eyebrow { color: #a05322; }
+    .challenge h2 { margin-bottom: 14px; }
+    .challenge p { margin: 0; color: #6b4a34; font-size: 17px; }
+    .challenge-body { padding: 28px 36px 36px; }
+
+    .checkline {
+      min-height: 48px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 18px 0;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .checkline input { flex: 0 0 auto; width: 24px; height: 24px; margin: 0; accent-color: var(--green); }
+
+    .homework { border: 0; color: #4f3d67; background: #eee6fa; padding: 32px; }
+    .homework h2 { margin-bottom: 12px; }
+    .homework p { margin: 0; font-size: 17px; }
+
+    .complete-button { width: 100%; margin-top: 36px; padding: 16px; font-size: 18px; }
+
+    .mobile-select { display: none; }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      aside { display: none; }
+      main { padding: 22px 20px calc(60px + env(safe-area-inset-bottom)); }
+      .mobile-select { display: block; width: 100%; min-height: 48px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 17px; }
+      .topbar { justify-content: space-between; }
+    }
+
+    @media (max-width: 680px) {
+      main { padding: 20px 18px 50px; }
+      .topbar { flex-direction: column; align-items: stretch; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-copy { padding: 40px 32px; }
+      .hero-art { display: none; }
+      h1 { font-size: 42px; letter-spacing: -1.4px; }
+      .outcomes { grid-template-columns: 1fr; }
+      .picture-cards { grid-template-columns: repeat(2, 1fr); }
+      .panel { padding: 28px; }
+      .phrase { grid-template-columns: 1fr; gap: 2px; }
+      .english { text-align: left; }
+      .plan-step p, .step-phrases, .step-dialogue { margin-left: 0; }
+      .lesson-shell { gap: 36px; }
+    }
+
+    @media print {
+      aside, .topbar, .complete-button { display: none !important; }
+      main { padding: 0; }
+      .hero, .panel { break-inside: avoid; box-shadow: none; }
+      body.hide-english .english { color: var(--muted); background: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand"><span class="brand-mark">H!</span> Hallo, Motia!</div>
+      <section class="progress-card">
+        <p>Motia's German · A1 · 8 classes</p>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-copy" id="progressCopy">0 of 8 classes complete</div>
+      </section>
+      <nav id="lessonNav" aria-label="Your classes"></nav>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <select class="mobile-select" id="mobileSelect" aria-label="Choose a class"></select>
+        <div class="top-actions">
+          <button class="button" id="englishToggle" type="button">Hide English</button>
+          <button class="button" type="button" onclick="window.print()">Print this class</button>
+        </div>
+      </header>
+
+      <div class="lesson-shell">
+        <section class="hero">
+          <div class="hero-dots"></div>
+          <div class="hero-copy">
+            <p class="eyebrow" id="lessonLabel"></p>
+            <h1 id="lessonTitle"></h1>
+            <p id="lessonIntro"></p>
+          </div>
+          <div class="hero-art" aria-hidden="true"><span class="hero-emoji" id="lessonIcon"></span></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">By the end of today</p><h2>What you'll be able to do</h2></div>
+          </div>
+          <div class="outcomes" id="outcomes"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">Today's plan</p><h2>Your steps &amp; exercises</h2></div>
+            <span class="subtle" id="planMinutes"></span>
+          </div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">Core language</p><h2>Words &amp; phrases</h2></div>
+            <span class="subtle">Tap to check yourself</span>
+          </div>
+          <div class="phrase-list" id="phrases"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">Speak together</p><h2 id="dialogueTitle">Model conversation</h2></div>
+            <span class="subtle">Read once · swap roles · change the details</span>
+          </div>
+          <div class="dialogue" id="dialogue"></div>
+          <div class="variation-title">Now make it yours</div>
+          <div class="variations" id="variations"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">Picture words</p><h2>Tap to learn the German</h2></div>
+            <button class="button cards-reset" id="resetCards" type="button">Show English</button>
+          </div>
+          <div class="picture-cards" id="pictureCards"></div>
+        </section>
+
+        <section class="panel challenge">
+          <div class="challenge-top">
+            <p class="eyebrow">Final 10 minutes</p>
+            <h2>Your challenge</h2>
+            <p id="challenge"></p>
+          </div>
+          <div class="challenge-body" id="checklist"></div>
+        </section>
+
+        <section class="panel homework">
+          <p class="eyebrow">Between classes · 5 minutes</p>
+          <h2>Your tiny practice</h2>
+          <p id="homework"></p>
+        </section>
+
+        <button class="button primary complete-button" id="completeButton" type="button">Mark this class done</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const lessons = [
+      {
+        title: "Hallo! Ich bin …", topic: "Meet & greet", icon: "👋",
+        intro: "Your first real German conversation: say hello, share a name, and ask how someone is.",
+        goals: ["Greet someone naturally", "Say and ask a name", "Ask how someone is"],
+        plan: [
+          ["Warm-up", "Hear German greetings; copy rhythm and gesture.", 5, "Echo each greeting aloud with the same rhythm and gesture — then try one alone, without hearing it first."],
+          ["Name exchange", "Practice “Ich bin …” and “Wie heißt du?”; swap roles.", 15, "Introduce yourself to your partner as if it's the very first time you've met, then swap so they introduce themselves to you."],
+          ["How are you?", "Add “Wie geht’s?” with three honest answers.", 15, "Answer Wie geht's? three times in a row, choosing a different honest mood each time: gut, sehr gut, nicht so gut."],
+          ["Mini-dialogues", "Mix the phrases into short back-and-forth conversations.", 15, "Take turns 'meeting' each other again from scratch — greet, introduce yourselves, and ask Wie geht's?, as if for the first time."],
+          ["Can-do challenge", "Complete a greeting without notes.", 10, "Greet, introduce yourself, ask and answer Wie geht's?, and close with Tschüss — no notes."]
+        ],
+        phrases: [["Hallo!", "Hello!"], ["Guten Morgen!", "Good morning!"], ["Ich bin …", "I am …"], ["Wie heißt du?", "What is your name?"], ["Wie geht’s?", "How are you?"], ["Mir geht’s gut, danke.", "I’m well, thanks."], ["Sehr gut!", "Very good!"], ["Nicht so gut.", "Not so good."], ["Und du?", "And you?"], ["Tschüss!", "Bye!"]],
+        challenge: "Hold a 30-second first meeting entirely in German.",
+        checks: ["I can start with a greeting", "I can say and ask a name", "I can ask and answer “Wie geht’s?”", "I can end with “Tschüss”"],
+        homework: "Say the greeting dialogue to a mirror twice — once as yourself, once as the other person. Finish with one 20-second version without reading."
+      },
+      {
+        title: "ABC & Zahlen", topic: "Letters & numbers", icon: "🔤",
+        intro: "Spell a name, catch key sounds, and use the numbers zero to twenty in simple exchanges.",
+        goals: ["Spell a first name", "Recognize key sounds", "Count from 0 to 20"],
+        plan: [
+          ["Retrieval", "Repeat last class’s greeting dialogue from memory.", 8, "Without notes, say the full greeting dialogue with a partner — swap who starts."],
+          ["German sounds", "Contrast A, E, I and practise J, V, W, Z.", 12, "Listen to a letter sound and say which letter you heard as fast as you can — your partner checks and repeats it back."],
+          ["Spell it", "Spell names aloud; listener repeats and confirms.", 15, "Spell your full name in German out loud while your partner repeats each letter back to check they heard it right."],
+          ["Numbers 0–20", "Build numbers in patterns through quick call-and-response.", 15, "Take turns calling out random numbers between 0–20 — the other says it back immediately, going faster each round."],
+          ["Can-do challenge", "Exchange a spelled name and phone number.", 10, "Spell your name and say a 6-digit phone number aloud for your partner to repeat back correctly, then swap."]
+        ],
+        phrases: [["Wie schreibt man das?", "How do you spell that?"], ["Noch einmal, bitte.", "Once more, please."], ["Wie bitte?", "Pardon?"], ["null", "zero"], ["eins", "one"], ["zwei", "two"], ["drei", "three"], ["vier", "four"], ["fünf", "five"], ["sechs", "six"], ["sieben", "seven"], ["acht", "eight"], ["neun", "nine"], ["zehn", "ten"], ["elf", "eleven"], ["zwölf", "twelve"], ["dreizehn", "thirteen"], ["vierzehn", "fourteen"], ["fünfzehn", "fifteen"], ["sechzehn", "sixteen"], ["siebzehn", "seventeen"], ["achtzehn", "eighteen"], ["neunzehn", "nineteen"], ["zwanzig", "twenty"]],
+        challenge: "Spell a name and dictate a short phone number clearly.",
+        checks: ["I can ask “Wie schreibt man das?”", "I can spell my name clearly", "I can recognize 0–20", "I can ask for repetition"],
+        homework: "Say five personally useful names, spelling each aloud in German. Choose five random numbers from 0–20 and say them without counting up from zero."
+      },
+      {
+        title: "Was ist das?", topic: "Things around us", icon: "✏️",
+        intro: "Name everyday objects around you and meet German’s three little words: der, die, and das.",
+        goals: ["Name 8 useful objects", "Use der, die, das", "Ask what something is"],
+        plan: [
+          ["Number sprint", "Fast review: point, say, and check numbers.", 5, "Point to random objects around the room and shout the number in German as fast as you can."],
+          ["Object hunt", "Name real objects in the room, with their article.", 15, "Pick up five objects one by one and say the full name with article: der Stift, die Tasche …"],
+          ["Ask & answer", "Practise “Was ist das?” and “Das ist …”.", 15, "Pull an object from a mystery bag, ask Was ist das?, and your partner answers with Das ist ein/eine …"],
+          ["Article sorting", "Practise grouping nouns by der, die, and das through quick spoken drills.", 15, "Call out household objects one at a time — your partner instantly answers der, die, or das, then the full phrase."],
+          ["Can-do challenge", "Identify five surprise objects without notes.", 10, "From a closed bag, pull 5 objects and identify each with Das ist … and the correct article."]
+        ],
+        phrases: [["Was ist das?", "What is that?"], ["Das ist ein Stift.", "That is a pen."], ["Das ist eine Tasche.", "That is a bag."], ["Das ist ein Buch.", "That is a book."], ["der Stift", "the pen"], ["die Tasche", "the bag"], ["das Buch", "the book"], ["der Tisch", "the table"], ["die Tür", "the door"], ["das Handy", "the phone"]],
+        challenge: "Ask about and correctly identify five objects in the room.",
+        checks: ["I can ask “Was ist das?”", "I can answer in a full sentence", "I can learn a noun with its article", "I can name at least 5 objects"],
+        homework: "Choose five objects at home. Say each as article + noun, then point and say Das ist … for every object twice."
+      },
+      {
+        title: "Meine Familie", topic: "Family & people", icon: "🏠",
+        intro: "Introduce family members, say who you have, and describe one person with a few simple words.",
+        goals: ["Name close family", "Use mein and meine", "Say who you have"],
+        plan: [
+          ["Object recall", "Retrieve der, die, das with five everyday items.", 5, "Point to five objects around you and say article + noun for each — no checking notes first."],
+          ["Family tree", "Introduce family words by talking through your own family tree.", 15, "Talk through your family tree out loud, naming each person and how they're related to you."],
+          ["Mein or meine?", "Notice the pattern and sort family phrases.", 10, "Tim says a family member in English — you respond instantly with mein or meine and the German word."],
+          ["Photo talk", "Introduce real or imaginary people with sentence frames.", 20, "Hold up a photo and introduce three people: Das ist mein/meine … Er/Sie heißt …"],
+          ["Can-do challenge", "Give a short family introduction.", 10, "Introduce your family in one minute: name, relationship words, and at least one person's name."]
+        ],
+        phrases: [["meine Familie", "my family"], ["Wer ist das?", "Who is that?"], ["meine Mutter", "my mother"], ["mein Vater", "my father"], ["meine Schwester", "my sister"], ["mein Bruder", "my brother"], ["Ich habe einen Bruder.", "I have a brother."], ["Ich habe eine Schwester.", "I have a sister."], ["Das ist …", "This is …"], ["Er / Sie heißt …", "His / Her name is …"]],
+        challenge: "Introduce three people in your family, real or imaginary, from memory.",
+        checks: ["I can choose mein or meine", "I can name three family members", "I can use “Das ist …”", "I can say another person’s name"],
+        homework: "Think of three people in a family, real or imaginary, and say one sentence for each: Das ist mein/meine … Er/Sie heißt …"
+      },
+      {
+        title: "Mein Tag", topic: "Daily routine & time", icon: "☀️",
+        intro: "Tell the time and build a simple morning-to-night routine with high-frequency actions.",
+        goals: ["Tell a full-hour time", "Name daily actions", "Sequence a simple day"],
+        plan: [
+          ["Family recap", "Give a 30-second family introduction from memory.", 5, "Close your notes. Give a 30-second family intro — then your partner repeats it back."],
+          ["What time?", "Use a paper clock to ask and tell full hours.", 15, "Move the clock hands to three different times; your partner asks Wie spät ist es? for each one."],
+          ["Daily actions", "Practise six action phrases through quick listening and response.", 15, "Tim says a time and an action in English — you respond immediately with the full German sentence."],
+          ["Build my day", "Put four actions in order and describe your day from morning to night.", 15, "Describe four moments of your day in order, morning to night, adding a time to each one."],
+          ["Can-do challenge", "Describe a three-step routine with times.", 10, "Describe your morning with 3 actions and times — no notes, just you and the clock."]
+        ],
+        phrases: [["Wie spät ist es?", "What time is it?"], ["Es ist sieben Uhr.", "It is seven o’clock."], ["Was machst du um … Uhr?", "What do you do at … o’clock?"], ["Ich stehe auf.", "I get up."], ["Ich arbeite.", "I work."], ["Ich lerne Deutsch.", "I learn German."], ["Ich esse.", "I eat."], ["Ich schlafe.", "I sleep."], ["um acht Uhr", "at eight o’clock"], ["Ich stehe um sieben Uhr auf.", "I get up at seven."], ["Und dann?", "And then?"]],
+        challenge: "Describe three moments in a normal day, each with a time.",
+        checks: ["I can ask and tell the time", "I can say three daily actions", "I can add “um … Uhr”", "I can describe events in order"],
+        homework: "Pick three real times in tomorrow’s routine. At each time, say the matching German sentence aloud; at night, repeat all three in order."
+      },
+      {
+        title: "Ich möchte …", topic: "Food & ordering", icon: "🥨",
+        intro: "Order a drink and a snack politely, understand a simple price, and say what you like.",
+        goals: ["Order politely", "Name common food", "Understand a price"],
+        plan: [
+          ["Time check", "Quick clock prompts and a one-minute routine recap.", 5, "Your partner shows a clock time — you say the time and one matching action: Um … Uhr … ich …"],
+          ["Menu language", "Explore a short menu and identify familiar items.", 15, "Point to each menu item and say article + noun, then ask your partner: Kaffee oder Tee?"],
+          ["Polite ordering", "Build orders with “Ich möchte …, bitte.”", 15, "Build a two-item order with Ich möchte …, bitte. Then add und for a second item."],
+          ["Café role-play", "Alternate server and guest; add prices and payment.", 15, "Run a full café scene together: greet, order two items, hear the total, and say thank you."],
+          ["Can-do challenge", "Order two items and close the exchange.", 10, "Run through a full café order: one drink and one food item, hear the total, and end with Danke — Tschüss!"]
+        ],
+        phrases: [["Was möchten Sie?", "What would you like?"], ["Ich möchte …", "I would like …"], ["Ich möchte einen Kaffee.", "I would like a coffee."], ["Ein Wasser, bitte.", "A water, please."], ["Noch etwas?", "Anything else?"], ["der Kaffee", "coffee"], ["der Tee", "tea"], ["das Wasser", "water"], ["das Brot", "bread"], ["der Käse", "cheese"], ["Was kostet das?", "How much is that?"], ["Das macht fünf Euro.", "That comes to five euros."], ["Danke schön.", "Thank you very much."], ["Gern.", "You’re welcome."]],
+        challenge: "Complete a café order for one drink and one food item.",
+        checks: ["I can greet the server", "I can order with “Ich möchte …”", "I can use “bitte” and “danke”", "I can understand the total price"],
+        homework: "Look at a real café menu online or at home. Point to two items and say a complete order twice, then add Was kostet das? and Danke schön."
+      },
+      {
+        title: "Wo ist …?", topic: "Places & directions", icon: "🗺️",
+        intro: "Ask where something is and follow a short route using simple, useful direction words.",
+        goals: ["Ask where a place is", "Name common places", "Follow basic directions"],
+        plan: [
+          ["Café replay", "Repeat the food-order challenge with roles reversed.", 5, "Run the café order again — this time you are the server and your partner is the guest."],
+          ["Places nearby", "Learn place names by picturing your own neighborhood.", 15, "As your partner names each place in German, point to where it would be — on a real or imagined map of your area."],
+          ["Direction words", "Use movement and gestures for left, right, straight.", 10, "Stand up: your partner calls links, rechts, or geradeaus — you turn or step that way."],
+          ["Map routes", "Ask for and give short routes on the map.", 20, "Ask Wo ist …? for one place, then trace the spoken route on the map with your finger."],
+          ["Can-do challenge", "Find one destination from spoken directions.", 10, "Listen to 2–3 spoken directions and navigate to the destination on the map without help."]
+        ],
+        phrases: [["Entschuldigung …", "Excuse me …"], ["Wo ist …?", "Where is …?"], ["Wo ist der Bahnhof?", "Where is the station?"], ["der Bahnhof", "train station"], ["das Café", "café"], ["die Toilette", "toilet"], ["links", "left"], ["rechts", "right"], ["geradeaus", "straight ahead"], ["Gehen Sie geradeaus.", "Go straight ahead."], ["Dann links.", "Then left."], ["Hier / Dort", "Here / There"], ["Danke schön.", "Thank you very much."], ["Gern.", "You’re welcome."]],
+        challenge: "Ask for a place and follow a three-step spoken route.",
+        checks: ["I can ask “Wo ist …?”", "I can recognize three places", "I know links and rechts", "I can follow a short route"],
+        homework: "Picture the route from your door to one nearby place. Trace it with a finger in the air while saying geradeaus, links and rechts; finish with Dort ist …"
+      },
+      {
+        title: "Ich kann Deutsch!", topic: "Review & real conversation", icon: "🌟",
+        intro: "Bring everything together in one friendly real-world conversation and see how much German already works.",
+        goals: ["Retrieve core phrases", "Handle small surprises", "Hold a 2-minute exchange"],
+        plan: [
+          ["Quick-fire recall", "Eight visual prompts, one phrase for each past class.", 10, "You have 5 seconds per prompt: say any useful German phrase from that lesson topic."],
+          ["Fix the gaps", "Revisit only the two areas that need another pass.", 10, "Pick your two weakest topics — practise each one twice with your partner until it feels easy."],
+          ["Conversation map", "Choose a greeting, personal detail, task, and closing.", 10, "Choose one phrase for each of the four stages, then walk through the full conversation out loud once."],
+          ["Real-world role-play", "Run three mini-scenes with less support each time.", 20, "Role-play three scenes together, leaning on your notes a little less with each round."],
+          ["Final challenge", "Complete one two-minute conversation, then celebrate.", 10, "One 2-minute conversation: greet, share a detail, do a task, use a repair phrase, close."]
+        ],
+        phrases: [["Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["Ich verstehe.", "I understand."], ["Ich verstehe nicht.", "I don’t understand."], ["Langsam, bitte.", "Slowly, please."], ["Noch einmal, bitte.", "Once more, please."], ["Kein Problem.", "No problem."], ["Super!", "Great!"], ["Bis bald!", "See you soon!"]],
+        challenge: "Hold a two-minute German exchange using at least four course topics.",
+        checks: ["I can greet and introduce myself", "I can complete one practical task", "I can use a repair phrase", "I can close a conversation naturally"],
+        homework: "Record a final one-minute German introduction: your name, how you are, one family or routine detail, and a polite closing. Keep it as a before-and-after milestone."
+      }
+    ];
+
+    const practice = [
+      {
+        title: "A first meeting",
+        turns: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I’m Tim. What is your name?"], ["B", "Hallo! Ich bin Motia.", "Hello! I’m Motia."], ["A", "Wie geht’s?", "How are you?"], ["B", "Mir geht’s gut, danke. Und dir?", "I’m well, thanks. And you?"], ["A", "Sehr gut!", "Very good!"], ["B", "Tschüss, Tim!", "Bye, Tim!"]],
+        variations: ["Choose a different mood", "Begin with Guten Morgen", "Swap who asks first"]
+      },
+      {
+        title: "Spell it clearly",
+        turns: [["A", "Wie heißt du?", "What is your name?"], ["B", "Ich bin Motia.", "I’m Motia."], ["A", "Wie schreibt man das?", "How do you spell that?"], ["B", "M – O – T – I – A.", "M – O – T – I – A."], ["A", "Noch einmal, bitte.", "Once more, please."], ["B", "M – O – T – I – A.", "M – O – T – I – A."]],
+        variations: ["Spell Tim", "Use a city name", "Dictate six random digits"]
+      },
+      {
+        title: "What is it?",
+        turns: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Buch.", "That is a book."], ["A", "Und was ist das?", "And what is that?"], ["B", "Das ist eine Tasche.", "That is a bag."], ["A", "Der, die oder das?", "Der, die or das?"], ["B", "die Tasche", "the bag"]],
+        variations: ["Choose two new objects", "Ask with eyes closed", "Sort five nouns by article"]
+      },
+      {
+        title: "Meet the family",
+        turns: [["A", "Das ist meine Familie.", "This is my family."], ["B", "Wer ist das?", "Who is that?"], ["A", "Das ist meine Schwester. Sie heißt Mia.", "This is my sister. Her name is Mia."], ["B", "Und wer ist das?", "And who is that?"], ["A", "Das ist mein Bruder. Er heißt Leon.", "This is my brother. His name is Leon."], ["B", "Sehr schön!", "Very nice!"]],
+        variations: ["Use an imaginary family", "Add a mother or father", "Say who you have"]
+      },
+      {
+        title: "A normal morning",
+        turns: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist sieben Uhr.", "It is seven o’clock."], ["A", "Was machst du um sieben Uhr?", "What do you do at seven?"], ["B", "Ich stehe um sieben Uhr auf.", "I get up at seven."], ["A", "Und dann?", "And then?"], ["B", "Ich arbeite um neun Uhr.", "I work at nine o’clock."]],
+        variations: ["Change both times", "Use two different actions", "Put the events in reverse order"]
+      },
+      {
+        title: "At the café",
+        turns: [["A", "Guten Tag. Was möchten Sie?", "Good afternoon. What would you like?"], ["B", "Ich möchte einen Kaffee, bitte.", "I would like a coffee, please."], ["A", "Noch etwas?", "Anything else?"], ["B", "Ein Wasser, bitte.", "A water, please."], ["A", "Das macht fünf Euro.", "That comes to five euros."], ["B", "Danke schön!", "Thank you very much!"]],
+        variations: ["Choose two new items", "Change the total price", "Swap server and guest"]
+      },
+      {
+        title: "Finding the station",
+        turns: [["A", "Entschuldigung, wo ist der Bahnhof?", "Excuse me, where is the station?"], ["B", "Gehen Sie geradeaus.", "Go straight ahead."], ["A", "Geradeaus?", "Straight ahead?"], ["B", "Ja. Dann links. Der Bahnhof ist dort.", "Yes. Then left. The station is there."], ["A", "Danke schön!", "Thank you very much!"], ["B", "Gern!", "You’re welcome!"]],
+        variations: ["Ask for the café", "Give a three-step route", "Start from a new place"]
+      },
+      {
+        title: "A real conversation",
+        turns: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I’m Tim. What is your name?"], ["B", "Ich bin Motia.", "I’m Motia."], ["A", "Wie geht’s?", "How are you?"], ["B", "Sehr gut, danke. Wo ist das Café?", "Very well, thanks. Where is the café?"], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Wie bitte? Noch einmal, bitte.", "Pardon? Once more, please."], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Danke, Tim. Bis bald!", "Thanks, Tim. See you soon!"]],
+        variations: ["Add one family detail", "Add a café order", "Use a different repair phrase"]
+      }
+    ];
+
+    const visualCards = [
+      [["👋", "Hello", "Hallo!"], ["🌅", "Good morning", "Guten Morgen!"], ["🙋", "I am Motia", "Ich bin Motia."], ["❓", "What is your name?", "Wie heißt du?"], ["🙂", "Good", "gut"], ["🤩", "Very good", "sehr gut"], ["😕", "Not so good", "nicht so gut"], ["👋", "Bye", "Tschüss!"]],
+      [["🔤", "alphabet", "das Alphabet"], ["0️⃣", "zero", "null"], ["1️⃣", "one", "eins"], ["2️⃣", "two", "zwei"], ["3️⃣", "three", "drei"], ["🔟", "ten", "zehn"], ["🔁", "Once more, please", "Noch einmal, bitte."], ["✍️", "How do you spell that?", "Wie schreibt man das?"]],
+      [["🖊️", "pen", "der Stift"], ["🎒", "bag", "die Tasche"], ["📕", "book", "das Buch"], ["🪑", "chair", "der Stuhl"], ["📱", "phone", "das Handy"], ["🚪", "door", "die Tür"], ["🗝️", "key", "der Schlüssel"], ["🥛", "glass", "das Glas"]],
+      [["👩", "mother", "die Mutter"], ["👨", "father", "der Vater"], ["👧", "sister", "die Schwester"], ["👦", "brother", "der Bruder"], ["👨‍👩‍👧", "family", "die Familie"], ["👵", "grandmother", "die Großmutter"], ["👴", "grandfather", "der Großvater"], ["👪", "parents", "die Eltern"]],
+      [["⏰", "I get up", "Ich stehe auf."], ["💼", "I work", "Ich arbeite."], ["📚", "I learn German", "Ich lerne Deutsch."], ["🍽️", "I eat", "Ich esse."], ["😴", "I sleep", "Ich schlafe."], ["🕖", "seven o’clock", "sieben Uhr"], ["☀️", "morning", "der Morgen"], ["🌙", "night", "die Nacht"]],
+      [["☕", "coffee", "der Kaffee"], ["🍵", "tea", "der Tee"], ["💧", "water", "das Wasser"], ["🍞", "bread", "das Brot"], ["🧀", "cheese", "der Käse"], ["🥨", "pretzel", "die Brezel"], ["🧾", "bill", "die Rechnung"], ["💶", "five euros", "fünf Euro"]],
+      [["🚉", "train station", "der Bahnhof"], ["☕", "café", "das Café"], ["🚻", "toilet", "die Toilette"], ["🏨", "hotel", "das Hotel"], ["⬅️", "left", "links"], ["➡️", "right", "rechts"], ["⬆️", "straight ahead", "geradeaus"], ["📍", "here", "hier"]],
+      [["👋", "Hello", "Hallo!"], ["🙋", "I am Motia", "Ich bin Motia."], ["🔤", "How do you spell that?", "Wie schreibt man das?"], ["👨‍👩‍👧", "my family", "meine Familie"], ["🕖", "at seven o’clock", "um sieben Uhr"], ["☕", "I would like a coffee", "Ich möchte einen Kaffee."], ["🚉", "Where is the station?", "Wo ist der Bahnhof?"], ["🔁", "Once more, please", "Noch einmal, bitte."]]
+    ];
+
+    // Per plan-step warm-up phrases + a tiny model dialogue, shown right under that step's exercise.
+    const stepContent = [
+      [
+        { p: [["Hallo!", "Hello!"], ["Guten Morgen!", "Good morning!"], ["Tschüss!", "Bye!"]],
+          m: [["T", "Hallo! 👋", ""], ["S", "Hallo! 👋", ""], ["T", "Guten Morgen! 🌅", ""], ["S", "Guten Morgen! 🌅", ""], ["T", "Tschüss! 👋", ""], ["S", "Tschüss! 👋", ""]] },
+        { p: [["Ich bin …", "I am …"], ["Wie heißt du?", "What is your name?"], ["Und du?", "And you?"]],
+          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Und du?", "I'm Motia. And you?"], ["A", "Ich bin Tim.", "I'm Tim."]] },
+        { p: [["Wie geht's?", "How are you?"], ["Mir geht's gut, danke.", "I'm well, thanks."], ["Sehr gut!", "Very good!"], ["Nicht so gut.", "Not so good."]],
+          m: [["A", "Wie geht's?", "How are you?"], ["B", "Mir geht's gut, danke. Und dir?", "I'm well, thanks. And you?"], ["A", "Sehr gut!", "Very good!"]] },
+        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
+          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wie geht's?", "I'm Motia. How are you?"], ["A", "Mir geht's gut. Und dir?", "I'm well. And you?"], ["B", "Sehr gut! Tschüss!", "Very good! Bye!"], ["A", "Tschüss!", "Bye!"]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
+          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wie geht's?", "I'm Motia. How are you?"], ["A", "Mir geht's gut. Und dir?", "I'm well. And you?"], ["B", "Sehr gut! Tschüss!", "Very good! Bye!"], ["A", "Tschüss!", "Bye!"]] },
+        { p: [["J — ja", "y — yes"], ["W — wo", "v — where"], ["Z — zwei", "ts — two"], ["V — Vater", "f — father"]],
+          m: [["T", "J — ja (like English yes)", ""], ["S", "ja", ""], ["T", "W — wo (like English voice)", ""], ["S", "wo", ""], ["T", "Z — zwei (like cats)", ""], ["S", "zwei", ""]] },
+        { p: [["Wie schreibt man das?", "How do you spell that?"], ["Noch einmal, bitte.", "Once more, please."]],
+          m: [["A", "Wie heißt du?", "What is your name?"], ["B", "Ich bin Motia.", "I'm Motia."], ["A", "Wie schreibt man das?", "How do you spell that?"], ["B", "M – O – T – I – A.", "M – O – T – I – A."], ["A", "Noch einmal, bitte.", "Once more, please."]] },
+        { p: [["null, eins, zwei, drei", "0, 1, 2, 3"], ["zehn, elf, zwölf", "10, 11, 12"], ["dreizehn, vierzehn", "13, 14"]],
+          m: [["T", "null — eins — zwei — drei", ""], ["S", "null — eins — zwei — drei", ""], ["T", "zehn — elf — zwölf", ""], ["S", "zehn — elf — zwölf", ""]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["eins", "one"], ["fünf", "five"], ["zehn", "ten"], ["zwanzig", "twenty"]],
+          m: [["T", "Was ist das? (say a number)", ""], ["S", "zehn.", ""], ["T", "Sehr gut!", ""]] },
+        { p: [["der Stift", "the pen (m)"], ["die Tasche", "the bag (f)"], ["das Buch", "the book (n)"]],
+          m: [["T", "Das ist ein Stift. der Stift", "That is a pen. the pen"], ["S", "der Stift", ""], ["T", "Das ist eine Tasche. die Tasche", "That is a bag. the bag"], ["S", "die Tasche", ""]] },
+        { p: [["Was ist das?", "What is that?"], ["Das ist …", "That is …"], ["ein", "a (m/n)"], ["eine", "a (f)"]],
+          m: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Buch.", "That is a book."], ["A", "Und was ist das?", "And what is that?"], ["B", "Das ist eine Tasche.", "That is a bag."]] },
+        { p: [["der", "the (m)"], ["die", "the (f)"], ["das", "the (n)"]],
+          m: [["T", "der Stift — die Tasche — das Buch", ""], ["S", "der Stift — die Tasche — das Buch", ""], ["T", "der Tisch — die Tür — das Handy", ""], ["S", "der Tisch — die Tür — das Handy", ""]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["der Stift", "the pen"], ["die Tasche", "the bag"], ["das Buch", "the book"]],
+          m: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Stift. der Stift", "That is a pen. the pen"]] },
+        { p: [["die Mutter", "mother"], ["der Vater", "father"], ["die Schwester", "sister"], ["der Bruder", "brother"], ["die Familie", "family"]],
+          m: [["T", "Das ist meine Familie.", "This is my family."], ["T", "Das ist meine Mutter. Sie heißt Anna.", "This is my mother. Her name is Anna."], ["T", "Das ist mein Vater. Er heißt Tom.", "This is my father. His name is Tom."]] },
+        { p: [["mein Vater", "my father"], ["meine Mutter", "my mother"], ["mein Bruder", "my brother"], ["meine Schwester", "my sister"]],
+          m: [["T", "die Mutter → meine Mutter", ""], ["S", "meine Mutter", ""], ["T", "der Vater → mein Vater", ""], ["S", "mein Vater", ""]] },
+        { p: [["Das ist …", "This is …"], ["Wer ist das?", "Who is that?"], ["Er heißt …", "His name is …"], ["Sie heißt …", "Her name is …"]],
+          m: [["A", "Wer ist das?", "Who is that?"], ["B", "Das ist meine Schwester. Sie heißt Mia.", "This is my sister. Her name is Mia."], ["A", "Und wer ist das?", "And who is that?"], ["B", "Das ist mein Bruder. Er heißt Leon.", "This is my brother. His name is Leon."]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["meine Familie", "my family"], ["mein Vater", "my father"], ["meine Schwester", "my sister"]],
+          m: [["S", "Das ist meine Familie. Das ist meine Schwester. Sie heißt Mia.", ""]] },
+        { p: [["Wie spät ist es?", "What time is it?"], ["Es ist … Uhr.", "It is … o'clock."], ["um … Uhr", "at … o'clock"]],
+          m: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist sieben Uhr.", "It is seven o'clock."], ["A", "Danke!", "Thanks!"]] },
+        { p: [["Ich stehe auf.", "I get up."], ["Ich arbeite.", "I work."], ["Ich esse.", "I eat."], ["Ich schlafe.", "I sleep."]],
+          m: [["T", "Ich stehe auf.", "I get up."], ["S", "Ich stehe auf.", ""], ["T", "Ich arbeite.", "I work."], ["S", "Ich arbeite.", ""]] },
+        { p: [["Ich stehe um … Uhr auf.", "I get up at … o'clock."], ["Und dann?", "And then?"]],
+          m: [["A", "Was machst du um sieben Uhr?", "What do you do at seven?"], ["B", "Ich stehe um sieben Uhr auf.", "I get up at seven."], ["A", "Und dann?", "And then?"], ["B", "Ich arbeite um neun Uhr.", "I work at nine."]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["Wie spät ist es?", "What time is it?"], ["um acht Uhr", "at eight o'clock"], ["Ich esse.", "I eat."]],
+          m: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist acht Uhr.", "It is eight o'clock."], ["A", "Was machst du um acht Uhr?", "What do you do at eight?"], ["B", "Ich esse.", "I eat."]] },
+        { p: [["der Kaffee", "coffee"], ["der Tee", "tea"], ["das Wasser", "water"], ["das Brot", "bread"], ["der Käse", "cheese"]],
+          m: [["T", "der Kaffee — der Tee — das Wasser", ""], ["S", "der Kaffee — der Tee — das Wasser", ""], ["T", "Kaffee oder Tee?", "Coffee or tea?"], ["S", "Kaffee, bitte.", "Coffee, please."]] },
+        { p: [["Ich möchte …", "I would like …"], ["Ich möchte einen Kaffee.", "I would like a coffee."], ["Ein Wasser, bitte.", "A water, please."]],
+          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Kaffee, bitte.", "I would like a coffee, please."], ["A", "Noch etwas?", "Anything else?"], ["B", "Ein Wasser, bitte.", "A water, please."]] },
+        { p: [["Was kostet das?", "How much is that?"], ["Das macht … Euro.", "That comes to … euros."], ["Danke schön.", "Thank you very much."], ["Gern.", "You're welcome."]],
+          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Kaffee und ein Brot, bitte.", "I'd like a coffee and a bread, please."], ["A", "Das macht fünf Euro.", "That comes to five euros."], ["B", "Danke schön!", "Thank you very much!"], ["A", "Gern. Tschüss!", "You're welcome. Bye!"]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["Ich möchte …", "I would like …"], ["Das macht … Euro.", "That comes to … euros."], ["Danke schön.", "Thank you very much."]],
+          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Tee, bitte.", "I'd like a tea, please."], ["A", "Das macht zwei Euro.", "That comes to two euros."], ["B", "Danke schön! Tschüss!", "Thank you very much! Bye!"]] },
+        { p: [["der Bahnhof", "train station"], ["das Café", "café"], ["die Toilette", "toilet"]],
+          m: [["T", "Das ist der Bahnhof. der Bahnhof", "This is the station. the station"], ["S", "der Bahnhof", ""], ["T", "Wo ist das Café?", "Where is the café?"], ["S", "Hier.", "Here."]] },
+        { p: [["links", "left"], ["rechts", "right"], ["geradeaus", "straight ahead"]],
+          m: [["T", "links (turn left)", ""], ["S", "(turns left)", ""], ["T", "rechts (turn right)", ""], ["S", "(turns right)", ""], ["T", "geradeaus (step forward)", ""], ["S", "(steps forward)", ""]] },
+        { p: [["Entschuldigung …", "Excuse me …"], ["Wo ist …?", "Where is …?"], ["Gehen Sie …", "Go …"], ["Dann …", "Then …"]],
+          m: [["A", "Entschuldigung, wo ist der Bahnhof?", "Excuse me, where is the station?"], ["B", "Gehen Sie geradeaus.", "Go straight ahead."], ["A", "Geradeaus?", "Straight ahead?"], ["B", "Ja. Dann links. Der Bahnhof ist dort.", "Yes. Then left. The station is there."], ["A", "Danke schön!", "Thank you very much!"]] },
+        { p: [], m: [] }
+      ],
+      [
+        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
+          m: [["T", "Hallo! →", ""], ["S", "Hallo! Ich bin Motia.", ""], ["T", "Wie geht's? →", ""], ["S", "Sehr gut, danke. Und dir?", ""]] },
+        { p: [["Langsam, bitte.", "Slowly, please."], ["Noch einmal, bitte.", "Once more, please."], ["Ich verstehe nicht.", "I don't understand."]],
+          m: [["T", "(says something fast)", ""], ["S", "Langsam, bitte.", ""], ["T", "(repeats slowly)", ""], ["S", "Danke! Ich verstehe.", "Thanks! I understand."]] },
+        { p: [["Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["Kein Problem.", "No problem."], ["Bis bald!", "See you soon!"]],
+          m: [["T", "Sprechen Sie Deutsch?", "Do you speak German?"], ["S", "Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["T", "Super! Bis bald!", "Great! See you soon!"], ["S", "Bis bald!", "See you soon!"]] },
+        { p: [["Hallo!", "Hello!"], ["Ich möchte …", "I would like …"], ["Wo ist …?", "Where is …?"], ["Danke schön.", "Thank you."]],
+          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wo ist das Café?", "I'm Motia. Where is the café?"], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Danke schön. Tschüss!", "Thank you. Bye!"], ["A", "Bis bald!", "See you soon!"]] },
+        { p: [], m: [] }
+      ]
+    ];
+
+    const state = JSON.parse(localStorage.getItem("hallo-class") || '{"lesson":0,"complete":[],"checks":{}}');
+    let lessonIndex = Math.min(state.lesson || 0, lessons.length - 1);
+
+    const $ = id => document.getElementById(id);
+
+    function save() {
+      state.lesson = lessonIndex;
+      localStorage.setItem("hallo-class", JSON.stringify(state));
+    }
+
+    function renderNavigation() {
+      $("lessonNav").innerHTML = lessons.map((lesson, index) => `
+        <button class="lesson-nav ${index === lessonIndex ? "active" : ""}" data-lesson="${index}" type="button">
+          <span class="lesson-number">${lesson.icon}</span>
+          <span class="nav-title">${lesson.topic}</span>
+          <span class="nav-check">${state.complete.includes(index) ? "✓" : ""}</span>
+        </button>`).join("");
+      $("mobileSelect").innerHTML = lessons.map((lesson, index) => `<option value="${index}" ${index === lessonIndex ? "selected" : ""}>Class ${index + 1} · ${lesson.topic}</option>`).join("");
+      const done = state.complete.length;
+      $("progressFill").style.width = `${done / lessons.length * 100}%`;
+      $("progressCopy").textContent = `${done} of ${lessons.length} classes complete`;
+    }
+
+    function renderLesson() {
+      const lesson = lessons[lessonIndex];
+      $("lessonLabel").textContent = `Class ${lessonIndex + 1} · ${lesson.topic}`;
+      $("lessonTitle").textContent = lesson.title;
+      $("lessonIntro").textContent = lesson.intro;
+      $("lessonIcon").textContent = lesson.icon;
+      $("outcomes").innerHTML = lesson.goals.map((goal, i) => `<div class="outcome"><span>${["01", "02", "03"][i]}</span><p>I can ${goal[0].toLowerCase()}${goal.slice(1)}</p></div>`).join("");
+      const totalMinutes = lesson.plan.reduce((sum, step) => sum + step[2], 0);
+      $("planMinutes").textContent = `Total · ${totalMinutes} min`;
+      $("timeline").innerHTML = lesson.plan.map(([title, text, minutes, exercise], i) => {
+        const content = stepContent[lessonIndex][i];
+        const phrasesHtml = content.p.length ? `<div class="step-phrases">${content.p.map(([de, en]) => `<span class="step-chip"><b>${de}</b><small>${en}</small></span>`).join("")}</div>` : '';
+        const dialogueHtml = content.m.length ? `<div class="step-dialogue">${content.m.map(([sp, de, en]) => `<div class="step-turn"><span>${sp}</span><div>${de}${en ? `<small>${en}</small>` : ''}</div></div>`).join("")}</div>` : '';
+        return `<div class="plan-step">
+          <div class="plan-head">
+            <div class="plan-number">${i + 1}</div>
+            <h3>${title}</h3>
+            <span class="plan-minutes">${minutes} min</span>
+          </div>
+          ${phrasesHtml}
+          ${dialogueHtml}
+          <p>${exercise}</p>
+        </div>`;
+      }).join("");
+      $("phrases").innerHTML = lesson.phrases.map(([de, en]) => `<button class="phrase" type="button"><span class="german">${de}</span><span class="english">${en}</span></button>`).join("");
+      $("dialogueTitle").textContent = practice[lessonIndex].title;
+      $("dialogue").innerHTML = practice[lessonIndex].turns.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
+      $("variations").innerHTML = practice[lessonIndex].variations.map(item => `<span class="variation">${item}</span>`).join("");
+      $("pictureCards").innerHTML = visualCards[lessonIndex].map(([emoji, en, de]) => `
+        <button class="picture-card" type="button" aria-pressed="false" aria-label="${en}. Tap for German." data-english="${en}" data-german="${de}">
+          <span class="card-face card-front"><span class="card-emoji">${emoji}</span><span class="card-language">English</span><span class="card-word">${en}</span><span class="card-hint">Tap for German</span></span>
+          <span class="card-face card-back"><span class="card-emoji">${emoji}</span><span class="card-language">Deutsch</span><span class="card-word">${de}</span><span class="card-hint">Tap for English</span></span>
+        </button>`).join("");
+      $("challenge").textContent = lesson.challenge;
+      const savedChecks = state.checks[lessonIndex] || [];
+      $("checklist").innerHTML = lesson.checks.map((item, i) => `<label class="checkline"><input type="checkbox" data-check="${i}" ${savedChecks.includes(i) ? "checked" : ""}> <span>${item}</span></label>`).join("");
+      $("homework").textContent = lesson.homework;
+      const complete = state.complete.includes(lessonIndex);
+      $("completeButton").textContent = complete ? "✓ Class complete — nice work!" : "Mark this class done";
+      $("completeButton").classList.toggle("done", complete);
+      renderNavigation();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function chooseLesson(index) {
+      lessonIndex = Number(index);
+      save();
+      renderLesson();
+    }
+
+    $("lessonNav").addEventListener("click", event => {
+      const button = event.target.closest("[data-lesson]");
+      if (button) chooseLesson(button.dataset.lesson);
+    });
+
+    $("mobileSelect").addEventListener("change", event => chooseLesson(event.target.value));
+
+    $("phrases").addEventListener("click", event => {
+      const phrase = event.target.closest(".phrase");
+      if (phrase) phrase.classList.toggle("revealed");
+    });
+
+    $("pictureCards").addEventListener("click", event => {
+      const card = event.target.closest(".picture-card");
+      if (!card) return;
+      const flipped = card.classList.toggle("flipped");
+      card.setAttribute("aria-pressed", String(flipped));
+      card.setAttribute("aria-label", flipped ? `${card.dataset.german}. Tap for English.` : `${card.dataset.english}. Tap for German.`);
+    });
+
+    $("resetCards").addEventListener("click", () => {
+      document.querySelectorAll(".picture-card.flipped").forEach(card => {
+        card.classList.remove("flipped");
+        card.setAttribute("aria-pressed", "false");
+        card.setAttribute("aria-label", `${card.dataset.english}. Tap for German.`);
+      });
+    });
+
+    $("englishToggle").addEventListener("click", () => {
+      document.body.classList.toggle("hide-english");
+      $("englishToggle").textContent = document.body.classList.contains("hide-english") ? "Show English" : "Hide English";
+    });
+
+    $("checklist").addEventListener("change", () => {
+      state.checks[lessonIndex] = [...document.querySelectorAll("[data-check]:checked")].map(box => Number(box.dataset.check));
+      save();
+    });
+
+    $("completeButton").addEventListener("click", () => {
+      state.complete = state.complete.includes(lessonIndex)
+        ? state.complete.filter(index => index !== lessonIndex)
+        : [...state.complete, lessonIndex].sort((a, b) => a - b);
+      save();
+      renderLesson();
+    });
+
+    renderLesson();
+  </script>
+</body>
+</html>
