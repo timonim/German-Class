@@ -3,966 +3,976 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hallo! — Motia's German classes</title>
+  <meta name="description" content="A 32-class A1–A2 German conversation course for one-to-one lessons.">
+  <title>Sprechen! — Motias Deutschstunden</title>
   <style>
     :root {
-      --ink: #17231e;
-      --muted: #69736e;
-      --paper: #f7f4ed;
+      --ink: #18231f;
+      --muted: #66736d;
+      --paper: #f6f3ec;
       --card: #fffdf8;
-      --line: #e7e1d6;
-      --green: #1f6b4f;
-      --green-dark: #174d3a;
-      --lime: #b8d44f;
-      --orange: #f28b50;
-      --blue: #cce6ee;
+      --line: #e4ded2;
+      --green: #216b50;
+      --dark: #174b39;
+      --lime: #c3dd58;
+      --blue: #d9ecf0;
+      --orange: #f3a36e;
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
       background: var(--paper);
-      font: 19px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font: 18px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     button, select { font: inherit; color: inherit; }
-    button, summary, select, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    button, select, label, summary { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, select:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 
-    .app {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-    }
-
+    .app { min-height: 100vh; display: grid; grid-template-columns: 270px minmax(0, 1fr); }
     aside {
       position: sticky;
       top: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 28px 18px 20px;
+      padding: 26px 17px 20px;
       color: #fff;
-      background: var(--green-dark);
+      background: var(--dark);
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 8px 26px;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -.5px;
-    }
-
-    .brand-mark {
-      display: grid;
-      width: 40px;
-      height: 40px;
-      place-items: center;
-      border-radius: 10px;
-      color: var(--green-dark);
-      background: var(--lime);
-    }
-
-    .progress-card {
-      margin: 0 4px 20px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 16px;
-      background: rgba(255,255,255,.06);
-    }
-
-    .progress-card p { margin: 0 0 10px; color: #cfe0d9; font-size: 14px; font-weight: 700; }
-
-    .progress-track {
-      height: 8px;
-      overflow: hidden;
-      border-radius: 9px;
-      background: rgba(255,255,255,.13);
-    }
-
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: var(--lime);
-      transition: width .25s ease;
-    }
-
-    .progress-copy { margin-top: 8px; color: #c9d8d2; font-size: 14px; }
-
+    .brand { display: flex; align-items: center; gap: 11px; margin: 0 8px 22px; font-size: 22px; font-weight: 850; }
+    .brand-mark { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 11px; color: var(--dark); background: var(--lime); }
+    .progress-card { margin: 0 4px 18px; padding: 15px; border: 1px solid #ffffff22; border-radius: 15px; background: #ffffff0d; }
+    .progress-card p { margin: 0 0 10px; color: #d1e1db; font-size: 13px; font-weight: 750; }
+    .progress-track { height: 8px; overflow: hidden; border-radius: 10px; background: #ffffff21; }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--lime); transition: width .25s ease; }
+    .progress-copy { margin-top: 8px; color: #c9d8d2; font-size: 13px; }
     nav { overflow: auto; padding-right: 3px; }
-
+    .nav-level { margin: 16px 10px 5px; color: var(--lime); font-size: 11px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; }
+    .nav-level:first-child { margin-top: 0; }
     .lesson-nav {
       width: 100%;
       display: grid;
       grid-template-columns: 34px 1fr 18px;
-      gap: 10px;
+      gap: 9px;
       align-items: center;
-      padding: 10px 12px;
+      padding: 9px 10px;
       border: 0;
-      border-radius: 12px;
-      color: #c5d5cf;
+      border-radius: 11px;
+      color: #c8d7d1;
       text-align: left;
       background: transparent;
       cursor: pointer;
     }
-
-    .lesson-nav:hover { background: rgba(255,255,255,.06); }
-    .lesson-nav.active { color: #fff; background: rgba(255,255,255,.12); }
-
-    .lesson-number {
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(255,255,255,.1);
-      font-size: 18px;
-    }
-
+    .lesson-nav:hover { background: #ffffff0e; }
+    .lesson-nav.active { color: #fff; background: #ffffff1f; }
+    .lesson-number { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #ffffff13; }
     .lesson-nav.active .lesson-number { background: var(--lime); }
-    .nav-title { overflow: hidden; font-size: 16px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-title { overflow: hidden; font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .nav-check { color: var(--lime); font-weight: 900; }
 
-    main { min-width: 0; padding: 48px 52px 80px; }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      max-width: 900px;
-      margin: 0 auto 40px;
-    }
-
-    .top-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
+    main { min-width: 0; padding: 34px 48px 70px; }
+    .topbar { max-width: 920px; display: flex; justify-content: flex-end; margin: 0 auto 28px; }
+    .top-actions { display: flex; flex-wrap: wrap; gap: 9px; }
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px 18px;
+      gap: 7px;
+      padding: 11px 17px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      font-size: 16px;
-      font-weight: 750;
       background: var(--card);
-      cursor: pointer;
-    }
-
-    .button:hover { border-color: #c9c0b0; }
-    .button.primary { color: #fff; border-color: var(--green); background: var(--green); }
-    .button.primary:hover { background: var(--green-dark); }
-    .button.done { color: var(--green-dark); border-color: var(--lime); background: var(--lime); }
-
-    .lesson-shell { max-width: 900px; margin: auto; display: grid; gap: 48px; }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      min-height: 280px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(200px, .6fr);
-      border-radius: 24px;
-      color: #fff;
-      background: linear-gradient(135deg, #1f6b4f 0%, #2d8a6a 50%, #3a9d7a 100%);
-      border: 3px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(214, 241, 95, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      bottom: -30%;
-      left: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .hero-dots {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
-      background-size: 40px 40px;
-      opacity: 0.3;
-    }
-
-    .hero-copy { 
-      z-index: 1; 
-      padding: 56px 60px; 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .eyebrow { margin: 0 0 12px; color: var(--lime); font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-    h1 { max-width: 640px; margin: 0 0 16px; font-size: clamp(38px, 5vw, 60px); line-height: 1.05; letter-spacing: -1.5px; font-weight: 900; }
-    .hero p { max-width: 560px; margin: 0; color: #d7e5df; font-size: 20px; line-height: 1.5; }
-
-    .hero-art {
-      z-index: 1;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-    }
-
-    .hero-emoji {
-      font-size: 120px;
-      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .outcome { padding: 22px; border-radius: 14px; background: #f2f0e9; }
-    .outcome span { display: block; margin-bottom: 10px; color: var(--green); font-size: 20px; }
-    .outcome p { margin: 0; font-size: 17px; font-weight: 650; }
-
-    .panel {
-      padding: 40px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--card);
-    }
-
-    .panel-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
-    h2 { margin: 0; font-size: 26px; letter-spacing: -.5px; }
-    .subtle { color: var(--muted); font-size: 15px; }
-
-    .timeline { position: relative; display: grid; gap: 32px; }
-
-    .plan-step {
-      padding: 28px 30px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #faf8f2;
-    }
-
-    .plan-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-
-    .plan-number {
-      display: grid;
-      flex: 0 0 auto;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      border-radius: 50%;
-      color: var(--green-dark);
-      background: var(--blue);
       font-size: 15px;
-      font-weight: 900;
-    }
-
-    .plan-step:nth-of-type(2) .plan-number { background: var(--lime); }
-    .plan-step:nth-of-type(3) .plan-number { background: #ffd9c4; }
-    .plan-step:nth-of-type(4) .plan-number { background: #e8dcff; }
-    .plan-step:nth-of-type(5) .plan-number { background: #ffeeb8; }
-
-    .plan-step h3 { margin: 0; font-size: 19px; }
-    .plan-minutes { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 800; white-space: nowrap; }
-    .plan-step p { margin: 28px 0 0 46px; color: #53615b; font-size: 17px; line-height: 1.6; }
-
-
-
-    .step-phrases { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0 46px; }
-    .step-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-size: 15px; }
-    .step-chip b { font-weight: 800; }
-    .step-chip small { color: var(--muted); font-weight: 500; }
-
-    .step-dialogue { margin: 18px 0 0 46px; display: grid; gap: 16px; }
-    .step-turn { display: flex; align-items: flex-start; gap: 12px; }
-    .step-turn:nth-child(even) { flex-direction: row-reverse; }
-    .step-turn span {
-      display: grid; flex: 0 0 auto; width: 34px; height: 34px; place-items: center;
-      border-radius: 50%; color: #fff; background: var(--green);
-      font-size: 13px; font-weight: 900;
-    }
-    .step-turn:nth-child(even) span { color: var(--green-dark); background: var(--lime); }
-    .step-turn div {
-      position: relative;
-      padding: 14px 18px;
-      border-radius: 18px 18px 18px 4px;
-      background: #eef3f0;
-      font-size: 17px;
-      font-weight: 650;
-      line-height: 1.4;
-      max-width: 75%;
-    }
-    .step-turn:nth-child(even) div { border-radius: 18px 18px 4px 18px; background: #f2f0e9; }
-    .step-turn div::after {
-      content: "";
-      position: absolute;
-      bottom: -6px;
-      width: 14px;
-      height: 14px;
-      background: inherit;
-      border-radius: 3px;
-    }
-    .step-turn:not(:nth-child(even)) div::after {
-      left: -4px;
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    }
-    .step-turn:nth-child(even) div::after {
-      right: -4px;
-      clip-path: polygon(0 0, 100% 100%, 0 100%);
-    }
-    .step-turn small { display: block; margin-top: 4px; color: var(--muted); font-weight: 500; font-size: 14px; }
-
-    .simple-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
-    .simple-list li { position: relative; padding-left: 24px; color: #53615b; font-size: 17px; }
-    .simple-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
-
-    .dialogue { display: grid; gap: 28px; padding: 12px 0; }
-    .turn { display: flex; align-items: flex-end; gap: 14px; max-width: 80%; }
-    .turn:nth-child(even) { justify-self: end; flex-direction: row-reverse; }
-    .speaker {
-      display: grid; flex: 0 0 auto; width: 48px; height: 48px; place-items: center;
-      border-radius: 50%; color: #fff; background: var(--green);
-      font-size: 16px; font-weight: 900;
-    }
-    .turn:nth-child(even) .speaker { color: var(--green-dark); background: var(--lime); }
-    .turn-copy {
-      position: relative;
-      padding: 20px 24px;
-      border-radius: 22px 22px 22px 6px;
-      background: #eef3f0;
-      font-weight: 700;
-      font-size: 19px;
-      line-height: 1.5;
-    }
-    .turn:nth-child(even) .turn-copy { border-radius: 22px 22px 6px 22px; background: #f2f0e9; }
-    .turn-copy::after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      width: 20px;
-      height: 20px;
-      background: inherit;
-      border-radius: 4px;
-    }
-    .turn:not(:nth-child(even)) .turn-copy::after {
-      left: -6px;
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    }
-    .turn:nth-child(even) .turn-copy::after {
-      right: -6px;
-      clip-path: polygon(0 0, 100% 100%, 0 100%);
-    }
-    .turn-copy small { display: block; margin-top: 6px; color: var(--muted); font-weight: 500; font-size: 15px; }
-    .variation-title { margin: 36px 0 16px; font-size: 14px; font-weight: 850; letter-spacing: .7px; text-transform: uppercase; }
-    .variations { display: flex; flex-wrap: wrap; gap: 14px; }
-    .variation { padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: #53615b; background: #faf8f2; font-size: 15px; }
-
-    .phrase-list { display: grid; gap: 16px; }
-    .phrase {
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 16px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      color: var(--ink);
-      text-align: left;
-      background: var(--card);
-      cursor: pointer;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-
-    .phrase:hover { border-color: #b9c9c2; transform: translateY(-1px); }
-    .german { font-weight: 800; font-size: 19px; }
-    .english { color: var(--muted); text-align: right; font-size: 17px; }
-    body.hide-english .english { color: transparent; background: #e9e5dc; border-radius: 6px; user-select: none; }
-    body.hide-english .phrase.revealed .english,
-    body.hide-english .phrase:focus .english { color: var(--muted); background: transparent; }
-
-    .picture-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .picture-card { position: relative; min-height: 180px; padding: 0; overflow: hidden; border: 2px solid var(--line); border-radius: 16px; background: #faf8f2; cursor: pointer; }
-    .picture-card:active { transform: scale(.98); }
-    .card-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px; transition: opacity .18s ease, transform .18s ease; }
-    .card-emoji { display: block; margin-bottom: 10px; font-size: 52px; line-height: 1; }
-    .card-language { margin-bottom: 4px; color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: 1px; text-transform: uppercase; }
-    .card-word { font-size: 20px; font-weight: 850; line-height: 1.2; }
-    .card-hint { margin-top: 9px; color: var(--muted); font-size: 12px; }
-    .card-back { opacity: 0; color: #fff; background: var(--green); transform: rotateY(10deg) scale(.96); }
-    .card-back .card-language, .card-back .card-hint { color: #cfe0d9; }
-    .picture-card.flipped { border-color: var(--green); }
-    .picture-card.flipped .card-front { opacity: 0; transform: rotateY(-10deg) scale(.96); }
-    .picture-card.flipped .card-back { opacity: 1; transform: none; }
-    .cards-reset { white-space: nowrap; }
-
-    .challenge { overflow: hidden; padding: 0; }
-    .challenge-top { padding: 36px; background: #fff3dc; }
-    .challenge-top .eyebrow { color: #a05322; }
-    .challenge h2 { margin-bottom: 14px; }
-    .challenge p { margin: 0; color: #6b4a34; font-size: 17px; }
-    .challenge-body { padding: 28px 36px 36px; }
-
-    .checkline {
-      min-height: 48px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin: 18px 0;
-      font-size: 17px;
+      font-weight: 800;
       cursor: pointer;
     }
-
-    .checkline input { flex: 0 0 auto; width: 24px; height: 24px; margin: 0; accent-color: var(--green); }
-
-    .homework { border: 0; color: #4f3d67; background: #eee6fa; padding: 32px; }
-    .homework h2 { margin-bottom: 12px; }
-    .homework p { margin: 0; font-size: 17px; }
-
-    .complete-button { width: 100%; margin-top: 36px; padding: 16px; font-size: 18px; }
-
+    .button:hover { border-color: #c6bcac; }
+    .button.primary { color: #fff; border-color: var(--green); background: var(--green); }
+    .button.primary:hover { background: var(--dark); }
+    .button.done { color: var(--dark); border-color: var(--lime); background: var(--lime); }
     .mobile-select { display: none; }
 
-    @media (max-width: 1100px) {
+    .lesson-shell { max-width: 920px; display: grid; gap: 36px; margin: auto; }
+    .hero {
+      position: relative;
+      min-height: 210px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      border-radius: 25px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--dark), #2f8d6d);
+    }
+    .hero::before { content: ""; position: absolute; width: 440px; height: 440px; top: -230px; right: -120px; border-radius: 50%; background: #c3dd5820; }
+    .hero-copy { z-index: 1; display: flex; flex-direction: column; justify-content: center; padding: 48px 54px; }
+    .eyebrow { margin: 0 0 9px; color: var(--green); font-size: 13px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+    .hero .eyebrow { color: var(--lime); }
+    h1 { margin: 0 0 14px; font-size: clamp(38px, 5vw, 58px); line-height: 1.04; letter-spacing: -1.7px; }
+    .hero-art { z-index: 1; display: grid; place-items: center; font-size: 105px; filter: drop-shadow(0 10px 20px #0003); }
+
+    .panel { padding: 34px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+    .panel-head { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 26px; }
+    h2 { margin: 0; font-size: 25px; letter-spacing: -.5px; }
+    .subtle { color: var(--muted); font-size: 14px; }
+    .timeline { display: grid; gap: 18px; }
+    .plan-step { padding: 22px 24px; border: 1px solid var(--line); border-radius: 14px; background: #faf8f2; }
+    .plan-head { display: flex; align-items: center; gap: 11px; }
+    .plan-number { display: grid; flex: 0 0 auto; width: 33px; height: 33px; place-items: center; border-radius: 50%; color: var(--dark); background: var(--blue); font-size: 14px; font-weight: 900; }
+    .plan-step:nth-child(2) .plan-number { background: var(--lime); }
+    .plan-step:nth-child(3) .plan-number { background: #ffd9c4; }
+    .plan-step:nth-child(4) .plan-number { background: #e7dcff; }
+    .plan-step:nth-child(5) .plan-number { background: #ffe9a5; }
+    .plan-step h3 { margin: 0; font-size: 18px; }
+    .reading-list { display: grid; gap: 8px; margin: 14px 0 0 44px; padding: 0; list-style: none; }
+    .reading-line { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 9px; text-align: left; background: var(--card); font-size: 17px; font-weight: 750; cursor: pointer; }
+    .reading-line:hover { border-color: #adbbb5; }
+    .english { color: var(--muted); text-align: right; }
+    body.hide-english .english { display: none; }
+    body.hide-english .reading-line.revealed .english,
+    body.hide-english .prompt-card.flipped .english { display: block; }
+    .dialogue { display: grid; gap: 20px; }
+    .turn { max-width: 82%; display: flex; align-items: flex-end; gap: 12px; }
+    .turn:nth-child(even) { justify-self: end; flex-direction: row-reverse; }
+    .speaker { display: grid; flex: 0 0 auto; width: 45px; height: 45px; place-items: center; border-radius: 50%; color: #fff; background: var(--green); font-size: 12px; font-weight: 900; }
+    .turn:nth-child(even) .speaker { color: var(--dark); background: var(--lime); }
+    .turn-copy { padding: 16px 20px; border-radius: 19px 19px 19px 5px; background: #edf3f0; font-size: 18px; font-weight: 750; }
+    .turn:nth-child(even) .turn-copy { border-radius: 19px 19px 5px 19px; background: #f1efe8; }
+    .turn-copy small { display: block; margin-top: 4px; font-size: 14px; font-weight: 500; }
+    .mini-exercises { display: grid; gap: 12px; margin-bottom: 24px; }
+    .mini-exercise { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #faf8f2; }
+    .mini-exercise span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: var(--dark); background: var(--lime); font-size: 14px; font-weight: 900; }
+    .mini-exercise p { margin: 3px 0 0; color: #526159; font-size: 16px; }
+    .mini-exercise b { color: var(--ink); }
+
+    .prompt-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .prompt-card { position: relative; min-height: 150px; overflow: hidden; border: 2px solid var(--line); border-radius: 15px; background: #faf8f2; cursor: pointer; }
+    .card-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 13px; text-align: center; transition: opacity .18s ease, transform .18s ease; }
+    .card-icon { margin-bottom: 8px; font-size: 36px; }
+    .card-label { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+    .card-word { margin-top: 5px; font-size: 16px; font-weight: 850; line-height: 1.25; }
+    .card-back { opacity: 0; color: #fff; background: var(--green); transform: scale(.95); }
+    .card-back .card-label { color: #d4e4de; }
+    .card-back .english { margin-top: 6px; color: #d4e4de; text-align: center; font-size: 13px; font-weight: 500; }
+    .prompt-card.flipped { border-color: var(--green); }
+    .prompt-card.flipped .card-front { opacity: 0; transform: scale(.95); }
+    .prompt-card.flipped .card-back { opacity: 1; transform: none; }
+
+    .challenge { overflow: hidden; padding: 0; }
+    .challenge-top { padding: 30px 34px; background: #fff0d7; }
+    .challenge-top .eyebrow { color: #9a4d20; }
+    .challenge-top h2 { margin-bottom: 9px; }
+    .challenge-top p:last-child { margin: 0; color: #684833; }
+    .checklist { padding: 22px 34px 28px; }
+    .homework { border: 0; color: #4f3d67; background: #eee7f8; }
+    .homework h2 { margin-bottom: 9px; }
+    .homework p:last-child { margin: 0; }
+    .complete-button { width: 100%; padding: 15px; font-size: 17px; }
+
+    .basics-dialog { width: min(720px, calc(100% - 32px)); max-height: 90vh; padding: 0; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #0005; }
+    .basics-dialog::backdrop { background: #10251dcc; }
+    .basics-head { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border-bottom: 1px solid var(--line); background: var(--card); }
+    .basics-head .eyebrow { margin-bottom: 4px; }
+    .basics-head .subtle { margin: 4px 0 0; }
+    .basics-actions { display: flex; gap: 9px; }
+    .basics-actions form { margin: 0; }
+    .basics-tables { display: grid; gap: 10px; padding: 20px 24px 24px; }
+    .basics-group { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+    .basics-group summary { display: flex; align-items: center; gap: 10px; padding: 15px 18px; list-style: none; font-size: 18px; font-weight: 850; cursor: pointer; }
+    .basics-group summary::-webkit-details-marker { display: none; }
+    .basics-group summary::after { content: "+"; margin-left: auto; color: var(--green); font-size: 24px; line-height: 1; }
+    .basics-group[open] summary { border-bottom: 1px solid var(--line); background: #f2f7f4; }
+    .basics-group[open] summary::after { content: "−"; }
+    .basics-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    .basics-table th, .basics-table td { padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    .basics-table tr:last-child td { border-bottom: 0; }
+    .basics-table th { color: var(--muted); background: #faf8f2; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+    .basics-word { width: 29%; }
+    .basics-table strong, .basics-table small { display: block; }
+    .basics-table small { margin-top: 2px; color: var(--muted); text-align: left; font-size: 13px; font-weight: 500; }
+    body.hide-english .basics-table .english { display: block; }
+    .basics-audio { width: 54px; text-align: center !important; }
+    .basics-line { width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
+    .basics-line:hover { border-color: var(--green); background: #f2f7f4; }
+
+    @media (max-width: 1050px) {
       .app { grid-template-columns: 1fr; }
       aside { display: none; }
-      main { padding: 22px 20px calc(60px + env(safe-area-inset-bottom)); }
-      .mobile-select { display: block; width: 100%; min-height: 48px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 17px; }
-      .topbar { justify-content: space-between; }
+      main { padding: 20px 20px 60px; }
+      .topbar { justify-content: space-between; gap: 12px; }
+      .mobile-select { min-width: 0; display: block; flex: 1; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; background: var(--card); }
     }
-
     @media (max-width: 680px) {
-      main { padding: 20px 18px 50px; }
-      .topbar { flex-direction: column; align-items: stretch; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-copy { padding: 40px 32px; }
+      body { font-size: 17px; }
+      main { padding: 16px 15px 45px; }
+      .topbar { flex-direction: column; }
+      .top-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .basics-head { align-items: flex-start; flex-direction: column; padding: 20px; }
+      .basics-actions { width: 100%; }
+      .basics-actions > *, .basics-actions form, .basics-actions .button { flex: 1; width: 100%; }
+      .basics-tables { padding: 12px; }
+      .basics-table th, .basics-table td { padding: 10px; }
+      .hero { min-height: 0; grid-template-columns: 1fr; }
+      .hero-copy { padding: 38px 29px; }
       .hero-art { display: none; }
-      h1 { font-size: 42px; letter-spacing: -1.4px; }
-      .outcomes { grid-template-columns: 1fr; }
-      .picture-cards { grid-template-columns: repeat(2, 1fr); }
-      .panel { padding: 28px; }
-      .phrase { grid-template-columns: 1fr; gap: 2px; }
+      h1 { font-size: 40px; }
+      .panel { padding: 25px 21px; }
       .english { text-align: left; }
-      .plan-step p, .step-phrases, .step-dialogue { margin-left: 0; }
-      .lesson-shell { gap: 36px; }
+      .reading-line { grid-template-columns: 1fr; gap: 3px; }
+      .prompt-cards { grid-template-columns: repeat(2, 1fr); }
+      .reading-list { margin-left: 0; }
+      .turn { max-width: 96%; }
+      .challenge-top, .checklist { padding-left: 22px; padding-right: 22px; }
     }
-
     @media print {
-      aside, .topbar, .complete-button { display: none !important; }
+      aside, .topbar, .complete-button, .prompt-cards { display: none !important; }
       main { padding: 0; }
-      .hero, .panel { break-inside: avoid; box-shadow: none; }
-      body.hide-english .english { color: var(--muted); background: transparent; }
+      .lesson-shell { gap: 20px; }
+      .hero, .panel { break-inside: avoid; }
+      body.hide-english .english { display: block !important; color: var(--muted) !important; background: transparent !important; }
     }
   </style>
 </head>
-<body>
+<body class="hide-english">
   <div class="app">
     <aside>
-      <div class="brand"><span class="brand-mark">H!</span> Hallo, Motia!</div>
+      <div class="brand"><span class="brand-mark">S!</span> Sprechen, Motia!</div>
       <section class="progress-card">
-        <p>Motia's German · A1 · 8 classes</p>
+        <p>A1 → A2 · 32 Gesprächsstunden</p>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-copy" id="progressCopy">0 of 8 classes complete</div>
+        <div class="progress-copy" id="progressCopy" aria-live="polite">0 von 32 Stunden abgeschlossen</div>
       </section>
-      <nav id="lessonNav" aria-label="Your classes"></nav>
+      <nav id="lessonNav" aria-label="Gesprächsstunden"></nav>
     </aside>
 
     <main>
       <header class="topbar">
-        <select class="mobile-select" id="mobileSelect" aria-label="Choose a class"></select>
+        <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
         <div class="top-actions">
-          <button class="button" id="englishToggle" type="button">Hide English</button>
-          <button class="button" type="button" onclick="window.print()">Print this class</button>
+          <button class="button" id="openBasics" type="button">Grundlagen üben</button>
+          <button class="button" id="englishToggle" type="button">Englisch anzeigen</button>
+          <button class="button" type="button" onclick="window.print()">Stunde drucken</button>
         </div>
       </header>
 
       <div class="lesson-shell">
         <section class="hero">
-          <div class="hero-dots"></div>
           <div class="hero-copy">
             <p class="eyebrow" id="lessonLabel"></p>
             <h1 id="lessonTitle"></h1>
-            <p id="lessonIntro"></p>
           </div>
-          <div class="hero-art" aria-hidden="true"><span class="hero-emoji" id="lessonIcon"></span></div>
+          <div class="hero-art" id="lessonIcon" aria-hidden="true"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">By the end of today</p><h2>What you'll be able to do</h2></div>
-          </div>
-          <div class="outcomes" id="outcomes"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head">
-            <div><p class="eyebrow">Today's plan</p><h2>Your steps &amp; exercises</h2></div>
-            <span class="subtle" id="planMinutes"></span>
+            <div><p class="eyebrow">Übungen 1–5</p><h2>Redemittel lesen und sprechen</h2></div>
+            <button class="button" id="listenPhrases" type="button">🔊 Alle Sätze hören</button>
           </div>
           <div class="timeline" id="timeline"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">Core language</p><h2>Words &amp; phrases</h2></div>
-            <span class="subtle">Tap to check yourself</span>
-          </div>
-          <div class="phrase-list" id="phrases"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head">
-            <div><p class="eyebrow">Speak together</p><h2 id="dialogueTitle">Model conversation</h2></div>
-            <span class="subtle">Read once · swap roles · change the details</span>
+            <div><p class="eyebrow">Übungen 6–10</p><h2 id="dialogueTitle"></h2></div>
+            <button class="button" id="listenDialogue" type="button">🔊 Dialog hören</button>
           </div>
           <div class="dialogue" id="dialogue"></div>
-          <div class="variation-title">Now make it yours</div>
-          <div class="variations" id="variations"></div>
+          <div class="mini-exercises" id="dialoguePractice"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">Picture words</p><h2>Tap to learn the German</h2></div>
-            <button class="button cards-reset" id="resetCards" type="button">Show English</button>
+            <div><p class="eyebrow">Übungen 11–12</p><h2>Hören, erkennen, erinnern</h2></div>
+            <button class="button" id="resetCards" type="button">Karten zurücksetzen</button>
           </div>
-          <div class="picture-cards" id="pictureCards"></div>
+          <div class="mini-exercises">
+            <div class="mini-exercise"><span>11</span><p><b>Hören → nachsprechen → umdrehen</b></p></div>
+            <div class="mini-exercise"><span>12</span><p><b>Hören → Satz erinnern → kontrollieren</b></p></div>
+          </div>
+          <div class="prompt-cards" id="promptCards"></div>
         </section>
 
         <section class="panel challenge">
           <div class="challenge-top">
-            <p class="eyebrow">Final 10 minutes</p>
-            <h2>Your challenge</h2>
+            <p class="eyebrow">Übungen 13–14</p>
+            <h2>Neue Versionen</h2>
             <p id="challenge"></p>
           </div>
-          <div class="challenge-body" id="checklist"></div>
+          <div class="checklist" id="checklist"></div>
         </section>
 
         <section class="panel homework">
-          <p class="eyebrow">Between classes · 5 minutes</p>
-          <h2>Your tiny practice</h2>
+          <p class="eyebrow">Übung 15</p>
+          <h2>60 Sekunden sprechen</h2>
           <p id="homework"></p>
         </section>
 
-        <button class="button primary complete-button" id="completeButton" type="button">Mark this class done</button>
+        <button class="button primary complete-button" id="completeButton" type="button">Stunde als fertig markieren</button>
+
       </div>
     </main>
   </div>
 
+  <dialog class="basics-dialog" id="basicsDialog" aria-labelledby="basicsTitle">
+    <header class="basics-head">
+      <div><p class="eyebrow">Separat üben</p><h2 id="basicsTitle">Deutsch-Grundlagen</h2><p class="subtle">W-Fragen · Pronomen · sein/haben · Artikel</p></div>
+      <div class="basics-actions">
+        <button class="button" id="listenBasics" type="button">🔊 Thema hören</button>
+        <form method="dialog"><button class="button" type="submit">Schließen</button></form>
+      </div>
+    </header>
+    <div class="basics-tables" id="basicsTables"></div>
+  </dialog>
+
   <script>
-    const lessons = [
+    const course = [
       {
-        title: "Hallo! Ich bin …", topic: "Meet & greet", icon: "👋",
-        intro: "Your first real German conversation: say hello, share a name, and ask how someone is.",
-        goals: ["Greet someone naturally", "Say and ask a name", "Ask how someone is"],
-        plan: [
-          ["Warm-up", "Hear German greetings; copy rhythm and gesture.", 5, "Echo each greeting aloud with the same rhythm and gesture — then try one alone, without hearing it first."],
-          ["Name exchange", "Practice “Ich bin …” and “Wie heißt du?”; swap roles.", 15, "Introduce yourself to your partner as if it's the very first time you've met, then swap so they introduce themselves to you."],
-          ["How are you?", "Add “Wie geht’s?” with three honest answers.", 15, "Answer Wie geht's? three times in a row, choosing a different honest mood each time: gut, sehr gut, nicht so gut."],
-          ["Mini-dialogues", "Mix the phrases into short back-and-forth conversations.", 15, "Take turns 'meeting' each other again from scratch — greet, introduce yourselves, and ask Wie geht's?, as if for the first time."],
-          ["Can-do challenge", "Complete a greeting without notes.", 10, "Greet, introduce yourself, ask and answer Wie geht's?, and close with Tschüss — no notes."]
-        ],
-        phrases: [["Hallo!", "Hello!"], ["Guten Morgen!", "Good morning!"], ["Ich bin …", "I am …"], ["Wie heißt du?", "What is your name?"], ["Wie geht’s?", "How are you?"], ["Mir geht’s gut, danke.", "I’m well, thanks."], ["Sehr gut!", "Very good!"], ["Nicht so gut.", "Not so good."], ["Und du?", "And you?"], ["Tschüss!", "Bye!"]],
-        challenge: "Hold a 30-second first meeting entirely in German.",
-        checks: ["I can start with a greeting", "I can say and ask a name", "I can ask and answer “Wie geht’s?”", "I can end with “Tschüss”"],
-        homework: "Say the greeting dialogue to a mirror twice — once as yourself, once as the other person. Finish with one 20-second version without reading."
+        level: "A1.1", icon: "👋", title: "Hallo, ich bin …", topic: "First meetings",
+        intro: "Say hello, introduce yourself, ask a name, and close a first short conversation naturally.",
+        goals: ["greet someone", "say and ask a name", "ask how someone is"],
+        phrases: [["Hallo! / Guten Morgen!", "Hello! / Good morning!"], ["Ich bin Motia.", "I'm Motia."], ["Ich heiße Motia.", "My name is Motia."], ["Wie heißt du?", "What's your name?"], ["Freut mich.", "Nice to meet you."], ["Wie geht es dir?", "How are you?"], ["Gut, danke.", "Good, thanks."], ["Und dir?", "And you?"], ["Auch gut.", "Good too."], ["Tschüss! / Bis bald!", "Bye! / See you soon!"]],
+        coach: "Speech focus: copy whole chunks and their melody. A greeting sounds friendlier when you look up before saying the name.",
+        dialogueTitle: "A first meeting",
+        dialogue: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Hallo, ich heiße Motia.", "Hello, my name is Motia."], ["A", "Freut mich, Motia. Wie geht es dir?", "Nice to meet you, Motia. How are you?"], ["B", "Gut, danke. Und dir?", "Good, thanks. And you?"], ["A", "Auch gut, danke.", "Good too, thanks."], ["B", "Super. Tschüss, Tim!", "Great. Bye, Tim!"], ["A", "Tschüss, bis bald!", "Bye, see you soon!"]],
+        variations: ["Begin with Guten Morgen", "Use a different name and mood", "Meet again without the script"],
+        challenge: "Hold a 45-second first meeting: greet, exchange names, ask and answer how you are, and say goodbye.",
+        checks: ["I greeted first", "I exchanged names", "I asked and answered Wie geht es dir?", "I closed naturally"],
+        homework: "Record the first-meeting dialogue twice—once as yourself and once with an imaginary name."
       },
       {
-        title: "ABC & Zahlen", topic: "Letters & numbers", icon: "🔤",
-        intro: "Spell a name, catch key sounds, and use the numbers zero to twenty in simple exchanges.",
-        goals: ["Spell a first name", "Recognize key sounds", "Count from 0 to 20"],
-        plan: [
-          ["Retrieval", "Repeat last class’s greeting dialogue from memory.", 8, "Without notes, say the full greeting dialogue with a partner — swap who starts."],
-          ["German sounds", "Contrast A, E, I and practise J, V, W, Z.", 12, "Listen to a letter sound and say which letter you heard as fast as you can — your partner checks and repeats it back."],
-          ["Spell it", "Spell names aloud; listener repeats and confirms.", 15, "Spell your full name in German out loud while your partner repeats each letter back to check they heard it right."],
-          ["Numbers 0–20", "Build numbers in patterns through quick call-and-response.", 15, "Take turns calling out random numbers between 0–20 — the other says it back immediately, going faster each round."],
-          ["Can-do challenge", "Exchange a spelled name and phone number.", 10, "Spell your name and say a 6-digit phone number aloud for your partner to repeat back correctly, then swap."]
-        ],
-        phrases: [["Wie schreibt man das?", "How do you spell that?"], ["Noch einmal, bitte.", "Once more, please."], ["Wie bitte?", "Pardon?"], ["null", "zero"], ["eins", "one"], ["zwei", "two"], ["drei", "three"], ["vier", "four"], ["fünf", "five"], ["sechs", "six"], ["sieben", "seven"], ["acht", "eight"], ["neun", "nine"], ["zehn", "ten"], ["elf", "eleven"], ["zwölf", "twelve"], ["dreizehn", "thirteen"], ["vierzehn", "fourteen"], ["fünfzehn", "fifteen"], ["sechzehn", "sixteen"], ["siebzehn", "seventeen"], ["achtzehn", "eighteen"], ["neunzehn", "nineteen"], ["zwanzig", "twenty"]],
-        challenge: "Spell a name and dictate a short phone number clearly.",
-        checks: ["I can ask “Wie schreibt man das?”", "I can spell my name clearly", "I can recognize 0–20", "I can ask for repetition"],
-        homework: "Say five personally useful names, spelling each aloud in German. Choose five random numbers from 0–20 and say them without counting up from zero."
+        level: "A1.1", icon: "🛟", title: "Ich verstehe nicht", topic: "Classroom German",
+        intro: "Stay in German during class by asking for repetition, meaning, pronunciation, and confirmation.",
+        goals: ["say when I do not understand", "ask for repetition or slower speech", "check a word or answer"],
+        phrases: [["Ich verstehe nicht.", "I don't understand."], ["Wie bitte?", "Pardon?"], ["Noch einmal, bitte.", "Once again, please."], ["Langsamer, bitte.", "More slowly, please."], ["Was bedeutet das?", "What does that mean?"], ["Wie heißt das auf Deutsch?", "What is that called in German?"], ["Wie spricht man das aus?", "How do you pronounce that?"], ["Ist das richtig?", "Is that correct?"], ["Ich habe eine Frage.", "I have a question."], ["Jetzt verstehe ich.", "Now I understand."]],
+        coach: "Speech focus: use a clear key word—langsamer, noch einmal, bedeutet—so your partner immediately knows how to help.",
+        dialogueTitle: "Asking for help in German",
+        dialogue: [["A", "Heute sprechen wir über die Familie.", "Today we're talking about family."], ["B", "Wie bitte? Noch einmal, bitte.", "Pardon? Once again, please."], ["A", "Wir sprechen über die Familie.", "We're talking about family."], ["B", "Was bedeutet Familie?", "What does Familie mean?"], ["A", "Family. Die Familie.", "Family. Die Familie."], ["B", "Ah, jetzt verstehe ich. Wie spricht man das aus?", "Ah, now I understand. How do you pronounce it?"], ["A", "Fa-mi-lie.", "Fa-mi-lie."], ["B", "Familie. Ist das richtig?", "Familie. Is that correct?"]],
+        variations: ["Ask about three real objects", "Mishear one instruction", "Use only German help phrases"],
+        challenge: "Complete a two-minute mini-lesson in German. Ask for meaning, repetition, pronunciation, and confirmation when you need them.",
+        checks: ["I said what I needed", "I asked for repetition", "I asked about meaning or pronunciation", "I stayed in German"],
+        homework: "Record the five help phrases you will use most. Say each once normally and once as a real question."
       },
       {
-        title: "Was ist das?", topic: "Things around us", icon: "✏️",
-        intro: "Name everyday objects around you and meet German’s three little words: der, die, and das.",
-        goals: ["Name 8 useful objects", "Use der, die, das", "Ask what something is"],
-        plan: [
-          ["Number sprint", "Fast review: point, say, and check numbers.", 5, "Point to random objects around the room and shout the number in German as fast as you can."],
-          ["Object hunt", "Name real objects in the room, with their article.", 15, "Pick up five objects one by one and say the full name with article: der Stift, die Tasche …"],
-          ["Ask & answer", "Practise “Was ist das?” and “Das ist …”.", 15, "Pull an object from a mystery bag, ask Was ist das?, and your partner answers with Das ist ein/eine …"],
-          ["Article sorting", "Practise grouping nouns by der, die, and das through quick spoken drills.", 15, "Call out household objects one at a time — your partner instantly answers der, die, or das, then the full phrase."],
-          ["Can-do challenge", "Identify five surprise objects without notes.", 10, "From a closed bag, pull 5 objects and identify each with Das ist … and the correct article."]
-        ],
-        phrases: [["Was ist das?", "What is that?"], ["Das ist ein Stift.", "That is a pen."], ["Das ist eine Tasche.", "That is a bag."], ["Das ist ein Buch.", "That is a book."], ["der Stift", "the pen"], ["die Tasche", "the bag"], ["das Buch", "the book"], ["der Tisch", "the table"], ["die Tür", "the door"], ["das Handy", "the phone"]],
-        challenge: "Ask about and correctly identify five objects in the room.",
-        checks: ["I can ask “Was ist das?”", "I can answer in a full sentence", "I can learn a noun with its article", "I can name at least 5 objects"],
-        homework: "Choose five objects at home. Say each as article + noun, then point and say Das ist … for every object twice."
+        level: "A1.1", icon: "🔤", title: "Wie schreibt man das?", topic: "Names & numbers",
+        intro: "Spell names and exchange simple personal details such as age, phone number, and email address.",
+        goals: ["spell my name", "say and understand basic numbers", "exchange contact details"],
+        phrases: [["Wie schreibt man das?", "How do you spell that?"], ["Kannst du das buchstabieren?", "Can you spell that?"], ["M–O–T–I–A.", "M–O–T–I–A."], ["Wie alt bist du?", "How old are you?"], ["Ich bin dreißig Jahre alt.", "I'm thirty years old."], ["Wie ist deine Telefonnummer?", "What's your phone number?"], ["Meine Nummer ist …", "My number is …"], ["Wie war die Nummer noch einmal?", "What was the number again?"], ["Wie ist deine E-Mail-Adresse?", "What's your email address?"], ["Stimmt das?", "Is that correct?"]],
+        coach: "Speech focus: group long numbers into pairs and leave a short pause between them; the listener repeats everything back.",
+        dialogueTitle: "Exchanging contact details",
+        dialogue: [["A", "Wie heißt du?", "What's your name?"], ["B", "Ich heiße Motia Cohen.", "My name is Motia Cohen."], ["A", "Kannst du Cohen buchstabieren?", "Can you spell Cohen?"], ["B", "Ja: C–O–H–E–N.", "Yes: C–O–H–E–N."], ["A", "Danke. Wie ist deine Telefonnummer?", "Thanks. What's your phone number?"], ["B", "Meine Nummer ist null fünf vier, drei zwei eins, neun acht sieben.", "My number is 054, 321, 987."], ["A", "Also: null fünf vier, drei zwei eins, neun acht sieben?", "So: 054, 321, 987?"], ["B", "Ja, das stimmt.", "Yes, that's correct."]],
+        variations: ["Spell a city and surname", "Exchange imaginary phone numbers", "Add an email address"],
+        challenge: "Exchange a full name, age, phone number, and email address. Spell and repeat every detail until both versions match.",
+        checks: ["I spelled clearly", "I understood the key numbers", "I asked for repetition", "I confirmed the details"],
+        homework: "Record your name, spelling, age, and a fictional phone number. Leave pauses so a listener could repeat every detail back."
       },
       {
-        title: "Meine Familie", topic: "Family & people", icon: "🏠",
-        intro: "Introduce family members, say who you have, and describe one person with a few simple words.",
-        goals: ["Name close family", "Use mein and meine", "Say who you have"],
-        plan: [
-          ["Object recall", "Retrieve der, die, das with five everyday items.", 5, "Point to five objects around you and say article + noun for each — no checking notes first."],
-          ["Family tree", "Introduce family words by talking through your own family tree.", 15, "Talk through your family tree out loud, naming each person and how they're related to you."],
-          ["Mein or meine?", "Notice the pattern and sort family phrases.", 10, "Tim says a family member in English — you respond instantly with mein or meine and the German word."],
-          ["Photo talk", "Introduce real or imaginary people with sentence frames.", 20, "Hold up a photo and introduce three people: Das ist mein/meine … Er/Sie heißt …"],
-          ["Can-do challenge", "Give a short family introduction.", 10, "Introduce your family in one minute: name, relationship words, and at least one person's name."]
-        ],
-        phrases: [["meine Familie", "my family"], ["Wer ist das?", "Who is that?"], ["meine Mutter", "my mother"], ["mein Vater", "my father"], ["meine Schwester", "my sister"], ["mein Bruder", "my brother"], ["Ich habe einen Bruder.", "I have a brother."], ["Ich habe eine Schwester.", "I have a sister."], ["Das ist …", "This is …"], ["Er / Sie heißt …", "His / Her name is …"]],
-        challenge: "Introduce three people in your family, real or imaginary, from memory.",
-        checks: ["I can choose mein or meine", "I can name three family members", "I can use “Das ist …”", "I can say another person’s name"],
-        homework: "Think of three people in a family, real or imaginary, and say one sentence for each: Das ist mein/meine … Er/Sie heißt …"
+        level: "A1.1", icon: "🌍", title: "Woher kommst du?", topic: "Home & languages",
+        intro: "Say where you come from and live, name languages, and ask the same questions back.",
+        goals: ["say where I come from", "say where I live", "talk about languages I speak or learn"],
+        phrases: [["Woher kommst du?", "Where are you from?"], ["Ich komme aus Israel.", "I come from Israel."], ["Wo wohnst du?", "Where do you live?"], ["Ich wohne in Haifa.", "I live in Haifa."], ["Welche Sprachen sprichst du?", "Which languages do you speak?"], ["Ich spreche Hebräisch und Englisch.", "I speak Hebrew and English."], ["Ich lerne Deutsch.", "I'm learning German."], ["Sprichst du ein bisschen Deutsch?", "Do you speak a little German?"], ["Ja, ein bisschen.", "Yes, a little."], ["Warum lernst du Deutsch?", "Why are you learning German?"]],
+        coach: "Speech focus: link preposition and place as one chunk—aus Israel, in Haifa—rather than pausing between them.",
+        dialogueTitle: "Where are you from?",
+        dialogue: [["A", "Woher kommst du, Motia?", "Where are you from, Motia?"], ["B", "Ich komme aus Israel. Und du?", "I come from Israel. And you?"], ["A", "Ich komme aus England, aber ich wohne in Haifa.", "I come from England, but I live in Haifa."], ["B", "Welche Sprachen sprichst du?", "Which languages do you speak?"], ["A", "Englisch und ein bisschen Deutsch. Und du?", "English and a little German. And you?"], ["B", "Ich spreche Hebräisch und Englisch. Ich lerne Deutsch.", "I speak Hebrew and English. I'm learning German."], ["A", "Super! Warum lernst du Deutsch?", "Great! Why are you learning German?"], ["B", "Für Reisen.", "For travel."]],
+        variations: ["Use an imaginary country and city", "Add one language you want to learn", "Ask every question without prompts"],
+        challenge: "Have a 90-second conversation about country, city, languages, and one simple reason for learning German.",
+        checks: ["I used aus for origin", "I used in for where I live", "I named my languages", "I asked the questions back"],
+        homework: "Record a 40-second introduction with your country, city, languages, and why you are learning German."
       },
       {
-        title: "Mein Tag", topic: "Daily routine & time", icon: "☀️",
-        intro: "Tell the time and build a simple morning-to-night routine with high-frequency actions.",
-        goals: ["Tell a full-hour time", "Name daily actions", "Sequence a simple day"],
-        plan: [
-          ["Family recap", "Give a 30-second family introduction from memory.", 5, "Close your notes. Give a 30-second family intro — then your partner repeats it back."],
-          ["What time?", "Use a paper clock to ask and tell full hours.", 15, "Move the clock hands to three different times; your partner asks Wie spät ist es? for each one."],
-          ["Daily actions", "Practise six action phrases through quick listening and response.", 15, "Tim says a time and an action in English — you respond immediately with the full German sentence."],
-          ["Build my day", "Put four actions in order and describe your day from morning to night.", 15, "Describe four moments of your day in order, morning to night, adding a time to each one."],
-          ["Can-do challenge", "Describe a three-step routine with times.", 10, "Describe your morning with 3 actions and times — no notes, just you and the clock."]
-        ],
-        phrases: [["Wie spät ist es?", "What time is it?"], ["Es ist sieben Uhr.", "It is seven o’clock."], ["Was machst du um … Uhr?", "What do you do at … o’clock?"], ["Ich stehe auf.", "I get up."], ["Ich arbeite.", "I work."], ["Ich lerne Deutsch.", "I learn German."], ["Ich esse.", "I eat."], ["Ich schlafe.", "I sleep."], ["um acht Uhr", "at eight o’clock"], ["Ich stehe um sieben Uhr auf.", "I get up at seven."], ["Und dann?", "And then?"]],
-        challenge: "Describe three moments in a normal day, each with a time.",
-        checks: ["I can ask and tell the time", "I can say three daily actions", "I can add “um … Uhr”", "I can describe events in order"],
-        homework: "Pick three real times in tomorrow’s routine. At each time, say the matching German sentence aloud; at night, repeat all three in order."
+        level: "A1.1", icon: "👨‍👩‍👧", title: "Das ist meine Familie", topic: "Family & people",
+        intro: "Introduce people close to you and ask simple questions about names, relationships, age, and where they live.",
+        goals: ["name close family members", "introduce another person", "ask simple questions about someone"],
+        phrases: [["Das ist meine Familie.", "This is my family."], ["Wer ist das?", "Who is that?"], ["Das ist meine Schwester.", "This is my sister."], ["Er ist mein Bruder.", "He is my brother."], ["Sie heißt Maya.", "Her name is Maya."], ["Hast du Geschwister?", "Do you have siblings?"], ["Ja, ich habe einen Bruder.", "Yes, I have a brother."], ["Nein, ich habe keine Geschwister.", "No, I don't have siblings."], ["Wie alt ist er?", "How old is he?"], ["Wo wohnt sie?", "Where does she live?"]],
+        coach: "Speech focus: learn the relationship with mein or meine as one unit—mein Bruder, meine Schwester.",
+        dialogueTitle: "Talking about family",
+        dialogue: [["A", "Hast du Geschwister?", "Do you have siblings?"], ["B", "Ja, ich habe eine Schwester.", "Yes, I have a sister."], ["A", "Wie heißt sie?", "What's her name?"], ["B", "Sie heißt Maya.", "Her name is Maya."], ["A", "Wie alt ist sie?", "How old is she?"], ["B", "Sie ist fünfundzwanzig.", "She's twenty-five."], ["A", "Und wo wohnt sie?", "And where does she live?"], ["B", "Sie wohnt in Tel Aviv.", "She lives in Tel Aviv."]],
+        variations: ["Use a real or invented family", "Introduce a friend instead", "Ask one extra question about each person"],
+        challenge: "Introduce three real or imaginary people, then answer questions about their names, relationships, age, and city.",
+        checks: ["I used mein and meine", "I introduced three people", "I answered questions about them", "I asked about my partner's family"],
+        homework: "Choose three people and record one spoken mini-profile for each: relationship, name, age, and city."
       },
       {
-        title: "Ich möchte …", topic: "Food & ordering", icon: "🥨",
-        intro: "Order a drink and a snack politely, understand a simple price, and say what you like.",
-        goals: ["Order politely", "Name common food", "Understand a price"],
-        plan: [
-          ["Time check", "Quick clock prompts and a one-minute routine recap.", 5, "Your partner shows a clock time — you say the time and one matching action: Um … Uhr … ich …"],
-          ["Menu language", "Explore a short menu and identify familiar items.", 15, "Point to each menu item and say article + noun, then ask your partner: Kaffee oder Tee?"],
-          ["Polite ordering", "Build orders with “Ich möchte …, bitte.”", 15, "Build a two-item order with Ich möchte …, bitte. Then add und for a second item."],
-          ["Café role-play", "Alternate server and guest; add prices and payment.", 15, "Run a full café scene together: greet, order two items, hear the total, and say thank you."],
-          ["Can-do challenge", "Order two items and close the exchange.", 10, "Run through a full café order: one drink and one food item, hear the total, and end with Danke — Tschüss!"]
-        ],
-        phrases: [["Was möchten Sie?", "What would you like?"], ["Ich möchte …", "I would like …"], ["Ich möchte einen Kaffee.", "I would like a coffee."], ["Ein Wasser, bitte.", "A water, please."], ["Noch etwas?", "Anything else?"], ["der Kaffee", "coffee"], ["der Tee", "tea"], ["das Wasser", "water"], ["das Brot", "bread"], ["der Käse", "cheese"], ["Was kostet das?", "How much is that?"], ["Das macht fünf Euro.", "That comes to five euros."], ["Danke schön.", "Thank you very much."], ["Gern.", "You’re welcome."]],
-        challenge: "Complete a café order for one drink and one food item.",
-        checks: ["I can greet the server", "I can order with “Ich möchte …”", "I can use “bitte” and “danke”", "I can understand the total price"],
-        homework: "Look at a real café menu online or at home. Point to two items and say a complete order twice, then add Was kostet das? and Danke schön."
+        level: "A1.1", icon: "⏰", title: "Mein normaler Tag", topic: "Time & routines",
+        intro: "Tell the time and describe a simple weekday from morning to evening.",
+        goals: ["ask and tell the time", "name common daily actions", "describe a day in order"],
+        phrases: [["Wie spät ist es?", "What time is it?"], ["Es ist sieben Uhr.", "It's seven o'clock."], ["Wann stehst du auf?", "When do you get up?"], ["Ich stehe um sieben Uhr auf.", "I get up at seven."], ["Dann frühstücke ich.", "Then I have breakfast."], ["Um neun Uhr arbeite ich.", "I work at nine."], ["Mittags esse ich zu Hause.", "At midday I eat at home."], ["Am Abend lerne ich Deutsch.", "In the evening I learn German."], ["Und was machst du dann?", "And what do you do then?"], ["Um elf Uhr gehe ich schlafen.", "I go to sleep at eleven."]],
+        coach: "Speech focus: in separable verbs, land on the final piece—Ich stehe um sieben Uhr AUF.",
+        dialogueTitle: "A normal weekday",
+        dialogue: [["A", "Wann stehst du normalerweise auf?", "When do you normally get up?"], ["B", "Ich stehe um sieben Uhr auf.", "I get up at seven."], ["A", "Und was machst du dann?", "And what do you do then?"], ["B", "Dann frühstücke ich. Um acht Uhr fahre ich zur Arbeit.", "Then I have breakfast. At eight I go to work."], ["A", "Wann lernst du Deutsch?", "When do you learn German?"], ["B", "Am Abend, um acht Uhr.", "In the evening, at eight."], ["A", "Und wann gehst du schlafen?", "And when do you go to sleep?"], ["B", "Meistens um elf Uhr.", "Usually at eleven."]],
+        variations: ["Change every time", "Describe a weekend day", "Put five action cards in order"],
+        challenge: "Describe a full day with five actions and times. Your partner interrupts with three Wann? questions.",
+        checks: ["I told the time clearly", "I used five daily actions", "My day had a clear order", "I answered Wann? questions"],
+        homework: "Record tomorrow's routine in six short sentences from waking up to going to sleep."
       },
       {
-        title: "Wo ist …?", topic: "Places & directions", icon: "🗺️",
-        intro: "Ask where something is and follow a short route using simple, useful direction words.",
-        goals: ["Ask where a place is", "Name common places", "Follow basic directions"],
-        plan: [
-          ["Café replay", "Repeat the food-order challenge with roles reversed.", 5, "Run the café order again — this time you are the server and your partner is the guest."],
-          ["Places nearby", "Learn place names by picturing your own neighborhood.", 15, "As your partner names each place in German, point to where it would be — on a real or imagined map of your area."],
-          ["Direction words", "Use movement and gestures for left, right, straight.", 10, "Stand up: your partner calls links, rechts, or geradeaus — you turn or step that way."],
-          ["Map routes", "Ask for and give short routes on the map.", 20, "Ask Wo ist …? for one place, then trace the spoken route on the map with your finger."],
-          ["Can-do challenge", "Find one destination from spoken directions.", 10, "Listen to 2–3 spoken directions and navigate to the destination on the map without help."]
-        ],
-        phrases: [["Entschuldigung …", "Excuse me …"], ["Wo ist …?", "Where is …?"], ["Wo ist der Bahnhof?", "Where is the station?"], ["der Bahnhof", "train station"], ["das Café", "café"], ["die Toilette", "toilet"], ["links", "left"], ["rechts", "right"], ["geradeaus", "straight ahead"], ["Gehen Sie geradeaus.", "Go straight ahead."], ["Dann links.", "Then left."], ["Hier / Dort", "Here / There"], ["Danke schön.", "Thank you very much."], ["Gern.", "You’re welcome."]],
-        challenge: "Ask for a place and follow a three-step spoken route.",
-        checks: ["I can ask “Wo ist …?”", "I can recognize three places", "I know links and rechts", "I can follow a short route"],
-        homework: "Picture the route from your door to one nearby place. Trace it with a finger in the air while saying geradeaus, links and rechts; finish with Dort ist …"
+        level: "A1.1", icon: "🍎", title: "Was isst du gern?", topic: "Food & preferences",
+        intro: "Talk about food and drink, say what you like, and make a simple café order.",
+        goals: ["name food and drink I like", "ask about preferences", "order one drink and one food item"],
+        phrases: [["Was isst du gern?", "What do you like to eat?"], ["Ich esse gern Brot und Käse.", "I like eating bread and cheese."], ["Was trinkst du gern?", "What do you like to drink?"], ["Ich trinke lieber Tee.", "I prefer drinking tea."], ["Magst du Kaffee?", "Do you like coffee?"], ["Ja, sehr gern.", "Yes, very much."], ["Nein, nicht so gern.", "No, not very much."], ["Ich hätte gern einen Kaffee.", "I'd like a coffee."], ["Ein Käsebrötchen, bitte.", "A cheese roll, please."], ["Danke, das ist alles.", "Thanks, that's all."]],
+        coach: "Speech focus: gern belongs with the activity—ich esse gern—while lieber marks the preferred option.",
+        dialogueTitle: "Food and a simple order",
+        dialogue: [["A", "Was trinkst du gern: Kaffee oder Tee?", "What do you like to drink: coffee or tea?"], ["B", "Ich trinke lieber Kaffee. Und du?", "I prefer coffee. And you?"], ["A", "Ich mag Tee. Was isst du gern?", "I like tea. What do you like to eat?"], ["B", "Brot und Käse.", "Bread and cheese."], ["A", "Guten Tag. Was möchten Sie?", "Good afternoon. What would you like?"], ["B", "Ich hätte gern einen Kaffee und ein Käsebrötchen, bitte.", "I'd like a coffee and a cheese roll, please."], ["A", "Sonst noch etwas?", "Anything else?"], ["B", "Nein, danke. Das ist alles.", "No, thanks. That's all."]],
+        variations: ["Change all food and drinks", "One person dislikes an item", "Order for two people"],
+        challenge: "Discuss three food preferences, then order one drink and one food item in a complete café exchange.",
+        checks: ["I said what I like", "I asked about preferences", "I ordered politely", "I understood one follow-up question"],
+        homework: "Record your ideal breakfast order and then say three foods you like, dislike, or prefer."
       },
       {
-        title: "Ich kann Deutsch!", topic: "Review & real conversation", icon: "🌟",
-        intro: "Bring everything together in one friendly real-world conversation and see how much German already works.",
-        goals: ["Retrieve core phrases", "Handle small surprises", "Hold a 2-minute exchange"],
-        plan: [
-          ["Quick-fire recall", "Eight visual prompts, one phrase for each past class.", 10, "You have 5 seconds per prompt: say any useful German phrase from that lesson topic."],
-          ["Fix the gaps", "Revisit only the two areas that need another pass.", 10, "Pick your two weakest topics — practise each one twice with your partner until it feels easy."],
-          ["Conversation map", "Choose a greeting, personal detail, task, and closing.", 10, "Choose one phrase for each of the four stages, then walk through the full conversation out loud once."],
-          ["Real-world role-play", "Run three mini-scenes with less support each time.", 20, "Role-play three scenes together, leaning on your notes a little less with each round."],
-          ["Final challenge", "Complete one two-minute conversation, then celebrate.", 10, "One 2-minute conversation: greet, share a detail, do a task, use a repair phrase, close."]
-        ],
-        phrases: [["Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["Ich verstehe.", "I understand."], ["Ich verstehe nicht.", "I don’t understand."], ["Langsam, bitte.", "Slowly, please."], ["Noch einmal, bitte.", "Once more, please."], ["Kein Problem.", "No problem."], ["Super!", "Great!"], ["Bis bald!", "See you soon!"]],
-        challenge: "Hold a two-minute German exchange using at least four course topics.",
-        checks: ["I can greet and introduce myself", "I can complete one practical task", "I can use a repair phrase", "I can close a conversation naturally"],
-        homework: "Record a final one-minute German introduction: your name, how you are, one family or routine detail, and a polite closing. Keep it as a before-and-after milestone."
+        level: "A1.1", icon: "🗺️", title: "Wo ist der Supermarkt?", topic: "Places & directions",
+        intro: "Name useful places, ask where something is, and follow or give a very short route.",
+        goals: ["ask where a place is", "understand left, right, and straight ahead", "give a two-step route"],
+        phrases: [["Entschuldigung, wo ist der Supermarkt?", "Excuse me, where is the supermarket?"], ["Der Supermarkt ist dort.", "The supermarket is over there."], ["Gehen Sie geradeaus.", "Go straight ahead."], ["Dann links.", "Then left."], ["Dann rechts.", "Then right."], ["Ist das weit?", "Is it far?"], ["Nein, ganz in der Nähe.", "No, very close by."], ["Neben dem Café.", "Next to the café."], ["Ich verstehe. Vielen Dank!", "I understand. Thank you very much!"], ["Gern geschehen.", "You're welcome."]],
+        coach: "Speech focus: give one direction, pause, and wait for the listener to repeat it before adding the next step.",
+        dialogueTitle: "Finding the supermarket",
+        dialogue: [["A", "Entschuldigung, wo ist der Supermarkt?", "Excuse me, where is the supermarket?"], ["B", "Gehen Sie hier geradeaus.", "Go straight ahead here."], ["A", "Geradeaus?", "Straight ahead?"], ["B", "Ja, dann die erste Straße links.", "Yes, then the first street on the left."], ["A", "Ist das weit?", "Is it far?"], ["B", "Nein, ganz in der Nähe. Der Supermarkt ist neben dem Café.", "No, very close by. The supermarket is next to the café."], ["A", "Jetzt verstehe ich. Vielen Dank!", "Now I understand. Thank you very much!"], ["B", "Gern geschehen.", "You're welcome."]],
+        variations: ["Ask for a different place", "Change left to right", "Use a simple map with two turns"],
+        challenge: "Ask for two places and follow their routes on a map. Then switch roles and give two clear directions yourself.",
+        checks: ["I asked politely", "I understood the direction words", "I repeated a direction to check", "I gave a two-step route"],
+        homework: "Trace a route with your finger and record directions to one nearby place using geradeaus, links, rechts, and neben."
+      },
+      {
+        level: "A1.1", icon: "🏡", title: "Das ist meine Wohnung", topic: "Home & rooms",
+        intro: "Describe a simple home, name the rooms, and say where everyday things are.",
+        goals: ["name the main rooms", "say what my home has", "locate simple objects"],
+        phrases: [["Wie ist deine Wohnung?", "What is your apartment like?"], ["Meine Wohnung ist klein, aber hell.", "My apartment is small but bright."], ["Sie hat zwei Zimmer.", "It has two rooms."], ["Das ist die Küche.", "This is the kitchen."], ["Hier ist das Wohnzimmer.", "Here is the living room."], ["Wo ist das Bad?", "Where is the bathroom?"], ["Das Bad ist neben der Küche.", "The bathroom is next to the kitchen."], ["Der Tisch steht am Fenster.", "The table is by the window."], ["Ich habe keinen Balkon.", "I don't have a balcony."], ["Mein Lieblingszimmer ist …", "My favourite room is …"]],
+        coach: "Speech focus: show the listener around in order—Hier ist …, daneben ist …, dort steht …—as if you are walking together.",
+        dialogueTitle: "A quick home tour",
+        dialogue: [["A", "Wie ist deine Wohnung?", "What is your apartment like?"], ["B", "Sie ist klein, aber sehr hell. Sie hat zwei Zimmer.", "It's small but very bright. It has two rooms."], ["A", "Was ist dein Lieblingszimmer?", "What's your favourite room?"], ["B", "Die Küche. Sie ist groß.", "The kitchen. It's large."], ["A", "Wo ist das Wohnzimmer?", "Where is the living room?"], ["B", "Neben der Küche. Dort steht auch mein Schreibtisch.", "Next to the kitchen. My desk is also there."], ["A", "Hast du einen Balkon?", "Do you have a balcony?"], ["B", "Nein, leider nicht.", "No, unfortunately not."]],
+        variations: ["Describe your real home", "Invent a very small home", "Move three objects to new places"],
+        challenge: "Give a one-minute spoken home tour, then answer four questions about rooms, furniture, and what you have.",
+        checks: ["I named four rooms", "I used ist and hat correctly in chunks", "I located three objects", "I answered questions about my home"],
+        homework: "Walk through your home and record a 45-second tour naming rooms and where four objects are."
+      },
+      {
+        level: "A1.1", icon: "🌦️", title: "Wie ist das Wetter?", topic: "Weather & clothing",
+        intro: "Talk about today's weather, say how it feels, and choose suitable clothes for a simple plan.",
+        goals: ["describe basic weather", "say whether I feel hot or cold", "choose clothes for the weather"],
+        phrases: [["Wie ist das Wetter heute?", "What's the weather like today?"], ["Es ist sonnig und warm.", "It's sunny and warm."], ["Es ist kalt und windig.", "It's cold and windy."], ["Es regnet.", "It's raining."], ["Wie viel Grad sind es?", "How many degrees is it?"], ["Es sind zwanzig Grad.", "It's twenty degrees."], ["Mir ist kalt.", "I'm cold."], ["Was ziehst du an?", "What are you wearing?"], ["Ich ziehe eine Jacke an.", "I'm putting on a jacket."], ["Nimm einen Regenschirm mit.", "Take an umbrella with you."]],
+        coach: "Speech focus: weather uses es ist or es + verb—Es ist kalt, es regnet. Say these as fixed chunks.",
+        dialogueTitle: "What should we wear?",
+        dialogue: [["A", "Wie ist das Wetter heute?", "What's the weather like today?"], ["B", "Es ist kalt und windig. Es sind zwölf Grad.", "It's cold and windy. It's twelve degrees."], ["A", "Oh, mir ist schon kalt. Was ziehst du an?", "Oh, I'm already cold. What are you wearing?"], ["B", "Eine warme Jacke und feste Schuhe.", "A warm jacket and sturdy shoes."], ["A", "Regnet es später?", "Will it rain later?"], ["B", "Ja, wahrscheinlich.", "Yes, probably."], ["A", "Dann nehme ich einen Regenschirm mit.", "Then I'll take an umbrella."], ["B", "Gute Idee.", "Good idea."]],
+        variations: ["Plan for a hot day", "The weather changes suddenly", "Choose clothes for three seasons"],
+        challenge: "Describe three different weather situations and decide what to wear or take for each one.",
+        checks: ["I described weather in full chunks", "I said the temperature", "I named suitable clothes", "I reacted to a weather change"],
+        homework: "Record tomorrow's weather in four sentences, then say what you plan to wear and take with you."
+      },
+      {
+        level: "A1.1", icon: "🛒", title: "Ich brauche ein Kilo Äpfel", topic: "At the supermarket",
+        intro: "Ask where products are, request simple quantities, understand a price, and complete a basic purchase.",
+        goals: ["ask for a product", "use basic quantities", "ask for and understand the total"],
+        phrases: [["Entschuldigung, wo finde ich Milch?", "Excuse me, where can I find milk?"], ["Dort hinten, links.", "Back there, on the left."], ["Ich brauche ein Kilo Äpfel.", "I need one kilogram of apples."], ["Eine Flasche Wasser, bitte.", "One bottle of water, please."], ["Sonst noch etwas?", "Anything else?"], ["Ja, noch zwei Brötchen.", "Yes, two more bread rolls."], ["Wie viel kostet das?", "How much does that cost?"], ["Das macht acht Euro fünfzig.", "That comes to eight euros fifty."], ["Kann ich mit Karte zahlen?", "Can I pay by card?"], ["Ja, natürlich.", "Yes, of course."]],
+        coach: "Speech focus: quantity and product belong together—ein Kilo Äpfel, eine Flasche Wasser, zwei Brötchen.",
+        dialogueTitle: "A small grocery shop",
+        dialogue: [["A", "Guten Tag. Was möchten Sie?", "Good afternoon. What would you like?"], ["B", "Ein Kilo Äpfel und zwei Brötchen, bitte.", "One kilogram of apples and two bread rolls, please."], ["A", "Gern. Sonst noch etwas?", "Gladly. Anything else?"], ["B", "Ja, eine Flasche Wasser. Wie viel kostet das?", "Yes, one bottle of water. How much does that cost?"], ["A", "Das macht acht Euro fünfzig.", "That comes to eight euros fifty."], ["B", "Kann ich mit Karte zahlen?", "Can I pay by card?"], ["A", "Ja, natürlich.", "Yes, of course."], ["B", "Danke schön. Auf Wiedersehen.", "Thank you very much. Goodbye."]],
+        variations: ["Buy ingredients for breakfast", "One product is unavailable", "Change every quantity and price"],
+        challenge: "Buy five grocery items using three different quantities, ask one location question, and complete the payment.",
+        checks: ["I asked where something was", "I used three quantity phrases", "I understood the price", "I completed the payment politely"],
+        homework: "Choose five items in your kitchen and record a supermarket order with quantities and a final price question."
+      },
+      {
+        level: "A1.1", icon: "🚌", title: "Eine Fahrkarte nach Berlin", topic: "Basic transport",
+        intro: "Buy a simple ticket and ask when and where a train or bus leaves.",
+        goals: ["ask for a ticket", "understand departure time and platform", "check one travel detail"],
+        phrases: [["Eine Fahrkarte nach Berlin, bitte.", "One ticket to Berlin, please."], ["Einfach oder hin und zurück?", "One way or return?"], ["Hin und zurück, bitte.", "Return, please."], ["Wann fährt der Zug?", "When does the train leave?"], ["Um zehn Uhr dreißig.", "At ten thirty."], ["Von welchem Gleis?", "From which platform?"], ["Von Gleis sieben.", "From platform seven."], ["Muss ich umsteigen?", "Do I have to change?"], ["Nein, der Zug fährt direkt.", "No, the train goes direct."], ["Wie viel kostet die Fahrkarte?", "How much does the ticket cost?"]],
+        coach: "Speech focus: repeat the destination, time, and platform aloud before paying; travel numbers are worth checking twice.",
+        dialogueTitle: "Buying a train ticket",
+        dialogue: [["A", "Guten Tag. Wohin möchten Sie fahren?", "Good afternoon. Where would you like to travel?"], ["B", "Nach Berlin, bitte.", "To Berlin, please."], ["A", "Einfach oder hin und zurück?", "One way or return?"], ["B", "Hin und zurück. Wann fährt der nächste Zug?", "Return. When does the next train leave?"], ["A", "Um zehn Uhr dreißig von Gleis sieben.", "At ten thirty from platform seven."], ["B", "Also: zehn Uhr dreißig, Gleis sieben?", "So: ten thirty, platform seven?"], ["A", "Genau. Das macht vierzig Euro.", "Exactly. That comes to forty euros."], ["B", "Danke schön.", "Thank you very much."]],
+        variations: ["Buy a one-way bus ticket", "The direct train is unavailable", "Change destination, time, and platform"],
+        challenge: "Buy a ticket and confirm destination, journey type, departure time, platform, changes, and price.",
+        checks: ["I requested the correct ticket", "I asked when and where", "I checked the travel details", "I understood the price"],
+        homework: "Record a ticket-counter exchange for a real or imagined trip, including time, platform, change, and price."
+      },
+      {
+        level: "A1.1", icon: "🎂", title: "Wann hast du Geburtstag?", topic: "Dates & birthdays",
+        intro: "Say dates, ask about birthdays, and arrange a simple birthday visit.",
+        goals: ["ask and say a date", "talk about a birthday", "confirm when and where to meet"],
+        phrases: [["Welcher Tag ist heute?", "What day is it today?"], ["Heute ist Montag.", "Today is Monday."], ["Der wievielte ist heute?", "What's today's date?"], ["Heute ist der dritte Mai.", "Today is the third of May."], ["Wann hast du Geburtstag?", "When is your birthday?"], ["Am zwölften August.", "On the twelfth of August."], ["Ich feiere am Samstag.", "I'm celebrating on Saturday."], ["Hast du Zeit?", "Do you have time?"], ["Ja, gern. Um wie viel Uhr?", "Yes, gladly. At what time?"], ["Um sieben bei mir zu Hause.", "At seven at my home."]],
+        coach: "Speech focus: dates come as chunks with am—am zwölften August. Repeat the whole date, not only the number.",
+        dialogueTitle: "A birthday visit",
+        dialogue: [["A", "Wann hast du Geburtstag?", "When is your birthday?"], ["B", "Am zwölften August. Ich feiere am Samstag.", "On the twelfth of August. I'm celebrating on Saturday."], ["A", "Schön! Hast du eine Party?", "Nice! Are you having a party?"], ["B", "Ja, klein, bei mir zu Hause. Hast du Zeit?", "Yes, a small one, at my home. Do you have time?"], ["A", "Ja, gern. Um wie viel Uhr?", "Yes, gladly. At what time?"], ["B", "Um sieben Uhr.", "At seven."], ["A", "Also Samstag um sieben bei dir?", "So Saturday at seven at your place?"], ["B", "Genau. Bis Samstag!", "Exactly. See you Saturday!"]],
+        variations: ["Change the birthday and party date", "The first day does not work", "Ask about two family birthdays"],
+        challenge: "Exchange three important dates, then arrange a birthday visit with a confirmed day, date, time, and place.",
+        checks: ["I said dates clearly", "I used am with a date", "I asked and answered Wann?", "I confirmed the visit details"],
+        homework: "Record today's day and date, then say the birthdays of three real or imaginary people."
+      },
+      {
+        level: "A1.1", icon: "⭐", title: "Ich kann schon viel!", topic: "A1 conversation workshop",
+        intro: "Bring the A1 foundations together in short conversations before moving into longer A1.2 exchanges.",
+        goals: ["introduce myself with connected details", "complete basic everyday tasks", "repair a conversation in German"],
+        phrases: [["Ich möchte mich kurz vorstellen.", "I'd like to introduce myself briefly."], ["Ich komme aus … und wohne in …", "I come from … and live in …"], ["In meiner Freizeit …", "In my free time …"], ["Normalerweise …", "Normally …"], ["Ich mag …, aber ich mag … nicht.", "I like …, but I don't like …"], ["Was machst du gern?", "What do you like doing?"], ["Wie bitte? Noch einmal, bitte.", "Pardon? Once again, please."], ["Ich habe das nicht verstanden.", "I didn't understand that."], ["Jetzt ist es klar.", "Now it's clear."], ["Danke für das Gespräch!", "Thanks for the conversation!"]],
+        coach: "Speech focus: connect short sentences with und, aber, dann, and danach. Clear connected speech matters more than speed.",
+        dialogueTitle: "From introduction to a plan",
+        dialogue: [["A", "Hallo! Erzähl ein bisschen über dich.", "Hello! Tell me a little about yourself."], ["B", "Gern. Ich komme aus Israel und wohne in Haifa. Ich lerne Deutsch.", "Gladly. I come from Israel and live in Haifa. I'm learning German."], ["A", "Was machst du gern in deiner Freizeit?", "What do you like doing in your free time?"], ["B", "Ich koche gern und gehe gern spazieren. Und du?", "I like cooking and going for walks. And you?"], ["A", "Ich gehe gern ins Café. Wollen wir einen Kaffee trinken?", "I like going to cafés. Shall we have a coffee?"], ["B", "Wie bitte? Langsamer, bitte.", "Pardon? More slowly, please."], ["A", "Wollen wir zusammen einen Kaffee trinken?", "Shall we have a coffee together?"], ["B", "Ja, gern. Am Samstag um drei?", "Yes, gladly. Saturday at three?"], ["A", "Das passt. Bis Samstag!", "That works. See you Saturday!"]],
+        variations: ["Add family and routine details", "Solve a shopping or travel task", "Speak for three minutes without English"],
+        challenge: "Complete three A1 stations: a two-minute personal conversation, one everyday transaction, and one simple plan together.",
+        checks: ["I gave connected personal details", "I asked follow-up questions", "I completed an everyday task", "I used German to repair a gap"],
+        homework: "Record a two-minute A1 voice note covering who you are, your routine, your likes, and one plan for the weekend."
+      },
+      {
+        level: "A1.2", icon: "👋", title: "Wieder im Gespräch", topic: "Personal updates",
+        intro: "Reconnect, share a small update, and keep a friendly conversation moving with follow-up questions.",
+        goals: ["greet someone I know", "share two personal updates", "ask a follow-up or repair the conversation"],
+        phrases: [["Schön, dich wiederzusehen!", "Great to see you again!"], ["Wie geht es dir heute?", "How are you today?"], ["Was gibt es Neues?", "What's new?"], ["Im Moment arbeite ich viel.", "At the moment I work a lot."], ["Ich wohne jetzt in …", "I live in … now."], ["Und bei dir?", "And you?"], ["Ach wirklich?", "Oh, really?"], ["Das klingt interessant.", "That sounds interesting."], ["Kannst du das bitte wiederholen?", "Can you repeat that, please?"], ["Ich habe das nicht ganz verstanden.", "I didn't quite understand that."]],
+        coach: "Speech focus: react before asking the next question—Ach wirklich? and Das klingt interessant make the exchange sound natural.",
+        dialogueTitle: "Catching up",
+        dialogue: [["A", "Hallo Motia! Schön, dich wiederzusehen. Wie geht es dir?", "Hi Motia! Great to see you again. How are you?"], ["B", "Gut, danke. Ich wohne jetzt in Haifa.", "Good, thanks. I live in Haifa now."], ["A", "Ach wirklich? Wie gefällt es dir dort?", "Oh, really? How do you like it there?"], ["B", "Sehr gut. Die Stadt ist interessant. Und bei dir?", "Very much. The city is interesting. And you?"], ["A", "Im Moment arbeite ich viel.", "At the moment I work a lot."], ["B", "Das klingt anstrengend.", "That sounds tiring."]],
+        variations: ["Change the city and current activity", "Add one honest feeling", "Use a repair phrase once"],
+        challenge: "Hold a two-minute catch-up. Share two updates, react to your partner, and ask at least three real follow-up questions.",
+        checks: ["I started and closed naturally", "I shared two connected details", "I reacted and asked follow-ups", "I stayed in German when I needed help"],
+        homework: "Record a 45-second voice note: greeting, two things that are new, one question for Tim, and a natural closing."
+      },
+      {
+        level: "A1.2", icon: "⏰", title: "So sieht mein Tag aus", topic: "Daily life",
+        intro: "Describe a normal weekday and compare routines using times and frequency words.",
+        goals: ["describe my day in order", "say how often I do something", "find one similarity and one difference"],
+        phrases: [["Wie sieht dein normaler Tag aus?", "What does your normal day look like?"], ["Normalerweise stehe ich um sieben auf.", "I normally get up at seven."], ["Dann fahre ich zur Arbeit.", "Then I go to work."], ["Wie oft kochst du?", "How often do you cook?"], ["jeden Tag / meistens", "every day / usually"], ["manchmal / selten / nie", "sometimes / rarely / never"], ["Am Wochenende schlafe ich länger.", "At the weekend I sleep longer."], ["Das ist bei mir genauso.", "It's the same for me."], ["Bei mir ist das anders.", "It's different for me."], ["Und was machst du danach?", "And what do you do after that?"]],
+        coach: "Speech focus: stress the time or frequency word—NORMALERWEISE, um SIEBEN, am WOCHENENDE—to make the timeline easy to follow.",
+        dialogueTitle: "Two different mornings",
+        dialogue: [["A", "Wann stehst du normalerweise auf?", "When do you normally get up?"], ["B", "Um halb sieben. Dann trinke ich Kaffee und fahre zur Arbeit.", "At half past six. Then I drink coffee and go to work."], ["A", "Arbeitest du jeden Tag im Büro?", "Do you work in the office every day?"], ["B", "Nein, ich arbeite manchmal zu Hause. Und du?", "No, I sometimes work at home. And you?"], ["A", "Bei mir ist das anders. Ich arbeite meistens abends.", "It's different for me. I usually work in the evening."], ["B", "Ach so. Wann hast du frei?", "I see. When are you free?"]],
+        variations: ["Describe a weekend instead", "Change three times", "Find two things you both do"],
+        challenge: "Compare your real routines for three minutes. Ask about time, frequency, and what happens next—without reading the model.",
+        checks: ["I used a clear sequence", "I used two frequency words", "I asked at least three questions", "I compared our routines"],
+        homework: "Talk through tomorrow from morning to night for one minute. Record it once, listen, then record a smoother second version."
+      },
+      {
+        level: "A1.2", icon: "🎬", title: "Hast du am Samstag Zeit?", topic: "Free time & invitations",
+        intro: "Talk about interests, invite someone out, and find another plan when the first idea does not work.",
+        goals: ["talk about what I enjoy", "invite and respond politely", "agree on a time and place"],
+        phrases: [["Was machst du gern in deiner Freizeit?", "What do you like doing in your free time?"], ["Ich gehe gern ins Kino.", "I like going to the cinema."], ["Hast du am Samstag Zeit?", "Are you free on Saturday?"], ["Wollen wir zusammen kochen?", "Shall we cook together?"], ["Ja, gern!", "Yes, gladly!"], ["Leider kann ich da nicht.", "Unfortunately I can't then."], ["Wie wäre es mit Sonntag?", "How about Sunday?"], ["Das passt mir gut.", "That works well for me."], ["Treffen wir uns um sechs?", "Shall we meet at six?"], ["Abgemacht!", "Agreed!"]],
+        coach: "Speech focus: make invitations sound open with rising melody; make the final agreement sound certain with falling melody.",
+        dialogueTitle: "Making a plan",
+        dialogue: [["A", "Hast du am Samstagabend Zeit?", "Are you free on Saturday evening?"], ["B", "Ja. Was möchtest du machen?", "Yes. What would you like to do?"], ["A", "Wollen wir ins Kino gehen?", "Shall we go to the cinema?"], ["B", "Gern, aber erst später. Ich muss bis sechs arbeiten.", "Gladly, but only later. I have to work until six."], ["A", "Kein Problem. Treffen wir uns um halb acht vor dem Kino?", "No problem. Shall we meet at half past seven in front of the cinema?"], ["B", "Das passt mir gut. Abgemacht!", "That works well for me. Agreed!"]],
+        variations: ["The first day does not work", "Choose a free activity", "Invite a third person"],
+        challenge: "Make a complete weekend plan together. Discuss two ideas, reject one politely, and agree on the activity, day, time, and meeting place.",
+        checks: ["I made a clear invitation", "I accepted or declined politely", "I suggested an alternative", "We confirmed all four details"],
+        homework: "Leave a one-minute spoken invitation for Tim. Include an activity, two possible times, a place, and a question."
+      },
+      {
+        level: "A1.2", icon: "📅", title: "Ich brauche einen Termin", topic: "Appointments",
+        intro: "Arrange an appointment, handle an unavailable time, and confirm names, dates, and times clearly.",
+        goals: ["ask for an appointment", "offer or reject a time", "repeat and confirm key details"],
+        phrases: [["Ich brauche einen Termin.", "I need an appointment."], ["Wann passt es Ihnen?", "When suits you?"], ["Geht es am Dienstagvormittag?", "Would Tuesday morning work?"], ["Da kann ich leider nicht.", "Unfortunately I can't then."], ["Haben Sie etwas später?", "Do you have anything later?"], ["Am Mittwoch um Viertel nach drei.", "On Wednesday at quarter past three."], ["Wie ist Ihr Name, bitte?", "What is your name, please?"], ["Können Sie das buchstabieren?", "Can you spell that?"], ["Also: Mittwoch um 15:15 Uhr.", "So: Wednesday at 3:15 p.m."], ["Genau. Vielen Dank.", "Exactly. Thank you very much."]],
+        coach: "Speech focus: say dates and times in short groups, then repeat them back. Confirmation is part of the conversation, not a test.",
+        dialogueTitle: "Calling for an appointment",
+        dialogue: [["A", "Guten Tag. Ich brauche einen Termin, bitte.", "Good afternoon. I need an appointment, please."], ["B", "Geht es am Dienstag um zehn Uhr?", "Would Tuesday at ten work?"], ["A", "Da kann ich leider nicht. Haben Sie etwas am Nachmittag?", "Unfortunately I can't then. Do you have anything in the afternoon?"], ["B", "Ja, am Mittwoch um Viertel nach drei.", "Yes, on Wednesday at quarter past three."], ["A", "Das passt. Also: Mittwoch um 15:15 Uhr?", "That works. So: Wednesday at 3:15 p.m.?"], ["B", "Genau. Auf Wiederhören.", "Exactly. Goodbye."]],
+        variations: ["Change the service and date", "Mishear the time and confirm it", "Reschedule an existing appointment"],
+        challenge: "Book and then reschedule an appointment by phone. Confirm the date, time, name, and reason before ending the call.",
+        checks: ["I stated what I needed", "I negotiated a suitable time", "I confirmed the details aloud", "I used the formal Sie register"],
+        homework: "Record both sides of a 45-second appointment call. Pause naturally between the two roles and confirm every number."
+      },
+      {
+        level: "A1.2", icon: "☕", title: "Für mich einen Kaffee", topic: "At a café",
+        intro: "Order naturally, ask for a change, pay, and solve a small mistake politely.",
+        goals: ["order and change an item", "ask for and understand the bill", "solve a simple problem politely"],
+        phrases: [["Ich hätte gern einen Kaffee.", "I'd like a coffee."], ["Für mich bitte die Suppe.", "The soup for me, please."], ["Mit Milch, aber ohne Zucker.", "With milk, but without sugar."], ["Sonst noch etwas?", "Anything else?"], ["Nein, das ist alles.", "No, that's all."], ["Kann ich bitte zahlen?", "Can I pay, please?"], ["Zusammen oder getrennt?", "Together or separately?"], ["Getrennt, bitte.", "Separately, please."], ["Die Rechnung stimmt nicht ganz.", "The bill isn't quite right."], ["Entschuldigung, ich habe Tee bestellt.", "Excuse me, I ordered tea."]],
+        coach: "Speech focus: soften requests with bitte and a calm melody. A polite problem can still be clear and direct.",
+        dialogueTitle: "A small café mix-up",
+        dialogue: [["A", "Guten Tag. Was darf es sein?", "Good afternoon. What can I get you?"], ["B", "Ich hätte gern einen Tee mit Milch und die Suppe.", "I'd like a tea with milk and the soup."], ["A", "Gern. Sonst noch etwas?", "Gladly. Anything else?"], ["B", "Nein, das ist alles, danke.", "No, that's all, thank you."], ["A", "Hier ist Ihr Kaffee.", "Here is your coffee."], ["B", "Entschuldigung, ich habe Tee bestellt.", "Excuse me, I ordered tea."], ["A", "Oh, natürlich. Einen Moment, bitte.", "Oh, of course. One moment, please."], ["B", "Danke schön.", "Thank you very much."]],
+        variations: ["Change every order item", "One item is unavailable", "The bill has one wrong item"],
+        challenge: "Complete a café visit from greeting to payment. Order two items, change one detail, and resolve one surprise politely.",
+        checks: ["I ordered in complete chunks", "I understood a follow-up question", "I explained the problem clearly", "I closed the exchange politely"],
+        homework: "Use a real menu and record a complete order for two people. Add one special request and ask to pay separately."
+      },
+      {
+        level: "A1.2", icon: "🛍️", title: "Kann ich das anprobieren?", topic: "Shopping",
+        intro: "Ask for an item, discuss size and fit, compare two options, and decide what to buy.",
+        goals: ["ask for an item and size", "say how something fits", "compare and choose"],
+        phrases: [["Ich suche eine Jacke.", "I'm looking for a jacket."], ["Haben Sie die auch in Blau?", "Do you also have it in blue?"], ["Welche Größe brauchen Sie?", "What size do you need?"], ["Kann ich sie anprobieren?", "Can I try it on?"], ["Wo ist die Umkleidekabine?", "Where is the changing room?"], ["Sie ist zu groß / zu klein.", "It's too big / too small."], ["Die Jacke passt gut.", "The jacket fits well."], ["Die blaue steht dir besser.", "The blue one suits you better."], ["Wie viel kostet sie?", "How much does it cost?"], ["Gut, ich nehme sie.", "Good, I'll take it."]],
+        coach: "Speech focus: keep pronouns clear—die Jacke → sie. Pointing can support meaning, but say the full phrase too.",
+        dialogueTitle: "Choosing a jacket",
+        dialogue: [["A", "Guten Tag. Kann ich Ihnen helfen?", "Good afternoon. Can I help you?"], ["B", "Ja, ich suche eine leichte Jacke in Größe M.", "Yes, I'm looking for a light jacket in size M."], ["A", "Wie finden Sie diese blaue Jacke?", "What do you think of this blue jacket?"], ["B", "Schön. Kann ich sie anprobieren?", "Nice. Can I try it on?"], ["A", "Natürlich. Die Umkleidekabine ist dort.", "Of course. The changing room is over there."], ["B", "Sie passt gut. Wie viel kostet sie?", "It fits well. How much does it cost?"], ["A", "Sie kostet 59 Euro.", "It costs 59 euros."], ["B", "Gut, ich nehme sie.", "Good, I'll take it."]],
+        variations: ["The size is wrong", "Compare two colours and prices", "Return an item politely"],
+        challenge: "Role-play a purchase with two options. Ask about colour and size, try both, compare them, and make a final choice.",
+        checks: ["I explained what I wanted", "I asked useful follow-up questions", "I described fit and colour", "I compared before choosing"],
+        homework: "Choose two items you own and record a shop dialogue comparing their size, colour, price, and fit."
+      },
+      {
+        level: "A2.1", icon: "🚉", title: "Wie komme ich zum Bahnhof?", topic: "Directions & transport",
+        intro: "Ask for a route, understand public-transport instructions, and check details when the route is unclear.",
+        goals: ["ask how to reach a place", "give a short route", "check a misunderstood direction"],
+        phrases: [["Wie komme ich zum Bahnhof?", "How do I get to the station?"], ["Gehen Sie bis zur Ampel.", "Go as far as the traffic light."], ["Dann die zweite Straße links.", "Then the second street on the left."], ["Nehmen Sie den Bus Nummer fünf.", "Take bus number five."], ["Steigen Sie am Rathaus um.", "Change at city hall."], ["Wie viele Haltestellen sind es?", "How many stops is it?"], ["Ist das weit zu Fuß?", "Is it far on foot?"], ["Meinen Sie links oder rechts?", "Do you mean left or right?"], ["Können Sie das langsamer sagen?", "Can you say that more slowly?"], ["Jetzt habe ich es verstanden.", "Now I've understood it."]],
+        coach: "Speech focus: chunk routes into one instruction at a time. The listener repeats each landmark before the next step.",
+        dialogueTitle: "Finding the right bus",
+        dialogue: [["A", "Entschuldigung, wie komme ich zum Stadtmuseum?", "Excuse me, how do I get to the city museum?"], ["B", "Nehmen Sie hier den Bus Nummer fünf.", "Take bus number five here."], ["A", "Muss ich umsteigen?", "Do I have to change?"], ["B", "Ja, am Rathaus. Dort nehmen Sie die Linie acht.", "Yes, at city hall. There you take line eight."], ["A", "Können Sie das bitte wiederholen?", "Can you repeat that, please?"], ["B", "Erst die Fünf, dann am Rathaus die Acht.", "First the five, then the eight at city hall."], ["A", "Jetzt habe ich es verstanden. Vielen Dank!", "Now I've understood it. Thank you very much!"], ["B", "Gern geschehen.", "You're welcome."]],
+        variations: ["Give a walking route", "Add a missed stop", "Use a simple map and new destination"],
+        challenge: "Guide your partner across a map using at least four steps. Your partner must interrupt, confirm, and retell the whole route.",
+        checks: ["I used clear landmarks", "I understood transport instructions", "I checked one unclear detail", "I could retell the route"],
+        homework: "Explain aloud how to travel from your home to one familiar place. Include transport, one change, and three landmarks."
+      },
+      {
+        level: "A2.1", icon: "🏠", title: "So wohne ich", topic: "Home & neighborhood",
+        intro: "Describe your home and neighborhood, ask for details, and say what you like or would change.",
+        goals: ["describe my home simply", "locate rooms and places", "say what I like and why"],
+        phrases: [["Wie wohnst du?", "What is your living situation?"], ["Ich wohne in einer kleinen Wohnung.", "I live in a small apartment."], ["Die Wohnung hat drei Zimmer.", "The apartment has three rooms."], ["Mein Lieblingszimmer ist die Küche.", "My favourite room is the kitchen."], ["Neben dem Fenster steht ein Tisch.", "A table stands beside the window."], ["In meiner Nähe gibt es einen Park.", "There is a park near me."], ["Was gefällt dir an deinem Viertel?", "What do you like about your neighborhood?"], ["Es ist ruhig und gut angebunden.", "It's quiet and well connected."], ["Ich hätte gern einen Balkon.", "I'd like to have a balcony."], ["Komm doch mal vorbei!", "Come by sometime!"]],
+        coach: "Speech focus: paint the picture from big to small—home, rooms, one room, then exact object locations.",
+        dialogueTitle: "A new apartment",
+        dialogue: [["A", "Du hast eine neue Wohnung, oder? Wie wohnst du jetzt?", "You have a new apartment, right? What is it like?"], ["B", "Ja, sie ist klein, aber sehr hell. Sie hat zwei Zimmer.", "Yes, it's small but very bright. It has two rooms."], ["A", "Was gefällt dir besonders?", "What do you especially like?"], ["B", "Die Küche. Sie ist groß, und vor dem Fenster steht ein Tisch.", "The kitchen. It's large, and a table stands in front of the window."], ["A", "Und wie ist das Viertel?", "And what is the neighborhood like?"], ["B", "Ruhig. In meiner Nähe gibt es einen Park und viele Cafés.", "Quiet. Near me there is a park and many cafés."], ["A", "Das klingt schön.", "That sounds nice."], ["B", "Komm doch am Samstag vorbei!", "Come by on Saturday!"]],
+        variations: ["Describe your real home", "Design an ideal apartment", "Compare two neighborhoods"],
+        challenge: "Give your partner a spoken tour of a real or imagined home, then answer five unprepared questions about it.",
+        checks: ["I moved from general to specific", "I located three things", "I described the neighborhood", "I gave a preference and reason"],
+        homework: "Walk through your home and record a one-minute audio tour. Describe three rooms and where five objects are."
+      },
+      {
+        level: "A2.1", icon: "🩺", title: "Was fehlt Ihnen?", topic: "Health",
+        intro: "Describe common symptoms, answer a doctor's questions, understand simple advice, and ask for clarification.",
+        goals: ["say what hurts and since when", "answer simple health questions", "understand and confirm advice"],
+        phrases: [["Was fehlt Ihnen?", "What's wrong?"], ["Ich habe starke Kopfschmerzen.", "I have a bad headache."], ["Mein Hals tut weh.", "My throat hurts."], ["Seit wann haben Sie das?", "How long have you had that?"], ["Seit zwei Tagen.", "For two days."], ["Haben Sie auch Fieber?", "Do you also have a fever?"], ["Sie sollten viel trinken.", "You should drink a lot."], ["Nehmen Sie diese Tabletten.", "Take these tablets."], ["Wie oft soll ich sie nehmen?", "How often should I take them?"], ["Könnten Sie das langsamer erklären?", "Could you explain that more slowly?"]],
+        coach: "Speech focus: body part + tut weh, or plural body part + tun weh. Learn each symptom as a complete spoken chunk.",
+        dialogueTitle: "At the doctor's",
+        dialogue: [["A", "Guten Morgen. Was fehlt Ihnen?", "Good morning. What's wrong?"], ["B", "Ich habe Halsschmerzen und bin sehr müde.", "I have a sore throat and am very tired."], ["A", "Seit wann haben Sie die Schmerzen?", "How long have you had the pain?"], ["B", "Seit zwei Tagen. Heute habe ich auch Fieber.", "For two days. Today I also have a fever."], ["A", "Sie sollten zu Hause bleiben und viel trinken.", "You should stay home and drink a lot."], ["B", "Wie lange soll ich zu Hause bleiben?", "How long should I stay home?"], ["A", "Mindestens zwei Tage.", "At least two days."], ["B", "Gut, danke. Auf Wiedersehen.", "Good, thank you. Goodbye."]],
+        variations: ["Change the symptoms", "Ask about medicine", "You do not understand one instruction"],
+        challenge: "Complete a doctor-patient conversation. Describe three symptoms, answer when they began, and repeat the advice back to confirm it.",
+        checks: ["I described symptoms clearly", "I answered since when", "I asked one follow-up", "I confirmed the advice"],
+        homework: "Record a 60-second doctor dialogue using a different health problem. Include symptoms, duration, advice, and one clarification."
+      },
+      {
+        level: "A2.1", icon: "🕰️", title: "Wie war dein Wochenende?", topic: "Past experiences",
+        intro: "Tell a short story about the weekend, sequence events, and keep the listener involved with questions and reactions.",
+        goals: ["say what I did in the past", "put events in a clear order", "ask about details and feelings"],
+        phrases: [["Wie war dein Wochenende?", "How was your weekend?"], ["Was hast du gemacht?", "What did you do?"], ["Am Samstag bin ich nach Jerusalem gefahren.", "On Saturday I went to Jerusalem."], ["Ich habe Freunde getroffen.", "I met friends."], ["Zuerst haben wir Kaffee getrunken.", "First we drank coffee."], ["Danach sind wir spazieren gegangen.", "Afterwards we went for a walk."], ["Mit wem warst du dort?", "Who were you there with?"], ["Wie hat es dir gefallen?", "How did you like it?"], ["Es war wirklich schön.", "It was really nice."], ["Schade, dass ich nicht dabei war!", "It's a pity I wasn't there!"]],
+        coach: "Speech focus: keep the helper early and land firmly on the final participle: Ich HABE Freunde GETROFFEN.",
+        dialogueTitle: "A weekend story",
+        dialogue: [["A", "Wie war dein Wochenende?", "How was your weekend?"], ["B", "Sehr schön. Am Samstag bin ich nach Akko gefahren.", "Very nice. On Saturday I went to Akko."], ["A", "Mit wem warst du dort?", "Who were you there with?"], ["B", "Mit zwei Freunden. Zuerst haben wir den Markt besucht.", "With two friends. First we visited the market."], ["A", "Und was habt ihr danach gemacht?", "And what did you do afterwards?"], ["B", "Wir haben am Meer gegessen und sind lange spazieren gegangen.", "We ate by the sea and went for a long walk."], ["A", "Wie hat es dir gefallen?", "How did you like it?"], ["B", "Sehr gut. Das Wetter war perfekt.", "Very much. The weather was perfect."]],
+        variations: ["Tell a true weekend", "One event went wrong", "Ask two extra detail questions"],
+        challenge: "Tell a two-minute weekend story with at least five events. Your partner reacts and asks four questions you did not prepare.",
+        checks: ["I used past forms consistently", "My events had a clear order", "I added people, place, and feeling", "I answered unprepared questions"],
+        homework: "Record yesterday as a six-event story. Use zuerst, dann, danach, später, and zum Schluss to make it easy to follow."
+      },
+      {
+        level: "A2.1", icon: "🧳", title: "Ich habe reserviert", topic: "Travel & hotel",
+        intro: "Check in, ask about hotel services, and solve a simple room problem without switching languages.",
+        goals: ["check in and give booking details", "ask about hotel services", "report a room problem and request a solution"],
+        phrases: [["Ich habe ein Zimmer reserviert.", "I've reserved a room."], ["Auf welchen Namen?", "Under what name?"], ["Ich bleibe drei Nächte.", "I'm staying for three nights."], ["Ist das Frühstück inklusive?", "Is breakfast included?"], ["Wie lautet das WLAN-Passwort?", "What is the Wi-Fi password?"], ["Wann muss ich auschecken?", "When do I have to check out?"], ["Die Heizung funktioniert nicht.", "The heating doesn't work."], ["Im Bad gibt es kein warmes Wasser.", "There is no hot water in the bathroom."], ["Könnte ich ein anderes Zimmer bekommen?", "Could I get another room?"], ["Wir kümmern uns sofort darum.", "We'll take care of it immediately."]],
+        coach: "Speech focus: lead with the problem, then add one detail and one requested solution. Short sentences work best at a reception desk.",
+        dialogueTitle: "A problem at reception",
+        dialogue: [["A", "Guten Abend. Was kann ich für Sie tun?", "Good evening. What can I do for you?"], ["B", "Ich habe ein Zimmer reserviert, auf den Namen Cohen.", "I've reserved a room under the name Cohen."], ["A", "Ja, für drei Nächte. Hier ist Ihre Schlüsselkarte.", "Yes, for three nights. Here is your key card."], ["B", "Danke. Ist das Frühstück inklusive?", "Thank you. Is breakfast included?"], ["A", "Ja, von sieben bis zehn Uhr.", "Yes, from seven until ten."], ["B", "Entschuldigung, in meinem Zimmer funktioniert die Heizung nicht.", "Excuse me, the heating in my room doesn't work."], ["A", "Das tut mir leid. Wir kümmern uns sofort darum.", "I'm sorry. We'll take care of it immediately."], ["B", "Vielen Dank.", "Thank you very much."]],
+        variations: ["Ask three check-in questions", "Report a different room problem", "The hotel offers two solutions"],
+        challenge: "Check in, get three pieces of information, then report a room problem and agree on a practical solution.",
+        checks: ["I gave the booking details", "I asked about useful services", "I described the problem specifically", "I asked for and accepted a solution"],
+        homework: "Record a hotel call before arrival. Confirm your booking, arrival time, breakfast, parking, and one special request."
+      },
+      {
+        level: "A2.1", icon: "💼", title: "Was machst du beruflich?", topic: "Work & learning",
+        intro: "Talk about work or study, daily responsibilities, what you enjoy, and what you want to do next.",
+        goals: ["describe my work or studies", "talk about responsibilities", "explain a future goal"],
+        phrases: [["Was machst du beruflich?", "What do you do for work?"], ["Ich arbeite als …", "I work as …"], ["Ich mache gerade eine Ausbildung.", "I'm currently doing vocational training."], ["Was sind deine Aufgaben?", "What are your responsibilities?"], ["Ich spreche oft mit Kunden.", "I often speak with customers."], ["Wie gefällt dir deine Arbeit?", "How do you like your work?"], ["Sie ist interessant, aber manchmal stressig.", "It's interesting but sometimes stressful."], ["Was gefällt dir besonders?", "What do you especially like?"], ["Ich lerne gern neue Dinge.", "I like learning new things."], ["Später möchte ich …", "Later I'd like to …"]],
+        coach: "Speech focus: do not list facts—add a contrast or reason with aber or weil, then invite the next question.",
+        dialogueTitle: "Talking about work",
+        dialogue: [["A", "Was machst du beruflich?", "What do you do for work?"], ["B", "Ich arbeite als Grafikdesigner. Und du?", "I work as a graphic designer. And you?"], ["A", "Ich studiere Informatik und arbeite am Wochenende in einem Café.", "I study computer science and work in a café at weekends."], ["B", "Wie gefällt dir die Arbeit im Café?", "How do you like the work in the café?"], ["A", "Ganz gut. Sie ist manchmal stressig, aber meine Kollegen sind nett.", "Quite good. It's sometimes stressful, but my colleagues are nice."], ["B", "Und was möchtest du später machen?", "And what would you like to do later?"], ["A", "Ich möchte als Programmierer arbeiten.", "I'd like to work as a programmer."], ["B", "Das klingt interessant.", "That sounds interesting."]],
+        variations: ["Describe a past job", "Invent an unusual profession", "Compare work and study"],
+        challenge: "Have a three-minute work-and-study interview. Describe tasks, schedule, one positive, one difficulty, and a future goal.",
+        checks: ["I described my role and tasks", "I gave an opinion with a reason", "I talked about a future goal", "I asked relevant follow-ups"],
+        homework: "Record a one-minute answer to Was machst du beruflich? Add tasks, people, schedule, your opinion, and what you want next."
+      },
+      {
+        level: "A2.2", icon: "📞", title: "Kann ich etwas ausrichten?", topic: "Phone calls",
+        intro: "Open and close a phone call, ask for someone, leave a clear message, and confirm names and numbers.",
+        goals: ["manage a simple phone opening", "leave or take a message", "confirm spelling and a phone number"],
+        phrases: [["Guten Tag, hier ist Motia Cohen.", "Good afternoon, this is Motia Cohen."], ["Kann ich bitte mit Frau Klein sprechen?", "May I speak with Ms Klein, please?"], ["Einen Moment, bitte.", "One moment, please."], ["Sie ist leider nicht da.", "Unfortunately she isn't here."], ["Kann ich etwas ausrichten?", "Can I take a message?"], ["Sagen Sie ihr bitte, dass …", "Please tell her that …"], ["Können Sie den Namen buchstabieren?", "Can you spell the name?"], ["Wie war die Nummer noch einmal?", "What was the number again?"], ["Sie soll mich bitte zurückrufen.", "She should call me back, please."], ["Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
+        coach: "Speech focus: without gestures, names and numbers need extra space. Group the number, repeat it, and ask for confirmation.",
+        dialogueTitle: "Leaving a message",
+        dialogue: [["A", "Praxis Wagner, guten Tag.", "Wagner practice, good afternoon."], ["B", "Guten Tag, hier ist Motia Cohen. Kann ich mit Frau Wagner sprechen?", "Good afternoon, this is Motia Cohen. May I speak with Ms Wagner?"], ["A", "Sie ist leider nicht da. Kann ich etwas ausrichten?", "Unfortunately she isn't here. Can I take a message?"], ["B", "Ja, sagen Sie ihr bitte, dass ich morgen nicht kommen kann.", "Yes, please tell her that I can't come tomorrow."], ["A", "Gern. Wie war Ihr Nachname noch einmal?", "Gladly. What was your surname again?"], ["B", "Cohen: C-O-H-E-N.", "Cohen: C-O-H-E-N."], ["A", "Danke. Frau Wagner ruft Sie zurück.", "Thank you. Ms Wagner will call you back."], ["B", "Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
+        variations: ["Leave a new message", "Confirm a six-digit number", "The connection is bad"],
+        challenge: "Handle two phone calls: leave one complete message, then take a message and repeat every detail back accurately.",
+        checks: ["I identified myself clearly", "My message included who, what, and when", "I checked spelling and numbers", "I closed the call naturally"],
+        homework: "Record a 45-second voicemail with your name, reason, key detail, callback number, and a polite ending."
+      },
+      {
+        level: "A2.2", icon: "🎉", title: "Was soll ich mitbringen?", topic: "Invitations & celebrations",
+        intro: "Invite someone, respond warmly, discuss what to bring, and coordinate help for a small celebration.",
+        goals: ["give and respond to an invitation", "offer help and discuss what to bring", "handle a late arrival or change"],
+        phrases: [["Ich feiere am Samstag meinen Geburtstag.", "I'm celebrating my birthday on Saturday."], ["Hast du Lust zu kommen?", "Would you like to come?"], ["Danke für die Einladung!", "Thanks for the invitation!"], ["Ich komme sehr gern.", "I'd love to come."], ["Was soll ich mitbringen?", "What should I bring?"], ["Bring bitte etwas zu trinken mit.", "Please bring something to drink."], ["Brauchst du noch Hilfe?", "Do you still need help?"], ["Ich komme wahrscheinlich etwas später.", "I'll probably come a little later."], ["Kein Problem. Sag einfach Bescheid.", "No problem. Just let me know."], ["Ich freue mich schon!", "I'm looking forward to it!"]],
+        coach: "Speech focus: sound warm before discussing logistics—Danke für die Einladung! first, details second.",
+        dialogueTitle: "Planning a birthday evening",
+        dialogue: [["A", "Ich feiere am Samstag meinen Geburtstag. Hast du Lust zu kommen?", "I'm celebrating my birthday on Saturday. Would you like to come?"], ["B", "Ja, sehr gern! Um wie viel Uhr geht es los?", "Yes, I'd love to! What time does it start?"], ["A", "Um sieben bei mir zu Hause.", "At seven at my home."], ["B", "Super. Was soll ich mitbringen?", "Great. What should I bring?"], ["A", "Vielleicht etwas zu trinken. Ich koche schon.", "Perhaps something to drink. I'm already cooking."], ["B", "Gern. Ich komme wahrscheinlich etwas später, gegen halb acht.", "Gladly. I'll probably come a little later, around half past seven."], ["A", "Kein Problem. Sag einfach Bescheid.", "No problem. Just let me know."], ["B", "Mache ich. Ich freue mich schon!", "I will. I'm looking forward to it!"]],
+        variations: ["Decline and explain why", "Offer two kinds of help", "Change the place at short notice"],
+        challenge: "Plan a small celebration together. Invite, confirm the details, divide three jobs, and solve one last-minute change.",
+        checks: ["I responded warmly", "I asked for practical details", "I offered or requested help", "I handled a change calmly"],
+        homework: "Record an invitation and then your own reply. Include who, what, when, where, what to bring, and one question."
+      },
+      {
+        level: "A2.2", icon: "⚖️", title: "Welche Option ist besser?", topic: "Comparing & choosing",
+        intro: "Compare two options, say what matters to you, and reach a shared decision.",
+        goals: ["compare price, quality, and convenience", "state what matters most", "agree on a choice together"],
+        phrases: [["Welche Option findest du besser?", "Which option do you find better?"], ["Ich finde das Hotel am Meer besser.", "I find the hotel by the sea better."], ["Es ist günstiger als das andere.", "It's cheaper than the other one."], ["Beide sind gleich weit entfernt.", "Both are equally far away."], ["Das eine ist so ruhig wie das andere.", "One is as quiet as the other."], ["Was ist dir wichtiger?", "What is more important to you?"], ["Mir ist die Lage am wichtigsten.", "The location is most important to me."], ["Einerseits ist es günstig, andererseits ist es weit weg.", "On one hand it's cheap; on the other it's far away."], ["Dann nehmen wir die erste Option.", "Then we'll take the first option."], ["Das ist eine gute Wahl.", "That's a good choice."]],
+        coach: "Speech focus: compare one feature at a time, pause, and let your partner respond before adding the next feature.",
+        dialogueTitle: "Choosing a place to stay",
+        dialogue: [["A", "Welches Hotel findest du besser?", "Which hotel do you find better?"], ["B", "Das Hotel am Bahnhof. Es ist günstiger und zentraler.", "The hotel at the station. It's cheaper and more central."], ["A", "Stimmt, aber das Zimmer ist kleiner.", "True, but the room is smaller."], ["B", "Was ist dir wichtiger: die Größe oder die Lage?", "What's more important to you: size or location?"], ["A", "Die Lage. Wir bleiben sowieso nur zwei Nächte.", "The location. We're only staying two nights anyway."], ["B", "Dann nehmen wir das Hotel am Bahnhof.", "Then we'll take the hotel at the station."], ["A", "Einverstanden. Das ist eine gute Wahl.", "Agreed. That's a good choice."]],
+        variations: ["Compare two apartments", "Choose between train and car", "Each person prefers a different option"],
+        challenge: "Compare two real options using four criteria. Ask what matters, disagree once politely, and make one shared choice.",
+        checks: ["I made clear comparisons", "I asked about priorities", "I gave a reason for my preference", "We reached a shared decision"],
+        homework: "Choose two places, products, or plans and record a one-minute comparison ending with a clear decision and reason."
+      },
+      {
+        level: "A2.2", icon: "💬", title: "Was hältst du davon?", topic: "Opinions & reasons",
+        intro: "Give a simple opinion, ask why, agree or disagree politely, and support an idea with an example.",
+        goals: ["state an opinion with a reason", "ask for clarification or an example", "agree or disagree politely"],
+        phrases: [["Was hältst du davon?", "What do you think of that?"], ["Ich denke, dass das eine gute Idee ist.", "I think that's a good idea."], ["Meiner Meinung nach ist das zu teuer.", "In my opinion that's too expensive."], ["Ich finde es gut, weil es praktisch ist.", "I find it good because it's practical."], ["Da stimme ich dir zu.", "I agree with you there."], ["Da bin ich nicht ganz deiner Meinung.", "I don't completely agree with you there."], ["Warum meinst du das?", "Why do you think that?"], ["Kannst du ein Beispiel geben?", "Can you give an example?"], ["Das kommt darauf an.", "That depends."], ["Jetzt verstehe ich deinen Punkt.", "Now I understand your point."]],
+        coach: "Speech focus: disagree with the idea, not the person. Start with partial agreement or a calm Da bin ich nicht ganz deiner Meinung.",
+        dialogueTitle: "Learning online or in class?",
+        dialogue: [["A", "Was findest du besser: online lernen oder im Kurs?", "What do you find better: learning online or in a class?"], ["B", "Ich finde einen Kurs besser, weil man direkt sprechen kann.", "I find a class better because you can speak directly."], ["A", "Da stimme ich dir zu. Aber online ist flexibler.", "I agree with you there. But online is more flexible."], ["B", "Das stimmt. Man kann lernen, wann man Zeit hat.", "That's true. You can learn when you have time."], ["A", "Also ist vielleicht eine Mischung am besten.", "So perhaps a mixture is best."], ["B", "Ja, zwei Tage online und einmal zusammen.", "Yes, two days online and once together."], ["A", "Das klingt nach einem guten Plan.", "That sounds like a good plan."]],
+        variations: ["Discuss city or country life", "Discuss cooking or eating out", "Change your mind after an example"],
+        challenge: "Discuss a familiar choice for four minutes. Give two reasons, disagree politely, ask for an example, and summarize your common ground.",
+        checks: ["I gave reasons, not only opinions", "I invited my partner's view", "I disagreed politely", "I reacted to an example"],
+        homework: "Record one minute on a familiar choice. Give your view, two reasons, the other side, and a short conclusion."
+      },
+      {
+        level: "A2.2", icon: "🗓️", title: "Lass uns das zusammen planen", topic: "Planning together",
+        intro: "Use the three core Goethe A2 speaking moves: suggest, respond, and agree on practical details together.",
+        goals: ["make and respond to suggestions", "negotiate time, place, and jobs", "summarize a complete plan"],
+        phrases: [["Was wollen wir am Wochenende machen?", "What do we want to do at the weekend?"], ["Wie wäre es mit einem Ausflug?", "How about an excursion?"], ["Das ist eine gute Idee.", "That's a good idea."], ["Leider geht es am Samstag nicht.", "Unfortunately Saturday doesn't work."], ["Wann und wo treffen wir uns?", "When and where shall we meet?"], ["Wer bringt was mit?", "Who will bring what?"], ["Ich kümmere mich um das Essen.", "I'll take care of the food."], ["Du könntest die Tickets kaufen.", "You could buy the tickets."], ["Fehlt noch etwas?", "Is anything still missing?"], ["Also, so machen wir es.", "So that's what we'll do."]],
+        coach: "Speech focus: every suggestion needs a response. Build the plan as a chain: idea → reaction → detail → confirmation.",
+        dialogueTitle: "Planning a day trip",
+        dialogue: [["A", "Was wollen wir am Sonntag machen?", "What do we want to do on Sunday?"], ["B", "Wie wäre es mit einem Ausflug nach Haifa?", "How about an excursion to Haifa?"], ["A", "Gute Idee. Fahren wir mit dem Zug?", "Good idea. Shall we go by train?"], ["B", "Ja. Treffen wir uns um neun am Bahnhof?", "Yes. Shall we meet at nine at the station?"], ["A", "Das passt. Ich kaufe die Tickets.", "That works. I'll buy the tickets."], ["B", "Super. Dann kümmere ich mich um Essen und Wasser.", "Great. Then I'll take care of food and water."], ["A", "Fehlt noch etwas?", "Is anything still missing?"], ["B", "Nein. Also: Sonntag um neun am Bahnhof.", "No. So: Sunday at nine at the station."], ["A", "Genau, so machen wir es.", "Exactly, that's what we'll do."]],
+        variations: ["Plan a birthday picnic", "The budget is only 100 shekels", "Weather forces a new plan"],
+        challenge: "Complete a Goethe-style planning task in four minutes. Agree on what, when, where, transport, cost, and who does what.",
+        checks: ["I made more than one suggestion", "I responded to my partner's ideas", "We divided the practical jobs", "I summarized the final plan"],
+        homework: "Choose any weekend activity and record both sides of a planning conversation. End by summarizing all six practical details."
+      },
+      {
+        level: "A2.2", icon: "🌟", title: "Der Gesprächsparcours", topic: "A2 conversation workshop",
+        intro: "Bring the course together in a sequence of short, realistic conversations with less support each round.",
+        goals: ["handle familiar everyday exchanges", "talk about my life and experiences", "plan something and repair misunderstandings"],
+        phrases: [["Lass mich kurz überlegen.", "Let me think for a moment."], ["Wie meinst du das genau?", "What exactly do you mean?"], ["Kannst du ein Beispiel geben?", "Can you give an example?"], ["Ich glaube, ich habe dich falsch verstanden.", "I think I misunderstood you."], ["Was ich sagen wollte, ist …", "What I wanted to say is …"], ["Bei mir ist das ähnlich.", "It's similar for me."], ["Und was denkst du darüber?", "And what do you think about it?"], ["Also, wir haben Folgendes geplant: …", "So, we've planned the following: …"], ["Sind wir uns einig?", "Do we agree?"], ["Das Gespräch hat Spaß gemacht.", "I enjoyed the conversation."]],
+        coach: "Speech focus: fluency is not speed. Pause, use a repair phrase, and continue; staying in the conversation is the goal.",
+        dialogueTitle: "Planning after sharing news",
+        dialogue: [["A", "Wie war deine Woche?", "How was your week?"], ["B", "Ziemlich gut. Ich habe viel gearbeitet, aber gestern war ich am Meer.", "Quite good. I worked a lot, but yesterday I was at the sea."], ["A", "Das klingt schön. Wollen wir am Wochenende auch etwas draußen machen?", "That sounds nice. Shall we also do something outdoors at the weekend?"], ["B", "Gern. Wie wäre es mit einem Picknick?", "Gladly. How about a picnic?"], ["A", "Gute Idee, aber am Samstag soll es regnen.", "Good idea, but it's supposed to rain on Saturday."], ["B", "Dann treffen wir uns am Sonntag. Ich kümmere mich um das Essen.", "Then we'll meet on Sunday. I'll take care of the food."], ["A", "Perfekt. Ich bringe Getränke mit. Wo treffen wir uns?", "Perfect. I'll bring drinks. Where shall we meet?"], ["B", "Um elf am Parkeingang. Sind wir uns einig?", "At eleven at the park entrance. Do we agree?"], ["A", "Ja, so machen wir es.", "Yes, that's what we'll do."]],
+        variations: ["Add a café problem", "Tell a past travel story first", "Change the plan after a misunderstanding"],
+        challenge: "Complete three stations: a two-minute personal interview, a two-minute everyday problem, and a four-minute plan together. Use German to repair every gap.",
+        checks: ["I answered and asked questions", "I told a connected past story", "I solved an everyday problem", "I planned together and repaired gaps"],
+        homework: "Record a final two-minute voice note about what you can now do in German, your best class moment, and your next speaking goal."
       }
     ];
 
-    const practice = [
-      {
-        title: "A first meeting",
-        turns: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I’m Tim. What is your name?"], ["B", "Hallo! Ich bin Motia.", "Hello! I’m Motia."], ["A", "Wie geht’s?", "How are you?"], ["B", "Mir geht’s gut, danke. Und dir?", "I’m well, thanks. And you?"], ["A", "Sehr gut!", "Very good!"], ["B", "Tschüss, Tim!", "Bye, Tim!"]],
-        variations: ["Choose a different mood", "Begin with Guten Morgen", "Swap who asks first"]
-      },
-      {
-        title: "Spell it clearly",
-        turns: [["A", "Wie heißt du?", "What is your name?"], ["B", "Ich bin Motia.", "I’m Motia."], ["A", "Wie schreibt man das?", "How do you spell that?"], ["B", "M – O – T – I – A.", "M – O – T – I – A."], ["A", "Noch einmal, bitte.", "Once more, please."], ["B", "M – O – T – I – A.", "M – O – T – I – A."]],
-        variations: ["Spell Tim", "Use a city name", "Dictate six random digits"]
-      },
-      {
-        title: "What is it?",
-        turns: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Buch.", "That is a book."], ["A", "Und was ist das?", "And what is that?"], ["B", "Das ist eine Tasche.", "That is a bag."], ["A", "Der, die oder das?", "Der, die or das?"], ["B", "die Tasche", "the bag"]],
-        variations: ["Choose two new objects", "Ask with eyes closed", "Sort five nouns by article"]
-      },
-      {
-        title: "Meet the family",
-        turns: [["A", "Das ist meine Familie.", "This is my family."], ["B", "Wer ist das?", "Who is that?"], ["A", "Das ist meine Schwester. Sie heißt Mia.", "This is my sister. Her name is Mia."], ["B", "Und wer ist das?", "And who is that?"], ["A", "Das ist mein Bruder. Er heißt Leon.", "This is my brother. His name is Leon."], ["B", "Sehr schön!", "Very nice!"]],
-        variations: ["Use an imaginary family", "Add a mother or father", "Say who you have"]
-      },
-      {
-        title: "A normal morning",
-        turns: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist sieben Uhr.", "It is seven o’clock."], ["A", "Was machst du um sieben Uhr?", "What do you do at seven?"], ["B", "Ich stehe um sieben Uhr auf.", "I get up at seven."], ["A", "Und dann?", "And then?"], ["B", "Ich arbeite um neun Uhr.", "I work at nine o’clock."]],
-        variations: ["Change both times", "Use two different actions", "Put the events in reverse order"]
-      },
-      {
-        title: "At the café",
-        turns: [["A", "Guten Tag. Was möchten Sie?", "Good afternoon. What would you like?"], ["B", "Ich möchte einen Kaffee, bitte.", "I would like a coffee, please."], ["A", "Noch etwas?", "Anything else?"], ["B", "Ein Wasser, bitte.", "A water, please."], ["A", "Das macht fünf Euro.", "That comes to five euros."], ["B", "Danke schön!", "Thank you very much!"]],
-        variations: ["Choose two new items", "Change the total price", "Swap server and guest"]
-      },
-      {
-        title: "Finding the station",
-        turns: [["A", "Entschuldigung, wo ist der Bahnhof?", "Excuse me, where is the station?"], ["B", "Gehen Sie geradeaus.", "Go straight ahead."], ["A", "Geradeaus?", "Straight ahead?"], ["B", "Ja. Dann links. Der Bahnhof ist dort.", "Yes. Then left. The station is there."], ["A", "Danke schön!", "Thank you very much!"], ["B", "Gern!", "You’re welcome!"]],
-        variations: ["Ask for the café", "Give a three-step route", "Start from a new place"]
-      },
-      {
-        title: "A real conversation",
-        turns: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I’m Tim. What is your name?"], ["B", "Ich bin Motia.", "I’m Motia."], ["A", "Wie geht’s?", "How are you?"], ["B", "Sehr gut, danke. Wo ist das Café?", "Very well, thanks. Where is the café?"], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Wie bitte? Noch einmal, bitte.", "Pardon? Once more, please."], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Danke, Tim. Bis bald!", "Thanks, Tim. See you soon!"]],
-        variations: ["Add one family detail", "Add a café order", "Use a different repair phrase"]
-      }
+    const uniqueEntries = items => [...new Map(items.map(([de, en]) => [de, [de, en]])).values()];
+    const cloze = sentence => sentence.includes("…") ? sentence.replace("…", "________") : sentence.replace(/([\p{L}]+)([.!?]*)$/u, "________$2");
+    const basicsGroups = [
+      ["A", "W-Fragen", [
+        ["Wer? — Wer ist das?", "Wer ist das?", "Who? — Who is that?"],
+        ["Was? — Was machst du?", "Was machst du?", "What? — What are you doing?"],
+        ["Wo? — Wo wohnst du?", "Wo wohnst du?", "Where? — Where do you live?"],
+        ["Woher? — Woher kommst du?", "Woher kommst du?", "Where from? — Where are you from?"],
+        ["Wohin? — Wohin gehst du?", "Wohin gehst du?", "Where to? — Where are you going?"],
+        ["Wann? — Wann kommst du?", "Wann kommst du?", "When? — When are you coming?"],
+        ["Wie? — Wie geht es dir?", "Wie geht es dir?", "How? — How are you?"],
+        ["Warum? — Warum lernst du Deutsch?", "Warum lernst du Deutsch?", "Why? — Why are you learning German?"],
+        ["Wie viel? — Wie viel kostet das?", "Wie viel kostet das?", "How much? — How much does that cost?"]
+      ]],
+      ["B", "Personalpronomen", [
+        ["ich — Ich komme heute.", "Ich komme heute.", "I — I am coming today."],
+        ["du — Du kommst heute.", "Du kommst heute.", "you — You are coming today."],
+        ["er — Er kommt heute.", "Er kommt heute.", "he — He is coming today."],
+        ["sie — Sie kommt heute.", "Sie kommt heute.", "she — She is coming today."],
+        ["es — Es kommt heute.", "Es kommt heute.", "it — It is arriving today."],
+        ["wir — Wir kommen heute.", "Wir kommen heute.", "we — We are coming today."],
+        ["ihr — Ihr kommt heute.", "Ihr kommt heute.", "you all — You are all coming today."],
+        ["sie (Plural) — Sie kommen heute.", "Sie kommen heute.", "they — They are coming today."],
+        ["Sie (formell) — Sie kommen heute.", "Sie kommen heute.", "formal you — You are coming today."]
+      ]],
+      ["C", "sein · haben", [
+        ["ich — Ich bin müde. Ich habe Zeit.", "Ich bin müde. Ich habe Zeit.", "I — I am tired. I have time."],
+        ["du — Du bist hier. Du hast Zeit.", "Du bist hier. Du hast Zeit.", "you — You are here. You have time."],
+        ["er — Er ist nett. Er hat Zeit.", "Er ist nett. Er hat Zeit.", "he — He is nice. He has time."],
+        ["sie — Sie ist da. Sie hat Zeit.", "Sie ist da. Sie hat Zeit.", "she — She is there. She has time."],
+        ["wir — Wir sind hier. Wir haben Zeit.", "Wir sind hier. Wir haben Zeit.", "we — We are here. We have time."],
+        ["ihr — Ihr seid hier. Ihr habt Zeit.", "Ihr seid hier. Ihr habt Zeit.", "you all — You are here. You have time."],
+        ["sie — Sie sind da. Sie haben Zeit.", "Sie sind da. Sie haben Zeit.", "they — They are there. They have time."],
+        ["Sie — Sie sind hier. Sie haben Zeit.", "Sie sind hier. Sie haben Zeit.", "formal you — You are here. You have time."]
+      ]],
+      ["D", "der · die · das", [
+        ["der Mann · ein Mann", "der Mann, ein Mann", "the man · a man"],
+        ["die Frau · eine Frau", "die Frau, eine Frau", "the woman · a woman"],
+        ["das Kind · ein Kind", "das Kind, ein Kind", "the child · a child"],
+        ["der Tisch · ein Tisch", "der Tisch, ein Tisch", "the table · a table"],
+        ["die Tür · eine Tür", "die Tür, eine Tür", "the door · a door"],
+        ["das Buch · ein Buch", "das Buch, ein Buch", "the book · a book"]
+      ]]
     ];
-
-    const visualCards = [
-      [["👋", "Hello", "Hallo!"], ["🌅", "Good morning", "Guten Morgen!"], ["🙋", "I am Motia", "Ich bin Motia."], ["❓", "What is your name?", "Wie heißt du?"], ["🙂", "Good", "gut"], ["🤩", "Very good", "sehr gut"], ["😕", "Not so good", "nicht so gut"], ["👋", "Bye", "Tschüss!"]],
-      [["🔤", "alphabet", "das Alphabet"], ["0️⃣", "zero", "null"], ["1️⃣", "one", "eins"], ["2️⃣", "two", "zwei"], ["3️⃣", "three", "drei"], ["🔟", "ten", "zehn"], ["🔁", "Once more, please", "Noch einmal, bitte."], ["✍️", "How do you spell that?", "Wie schreibt man das?"]],
-      [["🖊️", "pen", "der Stift"], ["🎒", "bag", "die Tasche"], ["📕", "book", "das Buch"], ["🪑", "chair", "der Stuhl"], ["📱", "phone", "das Handy"], ["🚪", "door", "die Tür"], ["🗝️", "key", "der Schlüssel"], ["🥛", "glass", "das Glas"]],
-      [["👩", "mother", "die Mutter"], ["👨", "father", "der Vater"], ["👧", "sister", "die Schwester"], ["👦", "brother", "der Bruder"], ["👨‍👩‍👧", "family", "die Familie"], ["👵", "grandmother", "die Großmutter"], ["👴", "grandfather", "der Großvater"], ["👪", "parents", "die Eltern"]],
-      [["⏰", "I get up", "Ich stehe auf."], ["💼", "I work", "Ich arbeite."], ["📚", "I learn German", "Ich lerne Deutsch."], ["🍽️", "I eat", "Ich esse."], ["😴", "I sleep", "Ich schlafe."], ["🕖", "seven o’clock", "sieben Uhr"], ["☀️", "morning", "der Morgen"], ["🌙", "night", "die Nacht"]],
-      [["☕", "coffee", "der Kaffee"], ["🍵", "tea", "der Tee"], ["💧", "water", "das Wasser"], ["🍞", "bread", "das Brot"], ["🧀", "cheese", "der Käse"], ["🥨", "pretzel", "die Brezel"], ["🧾", "bill", "die Rechnung"], ["💶", "five euros", "fünf Euro"]],
-      [["🚉", "train station", "der Bahnhof"], ["☕", "café", "das Café"], ["🚻", "toilet", "die Toilette"], ["🏨", "hotel", "das Hotel"], ["⬅️", "left", "links"], ["➡️", "right", "rechts"], ["⬆️", "straight ahead", "geradeaus"], ["📍", "here", "hier"]],
-      [["👋", "Hello", "Hallo!"], ["🙋", "I am Motia", "Ich bin Motia."], ["🔤", "How do you spell that?", "Wie schreibt man das?"], ["👨‍👩‍👧", "my family", "meine Familie"], ["🕖", "at seven o’clock", "um sieben Uhr"], ["☕", "I would like a coffee", "Ich möchte einen Kaffee."], ["🚉", "Where is the station?", "Wo ist der Bahnhof?"], ["🔁", "Once more, please", "Noch einmal, bitte."]]
-    ];
-
-    // Per plan-step warm-up phrases + a tiny model dialogue, shown right under that step's exercise.
-    const stepContent = [
-      [
-        { p: [["Hallo!", "Hello!"], ["Guten Morgen!", "Good morning!"], ["Tschüss!", "Bye!"]],
-          m: [["T", "Hallo! 👋", ""], ["S", "Hallo! 👋", ""], ["T", "Guten Morgen! 🌅", ""], ["S", "Guten Morgen! 🌅", ""], ["T", "Tschüss! 👋", ""], ["S", "Tschüss! 👋", ""]] },
-        { p: [["Ich bin …", "I am …"], ["Wie heißt du?", "What is your name?"], ["Und du?", "And you?"]],
-          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Und du?", "I'm Motia. And you?"], ["A", "Ich bin Tim.", "I'm Tim."]] },
-        { p: [["Wie geht's?", "How are you?"], ["Mir geht's gut, danke.", "I'm well, thanks."], ["Sehr gut!", "Very good!"], ["Nicht so gut.", "Not so good."]],
-          m: [["A", "Wie geht's?", "How are you?"], ["B", "Mir geht's gut, danke. Und dir?", "I'm well, thanks. And you?"], ["A", "Sehr gut!", "Very good!"]] },
-        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
-          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wie geht's?", "I'm Motia. How are you?"], ["A", "Mir geht's gut. Und dir?", "I'm well. And you?"], ["B", "Sehr gut! Tschüss!", "Very good! Bye!"], ["A", "Tschüss!", "Bye!"]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
-          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wie geht's?", "I'm Motia. How are you?"], ["A", "Mir geht's gut. Und dir?", "I'm well. And you?"], ["B", "Sehr gut! Tschüss!", "Very good! Bye!"], ["A", "Tschüss!", "Bye!"]] },
-        { p: [["J — ja", "y — yes"], ["W — wo", "v — where"], ["Z — zwei", "ts — two"], ["V — Vater", "f — father"]],
-          m: [["T", "J — ja (like English yes)", ""], ["S", "ja", ""], ["T", "W — wo (like English voice)", ""], ["S", "wo", ""], ["T", "Z — zwei (like cats)", ""], ["S", "zwei", ""]] },
-        { p: [["Wie schreibt man das?", "How do you spell that?"], ["Noch einmal, bitte.", "Once more, please."]],
-          m: [["A", "Wie heißt du?", "What is your name?"], ["B", "Ich bin Motia.", "I'm Motia."], ["A", "Wie schreibt man das?", "How do you spell that?"], ["B", "M – O – T – I – A.", "M – O – T – I – A."], ["A", "Noch einmal, bitte.", "Once more, please."]] },
-        { p: [["null, eins, zwei, drei", "0, 1, 2, 3"], ["zehn, elf, zwölf", "10, 11, 12"], ["dreizehn, vierzehn", "13, 14"]],
-          m: [["T", "null — eins — zwei — drei", ""], ["S", "null — eins — zwei — drei", ""], ["T", "zehn — elf — zwölf", ""], ["S", "zehn — elf — zwölf", ""]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["eins", "one"], ["fünf", "five"], ["zehn", "ten"], ["zwanzig", "twenty"]],
-          m: [["T", "Was ist das? (say a number)", ""], ["S", "zehn.", ""], ["T", "Sehr gut!", ""]] },
-        { p: [["der Stift", "the pen (m)"], ["die Tasche", "the bag (f)"], ["das Buch", "the book (n)"]],
-          m: [["T", "Das ist ein Stift. der Stift", "That is a pen. the pen"], ["S", "der Stift", ""], ["T", "Das ist eine Tasche. die Tasche", "That is a bag. the bag"], ["S", "die Tasche", ""]] },
-        { p: [["Was ist das?", "What is that?"], ["Das ist …", "That is …"], ["ein", "a (m/n)"], ["eine", "a (f)"]],
-          m: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Buch.", "That is a book."], ["A", "Und was ist das?", "And what is that?"], ["B", "Das ist eine Tasche.", "That is a bag."]] },
-        { p: [["der", "the (m)"], ["die", "the (f)"], ["das", "the (n)"]],
-          m: [["T", "der Stift — die Tasche — das Buch", ""], ["S", "der Stift — die Tasche — das Buch", ""], ["T", "der Tisch — die Tür — das Handy", ""], ["S", "der Tisch — die Tür — das Handy", ""]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["der Stift", "the pen"], ["die Tasche", "the bag"], ["das Buch", "the book"]],
-          m: [["A", "Was ist das?", "What is that?"], ["B", "Das ist ein Stift. der Stift", "That is a pen. the pen"]] },
-        { p: [["die Mutter", "mother"], ["der Vater", "father"], ["die Schwester", "sister"], ["der Bruder", "brother"], ["die Familie", "family"]],
-          m: [["T", "Das ist meine Familie.", "This is my family."], ["T", "Das ist meine Mutter. Sie heißt Anna.", "This is my mother. Her name is Anna."], ["T", "Das ist mein Vater. Er heißt Tom.", "This is my father. His name is Tom."]] },
-        { p: [["mein Vater", "my father"], ["meine Mutter", "my mother"], ["mein Bruder", "my brother"], ["meine Schwester", "my sister"]],
-          m: [["T", "die Mutter → meine Mutter", ""], ["S", "meine Mutter", ""], ["T", "der Vater → mein Vater", ""], ["S", "mein Vater", ""]] },
-        { p: [["Das ist …", "This is …"], ["Wer ist das?", "Who is that?"], ["Er heißt …", "His name is …"], ["Sie heißt …", "Her name is …"]],
-          m: [["A", "Wer ist das?", "Who is that?"], ["B", "Das ist meine Schwester. Sie heißt Mia.", "This is my sister. Her name is Mia."], ["A", "Und wer ist das?", "And who is that?"], ["B", "Das ist mein Bruder. Er heißt Leon.", "This is my brother. His name is Leon."]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["meine Familie", "my family"], ["mein Vater", "my father"], ["meine Schwester", "my sister"]],
-          m: [["S", "Das ist meine Familie. Das ist meine Schwester. Sie heißt Mia.", ""]] },
-        { p: [["Wie spät ist es?", "What time is it?"], ["Es ist … Uhr.", "It is … o'clock."], ["um … Uhr", "at … o'clock"]],
-          m: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist sieben Uhr.", "It is seven o'clock."], ["A", "Danke!", "Thanks!"]] },
-        { p: [["Ich stehe auf.", "I get up."], ["Ich arbeite.", "I work."], ["Ich esse.", "I eat."], ["Ich schlafe.", "I sleep."]],
-          m: [["T", "Ich stehe auf.", "I get up."], ["S", "Ich stehe auf.", ""], ["T", "Ich arbeite.", "I work."], ["S", "Ich arbeite.", ""]] },
-        { p: [["Ich stehe um … Uhr auf.", "I get up at … o'clock."], ["Und dann?", "And then?"]],
-          m: [["A", "Was machst du um sieben Uhr?", "What do you do at seven?"], ["B", "Ich stehe um sieben Uhr auf.", "I get up at seven."], ["A", "Und dann?", "And then?"], ["B", "Ich arbeite um neun Uhr.", "I work at nine."]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["Wie spät ist es?", "What time is it?"], ["um acht Uhr", "at eight o'clock"], ["Ich esse.", "I eat."]],
-          m: [["A", "Wie spät ist es?", "What time is it?"], ["B", "Es ist acht Uhr.", "It is eight o'clock."], ["A", "Was machst du um acht Uhr?", "What do you do at eight?"], ["B", "Ich esse.", "I eat."]] },
-        { p: [["der Kaffee", "coffee"], ["der Tee", "tea"], ["das Wasser", "water"], ["das Brot", "bread"], ["der Käse", "cheese"]],
-          m: [["T", "der Kaffee — der Tee — das Wasser", ""], ["S", "der Kaffee — der Tee — das Wasser", ""], ["T", "Kaffee oder Tee?", "Coffee or tea?"], ["S", "Kaffee, bitte.", "Coffee, please."]] },
-        { p: [["Ich möchte …", "I would like …"], ["Ich möchte einen Kaffee.", "I would like a coffee."], ["Ein Wasser, bitte.", "A water, please."]],
-          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Kaffee, bitte.", "I would like a coffee, please."], ["A", "Noch etwas?", "Anything else?"], ["B", "Ein Wasser, bitte.", "A water, please."]] },
-        { p: [["Was kostet das?", "How much is that?"], ["Das macht … Euro.", "That comes to … euros."], ["Danke schön.", "Thank you very much."], ["Gern.", "You're welcome."]],
-          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Kaffee und ein Brot, bitte.", "I'd like a coffee and a bread, please."], ["A", "Das macht fünf Euro.", "That comes to five euros."], ["B", "Danke schön!", "Thank you very much!"], ["A", "Gern. Tschüss!", "You're welcome. Bye!"]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["Ich möchte …", "I would like …"], ["Das macht … Euro.", "That comes to … euros."], ["Danke schön.", "Thank you very much."]],
-          m: [["A", "Guten Tag. Was möchten Sie?", "Good day. What would you like?"], ["B", "Ich möchte einen Tee, bitte.", "I'd like a tea, please."], ["A", "Das macht zwei Euro.", "That comes to two euros."], ["B", "Danke schön! Tschüss!", "Thank you very much! Bye!"]] },
-        { p: [["der Bahnhof", "train station"], ["das Café", "café"], ["die Toilette", "toilet"]],
-          m: [["T", "Das ist der Bahnhof. der Bahnhof", "This is the station. the station"], ["S", "der Bahnhof", ""], ["T", "Wo ist das Café?", "Where is the café?"], ["S", "Hier.", "Here."]] },
-        { p: [["links", "left"], ["rechts", "right"], ["geradeaus", "straight ahead"]],
-          m: [["T", "links (turn left)", ""], ["S", "(turns left)", ""], ["T", "rechts (turn right)", ""], ["S", "(turns right)", ""], ["T", "geradeaus (step forward)", ""], ["S", "(steps forward)", ""]] },
-        { p: [["Entschuldigung …", "Excuse me …"], ["Wo ist …?", "Where is …?"], ["Gehen Sie …", "Go …"], ["Dann …", "Then …"]],
-          m: [["A", "Entschuldigung, wo ist der Bahnhof?", "Excuse me, where is the station?"], ["B", "Gehen Sie geradeaus.", "Go straight ahead."], ["A", "Geradeaus?", "Straight ahead?"], ["B", "Ja. Dann links. Der Bahnhof ist dort.", "Yes. Then left. The station is there."], ["A", "Danke schön!", "Thank you very much!"]] },
-        { p: [], m: [] }
-      ],
-      [
-        { p: [["Hallo!", "Hello!"], ["Ich bin …", "I am …"], ["Wie geht's?", "How are you?"], ["Tschüss!", "Bye!"]],
-          m: [["T", "Hallo! →", ""], ["S", "Hallo! Ich bin Motia.", ""], ["T", "Wie geht's? →", ""], ["S", "Sehr gut, danke. Und dir?", ""]] },
-        { p: [["Langsam, bitte.", "Slowly, please."], ["Noch einmal, bitte.", "Once more, please."], ["Ich verstehe nicht.", "I don't understand."]],
-          m: [["T", "(says something fast)", ""], ["S", "Langsam, bitte.", ""], ["T", "(repeats slowly)", ""], ["S", "Danke! Ich verstehe.", "Thanks! I understand."]] },
-        { p: [["Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["Kein Problem.", "No problem."], ["Bis bald!", "See you soon!"]],
-          m: [["T", "Sprechen Sie Deutsch?", "Do you speak German?"], ["S", "Ich kann ein bisschen Deutsch.", "I can speak a little German."], ["T", "Super! Bis bald!", "Great! See you soon!"], ["S", "Bis bald!", "See you soon!"]] },
-        { p: [["Hallo!", "Hello!"], ["Ich möchte …", "I would like …"], ["Wo ist …?", "Where is …?"], ["Danke schön.", "Thank you."]],
-          m: [["A", "Hallo! Ich bin Tim. Wie heißt du?", "Hello! I'm Tim. What's your name?"], ["B", "Ich bin Motia. Wo ist das Café?", "I'm Motia. Where is the café?"], ["A", "Geradeaus, dann rechts.", "Straight ahead, then right."], ["B", "Danke schön. Tschüss!", "Thank you. Bye!"], ["A", "Bis bald!", "See you soon!"]] },
-        { p: [], m: [] }
-      ]
-    ];
-
-    const state = JSON.parse(localStorage.getItem("hallo-class") || '{"lesson":0,"complete":[],"checks":{}}');
-    let lessonIndex = Math.min(state.lesson || 0, lessons.length - 1);
-
+    const questionsFor = lesson => uniqueEntries([
+      ...lesson.phrases,
+      ...lesson.dialogue.map(([, de, en]) => [de, en]),
+      ["Und du?", "And you?"], ["Wo?", "Where?"], ["Wann?", "When?"], ["Mit wem?", "With whom?"], ["Wie oft?", "How often?"], ["Warum?", "Why?"]
+    ].filter(([de]) => de.includes("?"))).slice(0, 6).map(([de, en]) => [de, de, en]);
+    const readingExercises = lesson => {
+      const phrases = lesson.phrases.map(([de, en]) => [de, de, en]);
+      const statements = uniqueEntries([...lesson.phrases, ...lesson.dialogue.map(([, de, en]) => [de, en])].filter(([de]) => !de.includes("?"))).slice(0, 6);
+      return [
+        ["Redemittel A", phrases.slice(0, 5)],
+        ["Redemittel B", phrases.slice(5, 10)],
+        ["W-Fragen zum Thema", questionsFor(lesson)],
+        ["Antworten", statements.map(([de, en]) => [de, de, en])],
+        ["Lückensätze", statements.map(([de, en]) => [cloze(de), de, en])]
+      ];
+    };
+    const cardIcons = ["💬", "❓", "🗣️", "🔁", "✅", "🧭", "🤝", "🎯"];
+    const stateKey = "sprechen-a1-a2-32";
+    const shiftProgress = (saved, start, offset) => {
+      const shift = index => index >= start ? index + offset : index;
+      return saved && { ...saved, lesson: shift(Number(saved.lesson) || 0), complete: (Array.isArray(saved.complete) ? saved.complete : []).map(shift), checks: Object.fromEntries(Object.entries(saved.checks || {}).map(([index, checks]) => [shift(Number(index)), checks])) };
+    };
+    let state;
+    try {
+      state = JSON.parse(localStorage.getItem(stateKey));
+      if (!state) state = shiftProgress(JSON.parse(localStorage.getItem("sprechen-a1-a2")), 8, 6);
+      if (!state) state = shiftProgress(JSON.parse(localStorage.getItem("sprechen-a12-a2")), 0, 14);
+    } catch { state = {}; }
+    state = state && typeof state === "object" ? state : {};
+    state = { lesson: 0, complete: [], checks: {}, ...state };
+    state.complete = Array.isArray(state.complete) ? state.complete : [];
+    state.checks = state.checks && typeof state.checks === "object" ? state.checks : {};
+    localStorage.setItem(stateKey, JSON.stringify(state));
+    let lessonIndex = Math.min(Number(state.lesson) || 0, course.length - 1);
     const $ = id => document.getElementById(id);
+    const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+
+    console.assert(course.length === 32, "The course should contain 32 classes");
+    console.assert(course.slice(0, 14).every(lesson => lesson.level === "A1.1") && course[14].level === "A1.2", "A1.1 foundations should come first");
+    console.assert(course.every(lesson => lesson.phrases.length >= 8 && lesson.dialogue.length >= 6), "Each class needs enough spoken language");
+    console.assert(readingExercises(course[0]).length === 5, "Each class should render 15 exercises");
+    console.assert(basicsGroups.length === 4 && basicsGroups.every(([, , lines]) => lines.length >= 6), "Basics practice should stay complete");
 
     function save() {
       state.lesson = lessonIndex;
-      localStorage.setItem("hallo-class", JSON.stringify(state));
+      localStorage.setItem(stateKey, JSON.stringify(state));
+    }
+
+    function speakGerman(lines) {
+      if (!canSpeak) return;
+      window.speechSynthesis.cancel();
+      const speech = new SpeechSynthesisUtterance(lines.join(" … "));
+      speech.lang = "de-DE";
+      speech.rate = 0.85;
+      window.speechSynthesis.speak(speech);
+    }
+
+    function lineList(lines) {
+      return `<ul class="reading-list">${lines.map(item => {
+        const [visible, spoken, english] = Array.isArray(item) ? item : [item, item, ""];
+        return `<li><button class="reading-line" type="button" data-speak="${spoken}"><span>${visible}</span>${english ? `<span class="english">${english}</span>` : ""}</button></li>`;
+      }).join("")}</ul>`;
+    }
+
+    function materialBlock(number, title, lines) {
+      return `<div class="plan-step"><div class="plan-head"><span class="plan-number">${number}</span><h3>${title}</h3></div>${lineList(lines)}</div>`;
+    }
+
+    const splitBasic = text => text.split(text.includes(" — ") ? " — " : " · ");
+    function basicsTable(number, title, lines) {
+      return `<details class="basics-group" name="basics-topic" data-basics-group="${number}" ${number === "A" ? "open" : ""}><summary><span class="plan-number">${number}</span>${title}</summary><table class="basics-table" aria-label="${title}"><thead><tr><th>Wort</th><th>Beispiel</th><th class="basics-audio">Audio</th></tr></thead><tbody>${lines.map(([de, spoken, en]) => {
+        const [word, example] = splitBasic(de);
+        const [englishWord, englishExample] = splitBasic(en);
+        return `<tr><td class="basics-word"><strong>${word}</strong><small class="english">${englishWord}</small></td><td><strong>${example}</strong><small class="english">${englishExample}</small></td><td class="basics-audio"><button class="basics-line" type="button" data-speak="${spoken}" aria-label="${spoken} anhören">🔊</button></td></tr>`;
+      }).join("")}</tbody></table></details>`;
     }
 
     function renderNavigation() {
-      $("lessonNav").innerHTML = lessons.map((lesson, index) => `
+      $("lessonNav").innerHTML = course.map((lesson, index) => `
+        ${index === 0 || course[index - 1].level !== lesson.level ? `<p class="nav-level">${lesson.level}</p>` : ""}
         <button class="lesson-nav ${index === lessonIndex ? "active" : ""}" data-lesson="${index}" type="button">
           <span class="lesson-number">${lesson.icon}</span>
-          <span class="nav-title">${lesson.topic}</span>
+          <span class="nav-title">${lesson.title}</span>
           <span class="nav-check">${state.complete.includes(index) ? "✓" : ""}</span>
         </button>`).join("");
-      $("mobileSelect").innerHTML = lessons.map((lesson, index) => `<option value="${index}" ${index === lessonIndex ? "selected" : ""}>Class ${index + 1} · ${lesson.topic}</option>`).join("");
-      const done = state.complete.length;
-      $("progressFill").style.width = `${done / lessons.length * 100}%`;
-      $("progressCopy").textContent = `${done} of ${lessons.length} classes complete`;
+      $("mobileSelect").innerHTML = course.map((lesson, index) => `<option value="${index}" ${index === lessonIndex ? "selected" : ""}>${index + 1} · ${lesson.level} · ${lesson.title}</option>`).join("");
+      const done = state.complete.filter(index => index < course.length).length;
+      $("progressFill").style.width = `${done / course.length * 100}%`;
+      $("progressCopy").textContent = `${done} von ${course.length} Stunden abgeschlossen`;
     }
 
     function renderLesson() {
-      const lesson = lessons[lessonIndex];
-      $("lessonLabel").textContent = `Class ${lessonIndex + 1} · ${lesson.topic}`;
+      const lesson = course[lessonIndex];
+      $("lessonLabel").textContent = `${lesson.level} · Stunde ${lessonIndex + 1}`;
       $("lessonTitle").textContent = lesson.title;
-      $("lessonIntro").textContent = lesson.intro;
       $("lessonIcon").textContent = lesson.icon;
-      $("outcomes").innerHTML = lesson.goals.map((goal, i) => `<div class="outcome"><span>${["01", "02", "03"][i]}</span><p>I can ${goal[0].toLowerCase()}${goal.slice(1)}</p></div>`).join("");
-      const totalMinutes = lesson.plan.reduce((sum, step) => sum + step[2], 0);
-      $("planMinutes").textContent = `Total · ${totalMinutes} min`;
-      $("timeline").innerHTML = lesson.plan.map(([title, text, minutes, exercise], i) => {
-        const content = stepContent[lessonIndex][i];
-        const phrasesHtml = content.p.length ? `<div class="step-phrases">${content.p.map(([de, en]) => `<span class="step-chip"><b>${de}</b><small>${en}</small></span>`).join("")}</div>` : '';
-        const dialogueHtml = content.m.length ? `<div class="step-dialogue">${content.m.map(([sp, de, en]) => `<div class="step-turn"><span>${sp}</span><div>${de}${en ? `<small>${en}</small>` : ''}</div></div>`).join("")}</div>` : '';
-        return `<div class="plan-step">
-          <div class="plan-head">
-            <div class="plan-number">${i + 1}</div>
-            <h3>${title}</h3>
-            <span class="plan-minutes">${minutes} min</span>
-          </div>
-          ${phrasesHtml}
-          ${dialogueHtml}
-          <p>${exercise}</p>
-        </div>`;
-      }).join("");
-      $("phrases").innerHTML = lesson.phrases.map(([de, en]) => `<button class="phrase" type="button"><span class="german">${de}</span><span class="english">${en}</span></button>`).join("");
-      $("dialogueTitle").textContent = practice[lessonIndex].title;
-      $("dialogue").innerHTML = practice[lessonIndex].turns.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
-      $("variations").innerHTML = practice[lessonIndex].variations.map(item => `<span class="variation">${item}</span>`).join("");
-      $("pictureCards").innerHTML = visualCards[lessonIndex].map(([emoji, en, de]) => `
-        <button class="picture-card" type="button" aria-pressed="false" aria-label="${en}. Tap for German." data-english="${en}" data-german="${de}">
-          <span class="card-face card-front"><span class="card-emoji">${emoji}</span><span class="card-language">English</span><span class="card-word">${en}</span><span class="card-hint">Tap for German</span></span>
-          <span class="card-face card-back"><span class="card-emoji">${emoji}</span><span class="card-language">Deutsch</span><span class="card-word">${de}</span><span class="card-hint">Tap for English</span></span>
+      $("timeline").innerHTML = readingExercises(lesson).map(([title, lines], index) => materialBlock(index + 1, title, lines)).join("");
+      $("dialogueTitle").textContent = `Übung 6 · Dialog lesen`;
+      $("dialogue").innerHTML = lesson.dialogue.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
+      const roleA = lesson.dialogue.filter(([speaker]) => speaker === "A").map(([, de, en]) => [de, de, en]);
+      const roleB = lesson.dialogue.filter(([speaker]) => speaker === "B").map(([, de, en]) => [de, de, en]);
+      const gapDialogue = lesson.dialogue.map(([speaker, de, en], index) => [`${speaker}: ${index % 2 ? "____________________________" : de}`, de, en]);
+      $("dialoguePractice").innerHTML = [
+        materialBlock(7, "Rolle A", roleA),
+        materialBlock(8, "Rolle B", roleB),
+        materialBlock(9, "Lückendialog", gapDialogue),
+        materialBlock(10, "Fragen zum Dialog", [["Wer spricht?", "Wer spricht?", "Who is speaking?"], ["Was ist das Thema?", "Was ist das Thema?", "What is the topic?"], ["Welche Informationen sind wichtig?", "Welche Informationen sind wichtig?", "Which information is important?"], ["Welche Frage hörst du?", "Welche Frage hörst du?", "Which question do you hear?"], ["Wie endet der Dialog?", "Wie endet der Dialog?", "How does the dialogue end?"]])
+      ].join("");
+      $("promptCards").innerHTML = lesson.phrases.slice(0, 8).map(([de, en], index) => `
+        <button class="prompt-card" type="button" aria-pressed="false" aria-label="Deutschen Satz hören und anzeigen" data-german="${de}">
+          <span class="card-face card-front"><span class="card-icon">${cardIcons[index]}</span><span class="card-label">Hören</span><span class="card-word">▶ Satz ${index + 1}</span></span>
+          <span class="card-face card-back"><span class="card-icon">${cardIcons[index]}</span><span class="card-label">Deutsch</span><span class="card-word">${de}</span><span class="english">${en}</span></span>
         </button>`).join("");
-      $("challenge").textContent = lesson.challenge;
-      const savedChecks = state.checks[lessonIndex] || [];
-      $("checklist").innerHTML = lesson.checks.map((item, i) => `<label class="checkline"><input type="checkbox" data-check="${i}" ${savedChecks.includes(i) ? "checked" : ""}> <span>${item}</span></label>`).join("");
-      $("homework").textContent = lesson.homework;
+      $("challenge").innerHTML = `<b>13 · Dialogvarianten</b><br>Person: Anna · Leon · Frau Klein<br>Ort: Café · Bahnhof · Wohnung<br>Zeit: heute · morgen · Samstag<br>Reaktion: gern · leider nicht · vielleicht<br>Problem: zu spät · geschlossen · ausverkauft`;
+      $("checklist").innerHTML = materialBlock(14, `Fragen · ${lesson.title}`, questionsFor(lesson));
+      $("homework").innerHTML = `<b>${lesson.title}</b><br>Ich … · Heute … · Normalerweise … · Dann … · aber … · weil … · Und du?<br><span class="english">I … · Today … · Normally … · Then … · but … · because … · And you?</span>`;
       const complete = state.complete.includes(lessonIndex);
-      $("completeButton").textContent = complete ? "✓ Class complete — nice work!" : "Mark this class done";
+      $("completeButton").textContent = complete ? "✓ Stunde abgeschlossen — gut gemacht!" : "Stunde als fertig markieren";
       $("completeButton").classList.toggle("done", complete);
       renderNavigation();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function chooseLesson(index) {
+      if (canSpeak) window.speechSynthesis.cancel();
       lessonIndex = Number(index);
       save();
       renderLesson();
     }
 
+    $("basicsTables").innerHTML = basicsGroups.map(group => basicsTable(...group)).join("");
+    $("openBasics").addEventListener("click", () => $("basicsDialog").showModal());
     $("lessonNav").addEventListener("click", event => {
       const button = event.target.closest("[data-lesson]");
       if (button) chooseLesson(button.dataset.lesson);
     });
-
     $("mobileSelect").addEventListener("change", event => chooseLesson(event.target.value));
-
-    $("phrases").addEventListener("click", event => {
-      const phrase = event.target.closest(".phrase");
-      if (phrase) phrase.classList.toggle("revealed");
+    $("listenPhrases").addEventListener("click", () => speakGerman(course[lessonIndex].phrases.map(([de]) => de)));
+    $("listenDialogue").addEventListener("click", () => speakGerman(course[lessonIndex].dialogue.map(([, de]) => de)));
+    $("listenBasics").addEventListener("click", () => {
+      const openGroup = document.querySelector(".basics-group[open]")?.dataset.basicsGroup || "A";
+      speakGerman(basicsGroups.find(([number]) => number === openGroup)[2].map(([, spoken]) => spoken));
     });
-
-    $("pictureCards").addEventListener("click", event => {
-      const card = event.target.closest(".picture-card");
+    $("basicsTables").addEventListener("click", event => {
+      const line = event.target.closest(".basics-line");
+      if (line) speakGerman([line.dataset.speak]);
+    });
+    const speakLine = event => {
+      const line = event.target.closest(".reading-line");
+      if (!line) return;
+      speakGerman([line.dataset.speak]);
+      line.classList.toggle("revealed");
+    };
+    $("timeline").addEventListener("click", speakLine);
+    $("dialoguePractice").addEventListener("click", speakLine);
+    $("checklist").addEventListener("click", speakLine);
+    $("promptCards").addEventListener("click", event => {
+      const card = event.target.closest(".prompt-card");
       if (!card) return;
+      speakGerman([card.dataset.german]);
       const flipped = card.classList.toggle("flipped");
       card.setAttribute("aria-pressed", String(flipped));
-      card.setAttribute("aria-label", flipped ? `${card.dataset.german}. Tap for English.` : `${card.dataset.english}. Tap for German.`);
+      card.setAttribute("aria-label", flipped ? `${card.dataset.german}. Karte zurückdrehen.` : "Deutschen Satz hören und anzeigen");
     });
-
-    $("resetCards").addEventListener("click", () => {
-      document.querySelectorAll(".picture-card.flipped").forEach(card => {
-        card.classList.remove("flipped");
-        card.setAttribute("aria-pressed", "false");
-        card.setAttribute("aria-label", `${card.dataset.english}. Tap for German.`);
-      });
-    });
-
+    $("resetCards").addEventListener("click", () => document.querySelectorAll(".prompt-card.flipped").forEach(card => {
+      card.classList.remove("flipped");
+      card.setAttribute("aria-pressed", "false");
+      card.setAttribute("aria-label", "Deutschen Satz hören und anzeigen");
+    }));
     $("englishToggle").addEventListener("click", () => {
       document.body.classList.toggle("hide-english");
-      $("englishToggle").textContent = document.body.classList.contains("hide-english") ? "Show English" : "Hide English";
+      $("englishToggle").textContent = document.body.classList.contains("hide-english") ? "Englisch anzeigen" : "Englisch ausblenden";
     });
-
-    $("checklist").addEventListener("change", () => {
-      state.checks[lessonIndex] = [...document.querySelectorAll("[data-check]:checked")].map(box => Number(box.dataset.check));
-      save();
-    });
-
     $("completeButton").addEventListener("click", () => {
-      state.complete = state.complete.includes(lessonIndex)
-        ? state.complete.filter(index => index !== lessonIndex)
-        : [...state.complete, lessonIndex].sort((a, b) => a - b);
+      state.complete = state.complete.includes(lessonIndex) ? state.complete.filter(index => index !== lessonIndex) : [...state.complete, lessonIndex].sort((a, b) => a - b);
       save();
       renderLesson();
     });
 
+    $("listenPhrases").hidden = !canSpeak;
+    $("listenDialogue").hidden = !canSpeak;
+    $("listenBasics").hidden = !canSpeak;
     renderLesson();
   </script>
 </body>
