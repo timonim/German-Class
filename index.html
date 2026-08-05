@@ -20,7 +20,10 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; scrollbar-color: #789387 var(--paper); }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: var(--paper); }
+    ::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 999px; background: #789387; background-clip: padding-box; }
     body {
       margin: 0;
       color: var(--ink);
@@ -49,7 +52,10 @@
     .progress-track { height: 8px; overflow: hidden; border-radius: 10px; background: #ffffff21; }
     .progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--lime); transition: width .25s ease; }
     .progress-copy { margin-top: 8px; color: #c9d8d2; font-size: 13px; }
-    nav { overflow: auto; padding-right: 3px; }
+    nav { overflow: auto; padding-right: 3px; scrollbar-color: #87b5a2 transparent; }
+    nav::-webkit-scrollbar { width: 8px; }
+    nav::-webkit-scrollbar-track { background: transparent; }
+    nav::-webkit-scrollbar-thumb { background-color: #87b5a2; }
     .nav-level { margin: 16px 10px 5px; color: var(--lime); font-size: 11px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; }
     .nav-level:first-child { margin-top: 0; }
     .lesson-nav {
@@ -108,6 +114,7 @@
     }
     .hero::before { content: ""; position: absolute; width: 440px; height: 440px; top: -230px; right: -120px; border-radius: 50%; background: #c3dd5820; }
     .hero-copy { z-index: 1; display: flex; flex-direction: column; justify-content: center; padding: 48px 54px; }
+    .hero-intro { max-width: 610px; margin: 0; color: #e0eee9; }
     .eyebrow { margin: 0 0 9px; color: var(--green); font-size: 13px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
     .hero .eyebrow { color: var(--lime); }
     h1 { margin: 0 0 14px; font-size: clamp(38px, 5vw, 58px); line-height: 1.04; letter-spacing: -1.7px; }
@@ -126,6 +133,8 @@
     .plan-step:nth-child(4) .plan-number { background: #e7dcff; }
     .plan-step:nth-child(5) .plan-number { background: #ffe9a5; }
     .plan-step h3 { margin: 0; font-size: 18px; }
+    .grammar-note { background: #f2f7f4; border-color: #cbded5; }
+    .grammar-note > p { margin: 10px 0 0 44px; color: #526159; }
     .reading-list { display: grid; gap: 8px; margin: 14px 0 0 44px; padding: 0; list-style: none; }
     .reading-line { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 9px; text-align: left; background: var(--card); font-size: 17px; font-weight: 750; cursor: pointer; }
     .reading-line:hover { border-color: #adbbb5; }
@@ -146,6 +155,8 @@
     .mini-exercise span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: var(--dark); background: var(--lime); font-size: 14px; font-weight: 900; }
     .mini-exercise p { margin: 3px 0 0; color: #526159; font-size: 16px; }
     .mini-exercise b { color: var(--ink); }
+    .check-item { grid-template-columns: auto 1fr; cursor: pointer; }
+    .check-item input { width: 20px; height: 20px; margin: 7px; accent-color: var(--green); }
 
     .prompt-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .prompt-card { position: relative; min-height: 150px; overflow: hidden; border: 2px solid var(--line); border-radius: 15px; background: #faf8f2; cursor: pointer; }
@@ -185,6 +196,7 @@
     .basics-group summary::after { content: "+"; margin-left: auto; color: var(--green); font-size: 24px; line-height: 1; }
     .basics-group[open] summary { border-bottom: 1px solid var(--line); background: #f2f7f4; }
     .basics-group[open] summary::after { content: "−"; }
+    .basics-explanation { margin: 0; padding: 14px 18px; color: #526159; background: #faf8f2; font-size: 15px; }
     .basics-table { width: 100%; border-collapse: collapse; font-size: 16px; }
     .basics-table th, .basics-table td { padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
     .basics-table tr:last-child td { border-bottom: 0; }
@@ -251,7 +263,7 @@
       <header class="topbar">
         <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
         <div class="top-actions">
-          <button class="button" id="openBasics" type="button">Grundlagen üben</button>
+          <button class="button" id="openBasics" type="button">Grammatik-Hilfe</button>
           <button class="button" id="englishToggle" type="button">Englisch anzeigen</button>
           <button class="button" type="button" onclick="window.print()">Stunde drucken</button>
         </div>
@@ -262,42 +274,43 @@
           <div class="hero-copy">
             <p class="eyebrow" id="lessonLabel"></p>
             <h1 id="lessonTitle"></h1>
+            <p class="hero-intro" id="lessonIntro"></p>
           </div>
           <div class="hero-art" id="lessonIcon" aria-hidden="true"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">Übungen 1–5</p><h2>Redemittel lesen und sprechen</h2></div>
+            <div><p class="eyebrow">Übungen 1–4 · Grammatik · Aussprache</p><h2>Redemittel lesen und sprechen</h2></div>
             <button class="button" id="listenPhrases" type="button">🔊 Alle Sätze hören</button>
           </div>
+          <div class="mini-exercises" id="lessonBrief"></div>
           <div class="timeline" id="timeline"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">Übungen 6–10</p><h2 id="dialogueTitle"></h2></div>
+            <div><p class="eyebrow">Übung 5</p><h2 id="dialogueTitle"></h2></div>
             <button class="button" id="listenDialogue" type="button">🔊 Dialog hören</button>
           </div>
           <div class="dialogue" id="dialogue"></div>
-          <div class="mini-exercises" id="dialoguePractice"></div>
         </section>
 
         <section class="panel">
           <div class="panel-head">
-            <div><p class="eyebrow">Übungen 11–12</p><h2>Hören, erkennen, erinnern</h2></div>
+            <div><p class="eyebrow">Übungen 6–7</p><h2>Hören, erkennen, erinnern</h2></div>
             <button class="button" id="resetCards" type="button">Karten zurücksetzen</button>
           </div>
           <div class="mini-exercises">
-            <div class="mini-exercise"><span>11</span><p><b>Hören → nachsprechen → umdrehen</b></p></div>
-            <div class="mini-exercise"><span>12</span><p><b>Hören → Satz erinnern → kontrollieren</b></p></div>
+            <div class="mini-exercise"><span>6</span><p><b>Hören → nachsprechen → umdrehen</b></p></div>
+            <div class="mini-exercise"><span>7</span><p><b>Hören → Satz erinnern → kontrollieren</b></p></div>
           </div>
           <div class="prompt-cards" id="promptCards"></div>
         </section>
 
         <section class="panel challenge">
           <div class="challenge-top">
-            <p class="eyebrow">Übungen 13–14</p>
+            <p class="eyebrow">Übungen 8–9</p>
             <h2>Neue Versionen</h2>
             <p id="challenge"></p>
           </div>
@@ -305,7 +318,7 @@
         </section>
 
         <section class="panel homework">
-          <p class="eyebrow">Übung 15</p>
+          <p class="eyebrow">Übung 10</p>
           <h2>60 Sekunden sprechen</h2>
           <p id="homework"></p>
         </section>
@@ -318,7 +331,7 @@
 
   <dialog class="basics-dialog" id="basicsDialog" aria-labelledby="basicsTitle">
     <header class="basics-head">
-      <div><p class="eyebrow">Separat üben</p><h2 id="basicsTitle">Deutsch-Grundlagen</h2><p class="subtle">W-Fragen · Pronomen · sein/haben · Artikel</p></div>
+      <div><p class="eyebrow">Nachschlagen und hören</p><h2 id="basicsTitle">Deutsch-Grammatik A1–A2</h2><p class="subtle">Fälle · Artikel · Präpositionen · Satzbau · Zeitformen</p></div>
       <div class="basics-actions">
         <button class="button" id="listenBasics" type="button">🔊 Thema hören</button>
         <form method="dialog"><button class="button" type="submit">Schließen</button></form>
@@ -747,8 +760,152 @@
       }
     ];
 
+    const grammarTopics = [
+      ["sein, heißen und Präsensendungen", "Most present-tense verbs use -e with ich, -st with du, -t with er/sie/es and ihr, and -en with wir, sie and Sie. sein is irregular; heißen follows the regular pattern but du heißt loses the extra s sound.", [
+        ["Ich bin Motia. Du bist Tim.", "I am Motia. You are Tim."], ["Ich lerne Deutsch. Du lernst Deutsch.", "I learn German. You learn German."], ["Er lernt Deutsch. Wir lernen Deutsch.", "He learns German. We learn German."], ["Wie heißt du?", "What is your name?"]
+      ]],
+      ["nicht, kein und höfliche Bitten", "Use nicht to negate a verb, adjective, or whole idea. Use kein before a noun that would otherwise have ein/eine. Add bitte to make a short request polite.", [
+        ["Ich verstehe nicht.", "I don't understand."], ["Ich habe kein Wörterbuch.", "I don't have a dictionary."], ["Noch einmal, bitte.", "Once again, please."], ["Können Sie das wiederholen?", "Can you repeat that?"]
+      ]],
+      ["W-Fragen und man", "In a W-question, the question word comes first and the conjugated verb second. man uses the er/sie/es verb form.", [
+        ["Wie schreibt man das?", "How do you write that?"], ["Wie alt bist du?", "How old are you?"], ["Wo wohnst du?", "Where do you live?"]
+      ]],
+      ["wo, woher, aus und in", "Use woher with aus for origin, and wo with in for the place where someone lives.", [
+        ["Woher kommst du?", "Where are you from?"], ["Ich komme aus Israel.", "I come from Israel."], ["Ich wohne in Haifa.", "I live in Haifa."]
+      ]],
+      ["mein, meine, er und sie", "A case shows the job of a noun. Here the person after ist is nominative: mein Bruder, meine Schwester. In the accusative, masculine mein changes to meinen: Ich sehe meinen Bruder.", [
+        ["Er ist mein Bruder.", "He is my brother."], ["Sie ist meine Schwester.", "She is my sister."], ["Ich sehe meinen Bruder.", "I see my brother."]
+      ]],
+      ["trennbare Verben", "With a separable verb, the conjugated stem stays in second position and the prefix moves to the end.", [
+        ["Ich stehe um sieben Uhr auf.", "I get up at seven."], ["Dann kaufe ich ein.", "Then I go shopping."], ["Wann fängst du an?", "When do you start?"]
+      ]],
+      ["gern, lieber und nicht gern", "Place gern after the verb to say you enjoy something. lieber compares two preferences; nicht gern expresses dislike.", [
+        ["Ich esse gern Brot.", "I like eating bread."], ["Ich trinke lieber Tee.", "I prefer drinking tea."], ["Ich koche nicht gern.", "I don't like cooking."]
+      ]],
+      ["wo und der formelle Imperativ", "Use wo ist ...? to ask for a place. In a formal command, put the verb first and Sie directly after it.", [
+        ["Wo ist der Supermarkt?", "Where is the supermarket?"], ["Gehen Sie geradeaus.", "Go straight ahead."], ["Biegen Sie links ab.", "Turn left."]
+      ]],
+      ["Ort: in, auf und neben", "Ask Wo? for a fixed location and use the dative: der becomes dem, and die becomes der. Ask Wohin? for movement to a destination and use the accusative.", [
+        ["Der Tisch steht in der Küche.", "The table is in the kitchen."], ["Das Buch liegt auf dem Tisch.", "The book is on the table."], ["Der Stuhl steht neben dem Fenster.", "The chair is beside the window."]
+      ]],
+      ["das unpersönliche es und werden", "German weather expressions use es: es ist plus an adjective, or es with a weather verb. werden describes a change: Es wird warm means that it is becoming warm.", [
+        ["Es ist sonnig und warm.", "It is sunny and warm."], ["Es regnet.", "It is raining."], ["Es schneit heute.", "It is snowing today."], ["Morgen wird es wärmer.", "Tomorrow it will become warmer."]
+      ]],
+      ["Akkusativ und Plural", "The nominative names who acts; the accusative names the direct object. After brauchen, masculine ein becomes einen, while feminine eine and neuter ein stay unchanged. Plural nouns have no ein; use the plural article die, a possessive, a number, or no article.", [
+        ["Ich brauche einen Apfel.", "I need an apple."], ["Ich brauche eine Flasche Wasser.", "I need a bottle of water."], ["Ich brauche ein Kilo Kartoffeln.", "I need a kilo of potatoes."], ["Ich kaufe die Äpfel.", "I am buying the apples."]
+      ]],
+      ["möchten und nach", "möchten is a polite modal verb: conjugate it in position two and place another verb at the end when needed. nach always takes the dative, though cities and most countries show no article ending.", [
+        ["Ich möchte eine Fahrkarte.", "I would like a ticket."], ["Eine Fahrkarte nach Berlin, bitte.", "A ticket to Berlin, please."], ["Wann möchten Sie fahren?", "When would you like to travel?"]
+      ]],
+      ["Datum mit am", "Use am plus an ordinal date. Most dates 1–19 end in -ten; dates from 20 onward end in -sten.", [
+        ["Mein Geburtstag ist am dritten Mai.", "My birthday is on the third of May."], ["Wir treffen uns am zwölften August.", "We are meeting on the twelfth of August."], ["Die Party ist am einundzwanzigsten Juni.", "The party is on the twenty-first of June."]
+      ]],
+      ["Verbposition im Hauptsatz", "The conjugated verb stays in second position. und and aber keep normal order; if dann comes first, the verb follows it.", [
+        ["Ich wohne in Haifa und ich lerne Deutsch.", "I live in Haifa and I learn German."], ["Ich koche gern, aber ich backe nicht gern.", "I like cooking, but I don't like baking."], ["Dann fahre ich nach Hause.", "Then I travel home."]
+      ]],
+      ["kennen, wissen und Zeitangaben", "Use kennen for being familiar with a person, place, or thing. Use wissen for knowing a fact, often followed by a W-clause. A time expression may come first, but the conjugated verb remains second.", [
+        ["Kennst du Haifa?", "Do you know Haifa?"], ["Ich kenne die Stadt gut.", "I know the city well."], ["Weißt du, wo das Café ist?", "Do you know where the café is?"], ["Im Moment arbeite ich viel.", "At the moment I work a lot."]
+      ]],
+      ["Häufigkeitswörter", "Words such as normalerweise, oft, manchmal and nie usually sit near the conjugated verb. When one comes first, the verb remains second.", [
+        ["Normalerweise stehe ich um sieben auf.", "I normally get up at seven."], ["Ich koche oft am Abend.", "I often cook in the evening."], ["Am Sonntag arbeite ich nie.", "I never work on Sunday."]
+      ]],
+      ["Modalverben und Satzklammer", "A conjugated modal verb goes in second position; the other verb stays as an infinitive at the end.", [
+        ["Wollen wir zusammen kochen?", "Shall we cook together?"], ["Ich kann am Samstag kommen.", "I can come on Saturday."], ["Möchtest du ins Kino gehen?", "Would you like to go to the cinema?"]
+      ]],
+      ["formelles Sie, am und um", "Formal Sie is capitalized and takes the plural verb form. Ihnen is its dative form, used here because passen describes to whom a time suits. Use am for days and um for clock times.", [
+        ["Wann passt es Ihnen?", "When suits you?"], ["Geht es am Dienstag?", "Does Tuesday work?"], ["Der Termin ist um zehn Uhr.", "The appointment is at ten o'clock."]
+      ]],
+      ["ich hätte gern", "Use ich hätte gern as a polite fixed phrase when ordering. The ordered item is the direct object, so it takes the accusative: ein Kaffee becomes einen Kaffee.", [
+        ["Ich hätte gern einen Kaffee.", "I would like a coffee."], ["Für mich bitte die Suppe.", "The soup for me, please."], ["Wir hätten gern die Rechnung.", "We would like the bill."]
+      ]],
+      ["Akkusativpronomen und dürfen", "A direct object can be replaced by an accusative pronoun: ihn for masculine, sie for feminine, es for neuter, and sie for plural. dürfen asks permission; the conjugated modal stays in position two and the other verb goes to the end.", [
+        ["Die Jacke? Ich probiere sie an.", "The jacket? I'll try it on."], ["Der Pullover? Ich nehme ihn.", "The sweater? I'll take it."], ["Das Hemd? Ich kaufe es.", "The shirt? I'll buy it."], ["Darf ich sie anprobieren?", "May I try it on?"]
+      ]],
+      ["mit und zu mit Dativ", "The dative often marks a recipient or follows a fixed preposition. mit and zu always require it: der/das become dem and die becomes der. Common contractions are zum and zur.", [
+        ["Ich fahre mit dem Bus.", "I travel by bus."], ["Wie komme ich zum Bahnhof?", "How do I get to the station?"], ["Gehen Sie zur Haltestelle.", "Go to the bus stop."]
+      ]],
+      ["Wechselpräpositionen: wo oder wohin?", "With in, auf, an, neben, über, unter, vor, hinter and zwischen, use dative for location (Wo?) and accusative for movement toward a destination (Wohin?).", [
+        ["Ich wohne in einer kleinen Wohnung.", "I live in a small apartment."], ["Ich gehe in eine kleine Wohnung.", "I go into a small apartment."], ["Das Café ist neben dem Park.", "The café is beside the park."]
+      ]],
+      ["wehtun, seit und Dativpronomen", "With wehtun, the painful body part is the subject and the person feeling it is dative: mir, dir, ihm, ihr, uns, euch, ihnen/Ihnen. seit always takes the dative and German uses the present tense for something that is still continuing.", [
+        ["Mir tut der Hals weh.", "My throat hurts."], ["Meine Augen tun mir weh.", "My eyes hurt."], ["Was fehlt Ihnen?", "What is wrong with you?"], ["Seit gestern habe ich Kopfschmerzen.", "I have had a headache since yesterday."]
+      ]],
+      ["Perfekt und Modalverben in der Vergangenheit", "Use haben for most past actions and sein for movement or change; the participle goes at the end. In conversation, war, hatte, konnte, musste and wollte are usually simpler than full modal-verb Perfekt forms.", [
+        ["Ich habe Freunde getroffen.", "I met friends."], ["Ich bin nach Jerusalem gefahren.", "I went to Jerusalem."], ["Ich musste am Samstag arbeiten.", "I had to work on Saturday."], ["Was hast du gemacht?", "What did you do?"]
+      ]],
+      ["höfliche Wünsche im Hotel", "Use ich hätte gern or könnte ich ...? for polite requests. The preposition für always requires the accusative; with masculine nouns der becomes den and ein becomes einen.", [
+        ["Ich hätte gern ein ruhiges Zimmer.", "I would like a quiet room."], ["Könnte ich ein anderes Zimmer bekommen?", "Could I get another room?"], ["Ich habe für drei Nächte reserviert.", "I booked for three nights."]
+      ]],
+      ["Gründe mit weil, denn und da", "weil and da introduce a subordinate clause and send the conjugated verb to the end. denn also means because but begins a normal main clause, so its verb stays in position two.", [
+        ["Ich lerne Deutsch, weil ich in Berlin arbeiten möchte.", "I learn German because I want to work in Berlin."], ["Die Arbeit gefällt mir, denn sie ist interessant.", "I like the job because it is interesting."], ["Da ich früh anfange, stehe ich um sechs auf.", "Since I start early, I get up at six."], ["Warum lernst du Deutsch?", "Why are you learning German?"]
+      ]],
+      ["Nachrichten mit dass", "Use dass to report a message or thought. The conjugated verb moves to the end of the dass-clause.", [
+        ["Sagen Sie ihr bitte, dass ich angerufen habe.", "Please tell her that I called."], ["Ich sage ihm, dass der Termin ausfällt.", "I tell him that the appointment is cancelled."], ["Sie weiß, dass ich später komme.", "She knows that I am coming later."]
+      ]],
+      ["sollen, mitbringen und helfen", "Use sollen to ask what is expected. With a modal verb, mitbringen stays together at the end. helfen takes a dative person, which is why du becomes dir.", [
+        ["Was soll ich mitbringen?", "What should I bring?"], ["Du kannst einen Salat mitbringen.", "You can bring a salad."], ["Soll ich dir helfen?", "Should I help you?"]
+      ]],
+      ["Komparativ und Adjektivendungen", "Add -er for many comparatives and use als for differences; use so ... wie for equality. Before a noun, an adjective takes an ending that reflects article, gender, and case—learn useful chunks such as ein gutes Hotel and einen günstigeren Flug.", [
+        ["Das Hotel ist günstiger als das andere.", "The hotel is cheaper than the other one."], ["Ich nehme den günstigeren Flug.", "I will take the cheaper flight."], ["Das ist ein gutes Hotel.", "That is a good hotel."], ["Beide sind gleich weit entfernt.", "Both are equally far away."]
+      ]],
+      ["Meinungen mit dass", "After ich denke or ich glaube, dass introduces the opinion as a subordinate clause and sends its verb to the end.", [
+        ["Ich denke, dass das eine gute Idee ist.", "I think that this is a good idea."], ["Ich glaube, dass der Kurs hilfreich ist.", "I believe that the course is helpful."], ["Ich finde es gut, weil es praktisch ist.", "I like it because it is practical."]
+      ]],
+      ["Vorschläge machen", "Use wie wäre es mit plus dative, wir könnten plus infinitive, or lass uns plus infinitive. After mit, ein Ausflug becomes einem Ausflug.", [
+        ["Wie wäre es mit einem Ausflug?", "How about an excursion?"], ["Wir könnten am Sonntag fahren.", "We could travel on Sunday."], ["Lass uns den Zug nehmen.", "Let's take the train."]
+      ]],
+      ["Sätze reparieren und verbinden", "Keep the verb second in a main clause and at the end after dass. Repair phrases let you restart without abandoning the sentence.", [
+        ["Ich glaube, ich habe dich falsch verstanden.", "I think I misunderstood you."], ["Was ich sagen wollte, ist: Sonntag passt besser.", "What I wanted to say is: Sunday works better."], ["Ich denke, dass wir uns um elf treffen.", "I think that we are meeting at eleven."]
+      ]]
+    ];
+
+    const pronunciationTopics = [
+      "Keep the <i>h</i> audible in <i>Hallo</i> and <i>heiße</i>. In <i>heiße</i>, <i>ei</i> sounds like English ‘eye’, and <i>ß</i> is a sharp s.",
+      "The <i>ch</i> in <i>ich</i> and <i>nicht</i> is a soft hiss—not k or English sh. Stress the second syllable in <i>verSTEHen</i>.",
+      "Use German letter names when spelling: E = <i>eh</i>, I = <i>ee</i>, J = <i>jot</i>, V = <i>fau</i>, W = <i>weh</i>, Z = <i>tsett</i>.",
+      "German <i>w</i> sounds like English v in <i>wo</i> and <i>wohnen</i>. At the start of a word, <i>sp</i> sounds like shp in <i>Sprachen</i>.",
+      "<i>sch</i> sounds like English sh. Start <i>Schwester</i> with one smooth shv sound and keep the first syllable stressed.",
+      "Stress the prefix of a separable verb: <i>AUFstehen</i>, <i>EINkaufen</i>. When it moves to the sentence end, it keeps that stress.",
+      "Hear the short vowel in <i>essen</i> and the long vowel in <i>Käse</i>. Length changes the rhythm, so do not rush the long vowel.",
+      "At the start of a word, <i>st</i> sounds like sht and <i>sp</i> like shp: <i>Straße</i>, <i>sprechen</i>. German <i>z</i> starts with ts.",
+      "Round the lips for <i>ü</i> and <i>ö</i>: <i>Küche</i>, <i>Tür</i>, <i>Möbel</i>. Keep the tongue forward as for ee/e.",
+      "German <i>w</i> sounds like v in <i>Wetter</i>; <i>v</i> often sounds like f in <i>viel</i>. Keep both sounds distinct.",
+      "In <i>Äpfel</i>, <i>ä</i> sounds like a short e. In <i>Brötchen</i>, round the <i>ö</i> and use the soft ch sound in <i>-chen</i>.",
+      "German <i>z</i> sounds like ts in <i>Zug</i> and <i>Zeit</i>. In <i>drei</i>, <i>ei</i> sounds like English ‘eye’.",
+      "German <i>z</i> begins with ts in <i>zwölf</i>. A final <i>g</i> is devoiced, so <i>Tag</i> ends with a k sound.",
+      "Stress the information words and keep connectors light: <i>Ich WOHNE in Haifa, aber ich ARBEITE in Tel Aviv.</i>",
+      "<i>ie</i> is a long ee sound in <i>wieder</i>. In long phrases such as <i>Schön, dich wiederzusehen</i>, stress the meaningful word rather than every syllable.",
+      "Final <i>-e</i> and <i>-en</i> are usually weak: <i>arbeite</i>, <i>machen</i>. Stress the time or frequency word instead.",
+      "Let a yes/no invitation rise gently—<i>Hast du Zeit?</i>—and let a firm agreement fall—<i>Abgemacht.</i>",
+      "Keep similar numbers distinct: fünfZEHN, but FÜNFzig. Say dates and times in small groups and pause before repeating them.",
+      "Keep the first vowel short in <i>hätte</i>. In the fixed phrase <i>Ich hätte gern ...</i>, stress the item you are ordering.",
+      "Round the long <i>ö</i> in <i>Größe</i>; <i>ß</i> is a sharp s. In <i>diese</i>, <i>ie</i> is a long ee sound.",
+      "German <i>z</i> sounds like ts in <i>zum</i>, initial <i>st</i> like sht in <i>Straße</i>, and <i>au</i> like ow in <i>Haus</i>.",
+      "In <i>Wohnung</i>, <i>w</i> sounds like v, <i>h</i> lengthens the o, and <i>ng</i> is one nasal sound rather than n + g.",
+      "Use sh in <i>Schmerzen</i>, ts for <i>z</i>, and rounded <i>ö</i> in <i>Körper</i>. Stress the body part that carries the key information.",
+      "The participle prefix <i>ge-</i> is usually unstressed: geMACHT, geFAHren. Land clearly on the participle at the sentence end.",
+      "German <i>z</i> sounds like ts in <i>Zimmer</i>. Verbs ending in <i>-ieren</i> stress the final stem and take no <i>ge-</i>: reserVIERT.",
+      "Compound nouns usually stress the first part: <i>ARbeitsplatz</i>. The ending <i>-lich</i> uses the soft ch sound.",
+      "Without gestures, slow down names and numbers. Keep the soft ch in <i>ich/nicht</i> and leave a short pause between number groups.",
+      "Separable verbs stress their prefix: <i>MITbringen</i>, <i>EINladen</i>. In modal sentences, give the final infinitive enough space.",
+      "Round the umlauts in <i>größer</i> and <i>günstiger</i>. Say the comparative ending <i>-er</i> lightly but clearly.",
+      "Use contrastive stress for polite disagreement: <i>Ich finde DIESE Idee besser.</i> A calm falling melody keeps the response friendly.",
+      "Let suggestions rise slightly and final decisions fall. Speak in chunks: idea → reaction → detail → confirmation.",
+      "Pause after a repair phrase, then restart with the key information: <i>Was ich sagen wollte, ist ... SONNTAG passt besser.</i>"
+    ];
+
+    const reviewPrompts = {
+      3: "Rückblick 1–4: greet each other, exchange and spell names, ask for help once, then talk about country, city, and languages.",
+      7: "Rückblick 5–8: introduce one person, compare daily routines and food preferences, then ask for and give a short route.",
+      11: "Rückblick 9–12: describe a room and today's weather, buy three groceries, then ask for a train ticket and confirm the details.",
+      15: "Rückblick 13–16: discuss a birthday, give a connected A1 introduction, share one update, and compare two routines.",
+      19: "Rückblick 17–20: make an invitation, arrange an appointment, order at a café, and choose between two items of clothing.",
+      23: "Rückblick 21–24: explain a route, describe a home, report a symptom, and tell a short weekend story in the past.",
+      27: "Rückblick 25–28: solve a hotel problem, discuss work, leave a phone message, and respond to an invitation.",
+      31: "Rückblick 29–32: compare options, give and support an opinion, make a complete plan, and repair one misunderstanding."
+    };
+
     const uniqueEntries = items => [...new Map(items.map(([de, en]) => [de, [de, en]])).values()];
-    const cloze = sentence => sentence.includes("…") ? sentence.replace("…", "________") : sentence.replace(/([\p{L}]+)([.!?]*)$/u, "________$2");
     const basicsGroups = [
       ["A", "W-Fragen", [
         ["Wer? — Wer ist das?", "Wer ist das?", "Who? — Who is that?"],
@@ -780,16 +937,75 @@
         ["wir — Wir sind hier. Wir haben Zeit.", "Wir sind hier. Wir haben Zeit.", "we — We are here. We have time."],
         ["ihr — Ihr seid hier. Ihr habt Zeit.", "Ihr seid hier. Ihr habt Zeit.", "you all — You are here. You have time."],
         ["sie — Sie sind da. Sie haben Zeit.", "Sie sind da. Sie haben Zeit.", "they — They are there. They have time."],
-        ["Sie — Sie sind hier. Sie haben Zeit.", "Sie sind hier. Sie haben Zeit.", "formal you — You are here. You have time."]
-      ]],
+        ["Sie — Sie sind hier. Sie haben Zeit.", "Sie sind hier. Sie haben Zeit.", "formal you — You are here. You have time."],
+        ["Regelmäßiges Verb — ich lerne · du lernst · er lernt", "ich lerne, du lernst, er lernt", "regular verb — endings: -e, -st, -t"],
+        ["Pluralformen — wir lernen · ihr lernt · sie lernen", "wir lernen, ihr lernt, sie lernen", "plural verb forms — endings: -en, -t, -en"]
+      ], "The verb ending matches the subject. Most verbs follow the regular ending pattern; sein and haben are common exceptions worth learning as complete forms."],
       ["D", "der · die · das", [
         ["der Mann · ein Mann", "der Mann, ein Mann", "the man · a man"],
         ["die Frau · eine Frau", "die Frau, eine Frau", "the woman · a woman"],
         ["das Kind · ein Kind", "das Kind, ein Kind", "the child · a child"],
         ["der Tisch · ein Tisch", "der Tisch, ein Tisch", "the table · a table"],
         ["die Tür · eine Tür", "die Tür, eine Tür", "the door · a door"],
-        ["das Buch · ein Buch", "das Buch, ein Buch", "the book · a book"]
-      ]]
+        ["das Buch · ein Buch", "das Buch, ein Buch", "the book · a book"],
+        ["der Tag → die Tage — ein Tag · keine Tage", "der Tag, die Tage", "plural with -e — one day · no days"],
+        ["die Stadt → die Städte — eine Stadt · meine Städte", "die Stadt, die Städte", "plural with umlaut + -e — a city · my cities"],
+        ["das Kind → die Kinder — ein Kind · viele Kinder", "das Kind, die Kinder", "plural with -er — one child · many children"],
+        ["Plural ohne ein — Kinder · keine Kinder · meine Kinder", "Kinder, keine Kinder, meine Kinder", "plural has no indefinite article"]
+      ], "Every German noun has a gender. Learn the article together with the noun; the article later changes to show the noun's case."],
+      ["E", "Nominativ · Akkusativ · Dativ", [
+        ["Nominativ · wer/was? — Der Mann kauft einen Apfel.", "Der Mann kauft einen Apfel.", "subject: who acts? — The man buys an apple."],
+        ["Akkusativ · wen/was? — Der Mann kauft einen Apfel.", "Der Mann kauft einen Apfel.", "direct object: what is affected? — The man buys an apple."],
+        ["Dativ · wem? — Ich helfe dem Mann.", "Ich helfe dem Mann.", "recipient or affected person: to whom? — I help the man."],
+        ["Maskulin — der → den → dem", "der, den, dem", "masculine — nominative → accusative → dative"],
+        ["Feminin — die → die → der", "die, die, der", "feminine — nominative → accusative → dative"],
+        ["Neutrum — das → das → dem", "das, das, dem", "neuter — nominative → accusative → dative"],
+        ["Plural — die → die → den (+n)", "die, die, den", "plural — often add -n to the noun in the dative"],
+        ["Maskulin mit ein — ein → einen → einem", "ein, einen, einem", "masculine with a/an — nominative → accusative → dative"],
+        ["Feminin mit eine — eine → eine → einer", "eine, eine, einer", "feminine with a/an — nominative → accusative → dative"],
+        ["Neutrum mit ein — ein → ein → einem", "ein, ein, einem", "neuter with a/an — nominative → accusative → dative"],
+        ["Possessiv im Plural — meine → meine → meinen", "meine, meine, meinen", "plural possessive — nominative → accusative → dative"]
+      ], "A case tells you the job of a noun in the sentence. The subject is nominative, a direct object is usually accusative, and a recipient or the object of certain prepositions is dative."],
+      ["F", "Präpositionen und Fälle", [
+        ["Immer Akkusativ — für · ohne · durch · gegen · um", "für, ohne, durch, gegen, um", "always accusative"],
+        ["Immer Dativ — aus · bei · mit · nach · seit · von · zu", "aus, bei, mit, nach, seit, von, zu", "always dative"],
+        ["Wo? · Dativ — Ich bin in der Stadt.", "Ich bin in der Stadt.", "location + dative — I am in the city."],
+        ["Wohin? · Akkusativ — Ich fahre in die Stadt.", "Ich fahre in die Stadt.", "destination + accusative — I travel into the city."],
+        ["Kurzformen — am · im · zum · zur", "am, im, zum, zur", "an dem · in dem · zu dem · zu der"],
+        ["Verb + Akkusativ — Ich besuche meinen Bruder.", "Ich besuche meinen Bruder.", "Some verbs take an accusative object: I visit my brother."],
+        ["Verb + Dativ — Ich helfe meinem Bruder.", "Ich helfe meinem Bruder.", "Some verbs take a dative object: I help my brother."]
+      ], "A preposition often decides the case. Learn it as one chunk—mit + Dativ, für + Akkusativ. The nine two-way prepositions use dative for location and accusative for movement toward a destination."],
+      ["G", "Satzbau", [
+        ["Hauptsatz · Verb 2 — Heute lerne ich Deutsch.", "Heute lerne ich Deutsch.", "main clause: conjugated verb in position two"],
+        ["W-Frage · W + Verb — Wann kommst du?", "Wann kommst du?", "W-question: question word, then verb"],
+        ["Ja/Nein-Frage · Verb 1 — Kommst du heute?", "Kommst du heute?", "yes/no question: verb first"],
+        ["Trennbares Verb — Ich stehe früh auf.", "Ich stehe früh auf.", "separable prefix goes to the end"],
+        ["Modalverb — Ich muss heute arbeiten.", "Ich muss heute arbeiten.", "modal in position two, infinitive at the end"],
+        ["Perfekt — Ich habe heute gearbeitet.", "Ich habe heute gearbeitet.", "helper in position two, participle at the end"],
+        ["weil/dass — ..., weil ich heute arbeite.", "weil ich heute arbeite", "subordinate clause: conjugated verb at the end"],
+        ["Zeit · Art · Ort — Ich fahre morgen mit dem Bus nach Berlin.", "Ich fahre morgen mit dem Bus nach Berlin.", "usual order: time, manner, place"]
+      ], "German sentences use a bracket: the conjugated verb stays near the front, while an infinitive, prefix, or participle often closes the sentence. After weil or dass, the conjugated verb moves to the end."],
+      ["H", "Verben und Zeitformen", [
+        ["Präsens · jetzt — Ich lerne heute Deutsch.", "Ich lerne heute Deutsch.", "present — I am learning German today."],
+        ["Präsens · Zukunft — Morgen fahre ich nach Berlin.", "Morgen fahre ich nach Berlin.", "present + time word can express the future"],
+        ["Perfekt mit haben — Ich habe Deutsch gelernt.", "Ich habe Deutsch gelernt.", "spoken past for most verbs"],
+        ["Perfekt mit sein — Ich bin nach Berlin gefahren.", "Ich bin nach Berlin gefahren.", "spoken past for movement or change"],
+        ["Präteritum von sein — Früher war ich in Berlin.", "Früher war ich in Berlin.", "simple past of sein"],
+        ["Präteritum von haben — Ich hatte keine Zeit.", "Ich hatte keine Zeit.", "simple past of haben"],
+        ["Modalverb im Präteritum — Ich musste arbeiten.", "Ich musste arbeiten.", "common spoken past with a modal verb"],
+        ["Reflexives Verb — Wir treffen uns um acht.", "Wir treffen uns um acht.", "reflexive verb — We meet at eight."]
+      ], "At A1–A2, use the present for now and planned future events, and the Perfekt for most spoken past events. war, hatte, konnte, musste and wollte are also common in conversation."],
+      ["I", "Verneinen · verbinden · vergleichen", [
+        ["nicht + Verb — Ich arbeite heute nicht.", "Ich arbeite heute nicht.", "not with a verb or whole idea"],
+        ["kein + Nomen — Ich habe kein Auto.", "Ich habe kein Auto.", "no/not a before a noun"],
+        ["und / aber — Ich koche, aber ich backe nicht.", "Ich koche, aber ich backe nicht.", "and/but keep normal main-clause order"],
+        ["denn — Ich gehe, denn ich bin müde.", "Ich gehe, denn ich bin müde.", "because with normal main-clause order"],
+        ["weil — Ich gehe, weil ich müde bin.", "Ich gehe, weil ich müde bin.", "because sends the verb to the end"],
+        ["dass — Ich glaube, dass er heute kommt.", "Ich glaube, dass er heute kommt.", "that sends the verb to the end"],
+        ["Komparativ + als — Berlin ist größer als Bonn.", "Berlin ist größer als Bonn.", "comparative + than for a difference"],
+        ["so ... wie — Bonn ist nicht so groß wie Berlin.", "Bonn ist nicht so groß wie Berlin.", "as ... as for an equal comparison"],
+        ["Adjektivendung — ein gutes Hotel · eine gute Idee", "ein gutes Hotel, eine gute Idee", "the adjective ending follows gender, case, and article"]
+      ], "These small words let an A2 speaker connect ideas instead of listing them. Learn adjective endings gradually in useful noun phrases rather than trying to memorize every table at once."]
     ];
     const questionsFor = lesson => uniqueEntries([
       ...lesson.phrases,
@@ -803,8 +1019,7 @@
         ["Redemittel A", phrases.slice(0, 5)],
         ["Redemittel B", phrases.slice(5, 10)],
         ["W-Fragen zum Thema", questionsFor(lesson)],
-        ["Antworten", statements.map(([de, en]) => [de, de, en])],
-        ["Lückensätze", statements.map(([de, en]) => [cloze(de), de, en])]
+        ["Antworten", statements.map(([de, en]) => [de, de, en])]
       ];
     };
     const cardIcons = ["💬", "❓", "🗣️", "🔁", "✅", "🧭", "🤝", "🎯"];
@@ -831,8 +1046,11 @@
     console.assert(course.length === 32, "The course should contain 32 classes");
     console.assert(course.slice(0, 14).every(lesson => lesson.level === "A1.1") && course[14].level === "A1.2", "A1.1 foundations should come first");
     console.assert(course.every(lesson => lesson.phrases.length >= 8 && lesson.dialogue.length >= 6), "Each class needs enough spoken language");
-    console.assert(readingExercises(course[0]).length === 5, "Each class should render 15 exercises");
-    console.assert(basicsGroups.length === 4 && basicsGroups.every(([, , lines]) => lines.length >= 6), "Basics practice should stay complete");
+    console.assert(readingExercises(course[0]).length === 4, "Each class should render four phrase-building exercises");
+    console.assert(grammarTopics.length === course.length && grammarTopics.every(([, rule, examples]) => rule && examples.length >= 3), "Each class needs a grammar note and examples");
+    console.assert(pronunciationTopics.length === course.length && pronunciationTopics.every(Boolean), "Each class needs a pronunciation focus");
+    console.assert(Object.keys(reviewPrompts).length === 8, "Every four-class unit needs a conversation review");
+    console.assert(basicsGroups.length === 9 && basicsGroups.every(([, , lines]) => lines.length >= 6), "A1–A2 grammar reference should stay complete");
 
     function save() {
       state.lesson = lessonIndex;
@@ -859,9 +1077,13 @@
       return `<div class="plan-step"><div class="plan-head"><span class="plan-number">${number}</span><h3>${title}</h3></div>${lineList(lines)}</div>`;
     }
 
+    function grammarBlock([title, rule, examples]) {
+      return `<div class="plan-step grammar-note"><div class="plan-head"><span class="plan-number">💬</span><h3>Grammatik im Gespräch · ${title}</h3></div><p><b>Mini-Regel:</b> ${rule}</p>${lineList(examples.map(([de, en]) => [de, de, en]))}</div>`;
+    }
+
     const splitBasic = text => text.split(text.includes(" — ") ? " — " : " · ");
-    function basicsTable(number, title, lines) {
-      return `<details class="basics-group" name="basics-topic" data-basics-group="${number}" ${number === "A" ? "open" : ""}><summary><span class="plan-number">${number}</span>${title}</summary><table class="basics-table" aria-label="${title}"><thead><tr><th>Wort</th><th>Beispiel</th><th class="basics-audio">Audio</th></tr></thead><tbody>${lines.map(([de, spoken, en]) => {
+    function basicsTable(number, title, lines, explanation = "") {
+      return `<details class="basics-group" name="basics-topic" data-basics-group="${number}" ${number === "A" ? "open" : ""}><summary><span class="plan-number">${number}</span>${title}</summary>${explanation ? `<p class="basics-explanation">${explanation}</p>` : ""}<table class="basics-table" aria-label="${title}"><thead><tr><th>Form</th><th>Beispiel</th><th class="basics-audio">Audio</th></tr></thead><tbody>${lines.map(([de, spoken, en]) => {
         const [word, example] = splitBasic(de);
         const [englishWord, englishExample] = splitBasic(en);
         return `<tr><td class="basics-word"><strong>${word}</strong><small class="english">${englishWord}</small></td><td><strong>${example}</strong><small class="english">${englishExample}</small></td><td class="basics-audio"><button class="basics-line" type="button" data-speak="${spoken}" aria-label="${spoken} anhören">🔊</button></td></tr>`;
@@ -886,27 +1108,25 @@
       const lesson = course[lessonIndex];
       $("lessonLabel").textContent = `${lesson.level} · Stunde ${lessonIndex + 1}`;
       $("lessonTitle").textContent = lesson.title;
+      $("lessonIntro").textContent = lesson.intro;
       $("lessonIcon").textContent = lesson.icon;
-      $("timeline").innerHTML = readingExercises(lesson).map(([title, lines], index) => materialBlock(index + 1, title, lines)).join("");
-      $("dialogueTitle").textContent = `Übung 6 · Dialog lesen`;
+      $("lessonBrief").innerHTML = `
+        <div class="mini-exercise"><span>✓</span><p><b>Ziele:</b> ${lesson.goals.join(" · ")}</p></div>
+        <div class="mini-exercise"><span>💡</span><p><b>Sprechtipp:</b> ${lesson.coach}</p></div>
+        <div class="mini-exercise"><span>🔊</span><p><b>Aussprache:</b> ${pronunciationTopics[lessonIndex]}</p></div>
+        ${reviewPrompts[lessonIndex] ? `<div class="mini-exercise"><span>↩</span><p><b>Gesprächsrückblick:</b> ${reviewPrompts[lessonIndex]}</p></div>` : ""}`;
+      $("timeline").innerHTML = readingExercises(lesson).map(([title, lines], index) => materialBlock(index + 1, title, lines)).join("") + grammarBlock(grammarTopics[lessonIndex]);
+      $("dialogueTitle").textContent = lesson.dialogueTitle;
       $("dialogue").innerHTML = lesson.dialogue.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
-      const roleA = lesson.dialogue.filter(([speaker]) => speaker === "A").map(([, de, en]) => [de, de, en]);
-      const roleB = lesson.dialogue.filter(([speaker]) => speaker === "B").map(([, de, en]) => [de, de, en]);
-      const gapDialogue = lesson.dialogue.map(([speaker, de, en], index) => [`${speaker}: ${index % 2 ? "____________________________" : de}`, de, en]);
-      $("dialoguePractice").innerHTML = [
-        materialBlock(7, "Rolle A", roleA),
-        materialBlock(8, "Rolle B", roleB),
-        materialBlock(9, "Lückendialog", gapDialogue),
-        materialBlock(10, "Fragen zum Dialog", [["Wer spricht?", "Wer spricht?", "Who is speaking?"], ["Was ist das Thema?", "Was ist das Thema?", "What is the topic?"], ["Welche Informationen sind wichtig?", "Welche Informationen sind wichtig?", "Which information is important?"], ["Welche Frage hörst du?", "Welche Frage hörst du?", "Which question do you hear?"], ["Wie endet der Dialog?", "Wie endet der Dialog?", "How does the dialogue end?"]])
-      ].join("");
       $("promptCards").innerHTML = lesson.phrases.slice(0, 8).map(([de, en], index) => `
         <button class="prompt-card" type="button" aria-pressed="false" aria-label="Deutschen Satz hören und anzeigen" data-german="${de}">
           <span class="card-face card-front"><span class="card-icon">${cardIcons[index]}</span><span class="card-label">Hören</span><span class="card-word">▶ Satz ${index + 1}</span></span>
           <span class="card-face card-back"><span class="card-icon">${cardIcons[index]}</span><span class="card-label">Deutsch</span><span class="card-word">${de}</span><span class="english">${en}</span></span>
         </button>`).join("");
-      $("challenge").innerHTML = `<b>13 · Dialogvarianten</b><br>Person: Anna · Leon · Frau Klein<br>Ort: Café · Bahnhof · Wohnung<br>Zeit: heute · morgen · Samstag<br>Reaktion: gern · leider nicht · vielleicht<br>Problem: zu spät · geschlossen · ausverkauft`;
-      $("checklist").innerHTML = materialBlock(14, `Fragen · ${lesson.title}`, questionsFor(lesson));
-      $("homework").innerHTML = `<b>${lesson.title}</b><br>Ich … · Heute … · Normalerweise … · Dann … · aber … · weil … · Und du?<br><span class="english">I … · Today … · Normally … · Then … · but … · because … · And you?</span>`;
+      $("challenge").innerHTML = `<b>${lesson.challenge}</b><br><br>${lesson.variations.map((variation, index) => `${index + 1}. ${variation}`).join("<br>")}`;
+      const lessonChecks = state.checks[lessonIndex] || [];
+      $("checklist").innerHTML = `<p class="eyebrow">Übung 9 · Selbstcheck</p><div class="mini-exercises">${lesson.checks.map((check, index) => `<label class="mini-exercise check-item"><input type="checkbox" data-check="${index}" ${lessonChecks.includes(index) ? "checked" : ""}><p>${check}</p></label>`).join("")}</div>`;
+      $("homework").textContent = lesson.homework;
       const complete = state.complete.includes(lessonIndex);
       $("completeButton").textContent = complete ? "✓ Stunde abgeschlossen — gut gemacht!" : "Stunde als fertig markieren";
       $("completeButton").classList.toggle("done", complete);
@@ -945,8 +1165,11 @@
       line.classList.toggle("revealed");
     };
     $("timeline").addEventListener("click", speakLine);
-    $("dialoguePractice").addEventListener("click", speakLine);
-    $("checklist").addEventListener("click", speakLine);
+    $("checklist").addEventListener("change", event => {
+      if (!event.target.matches("[data-check]")) return;
+      state.checks[lessonIndex] = [...document.querySelectorAll("#checklist [data-check]:checked")].map(input => Number(input.dataset.check));
+      save();
+    });
     $("promptCards").addEventListener("click", event => {
       const card = event.target.closest(".prompt-card");
       if (!card) return;
