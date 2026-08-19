@@ -263,7 +263,7 @@
       <header class="topbar">
         <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
         <div class="top-actions">
-          <button class="button" id="openBasics" type="button">Grammatik-Hilfe</button>
+          <button class="button" id="openBasics" type="button">Sammys Grammatik-Hilfe</button>
           <button class="button" id="englishToggle" type="button">Englisch anzeigen</button>
           <button class="button" type="button" onclick="window.print()">Stunde drucken</button>
         </div>
@@ -331,7 +331,7 @@
 
   <dialog class="basics-dialog" id="basicsDialog" aria-labelledby="basicsTitle">
     <header class="basics-head">
-      <div><p class="eyebrow">Nachschlagen und hören</p><h2 id="basicsTitle">Deutsch-Grammatik A1–A2</h2><p class="subtle">Fälle · Artikel · Präpositionen · Satzbau · Zeitformen</p></div>
+      <div><p class="eyebrow">Nachschlagen und hören</p><h2 id="basicsTitle">Sammys Deutsch-Grammatik A1–A2</h2><p class="subtle">Pronomen · Fälle · Artikel · Präpositionen · Verben · Adjektive</p></div>
       <div class="basics-actions">
         <button class="button" id="listenBasics" type="button">🔊 Thema hören</button>
         <form method="dialog"><button class="button" type="submit">Schließen</button></form>
@@ -916,19 +916,23 @@
         ["Wann? — Wann kommst du?", "Wann kommst du?", "When? — When are you coming?"],
         ["Wie? — Wie geht es dir?", "Wie geht es dir?", "How? — How are you?"],
         ["Warum? — Warum lernst du Deutsch?", "Warum lernst du Deutsch?", "Why? — Why are you learning German?"],
+        ["Wieso? — Wieso bist du müde?", "Wieso bist du müde?", "Why? — Why are you tired?"],
+        ["Wofür? — Wofür brauchst du das?", "Wofür brauchst du das?", "What for? — What do you need that for?"],
+        ["Wem? — Wem gehört das Buch?", "Wem gehört das Buch?", "To whom? — Who does the book belong to?"],
+        ["Wessen? — Wessen Buch ist das?", "Wessen Buch ist das?", "Whose? — Whose book is this?"],
         ["Wie viel? — Wie viel kostet das?", "Wie viel kostet das?", "How much? — How much does that cost?"]
       ]],
       ["B", "Personalpronomen", [
-        ["ich — Ich komme heute.", "Ich komme heute.", "I — I am coming today."],
-        ["du — Du kommst heute.", "Du kommst heute.", "you — You are coming today."],
-        ["er — Er kommt heute.", "Er kommt heute.", "he — He is coming today."],
-        ["sie — Sie kommt heute.", "Sie kommt heute.", "she — She is coming today."],
-        ["es — Es kommt heute.", "Es kommt heute.", "it — It is arriving today."],
-        ["wir — Wir kommen heute.", "Wir kommen heute.", "we — We are coming today."],
-        ["ihr — Ihr kommt heute.", "Ihr kommt heute.", "you all — You are all coming today."],
-        ["sie (Plural) — Sie kommen heute.", "Sie kommen heute.", "they — They are coming today."],
-        ["Sie (formell) — Sie kommen heute.", "Sie kommen heute.", "formal you — You are coming today."]
-      ]],
+        ["ich — Nom ich · Akk mich · Dat mir · Gen meiner", "ich, mich, mir, meiner", "I — nominative I · accusative me · dative to me · genitive of me"],
+        ["du — Nom du · Akk dich · Dat dir · Gen deiner", "du, dich, dir, deiner", "you — nominative you · accusative you · dative to you · genitive of you"],
+        ["er — Nom er · Akk ihn · Dat ihm · Gen seiner", "er, ihn, ihm, seiner", "he — nominative he · accusative him · dative to him · genitive of him"],
+        ["sie — Nom sie · Akk sie · Dat ihr · Gen ihrer", "sie, sie, ihr, ihrer", "she — nominative she · accusative her · dative to her · genitive of her"],
+        ["es — Nom es · Akk es · Dat ihm · Gen seiner", "es, es, ihm, seiner", "it — nominative it · accusative it · dative to it · genitive of it"],
+        ["wir — Nom wir · Akk uns · Dat uns · Gen unser", "wir, uns, uns, unser", "we — nominative we · accusative us · dative to us · genitive of us"],
+        ["ihr — Nom ihr · Akk euch · Dat euch · Gen euer", "ihr, euch, euch, euer", "you all — nominative you · accusative you · dative to you · genitive of you"],
+        ["sie (Plural) — Nom sie · Akk sie · Dat ihnen · Gen ihrer", "sie, sie, ihnen, ihrer", "they — nominative they · accusative them · dative to them · genitive of them"],
+        ["Sie (formell) — Nom Sie · Akk Sie · Dat Ihnen · Gen Ihrer", "Sie, Sie, Ihnen, Ihrer", "formal you — nominative · accusative · dative · genitive"]
+      ], "Pronouns change with their job in the sentence. The genitive forms are uncommon in everyday A1–A2 speech, but they complete the reference."],
       ["C", "sein · haben", [
         ["ich — Ich bin müde. Ich habe Zeit.", "Ich bin müde. Ich habe Zeit.", "I — I am tired. I have time."],
         ["du — Du bist hier. Du hast Zeit.", "Du bist hier. Du hast Zeit.", "you — You are here. You have time."],
@@ -951,24 +955,31 @@
         ["der Tag → die Tage — ein Tag · keine Tage", "der Tag, die Tage", "plural with -e — one day · no days"],
         ["die Stadt → die Städte — eine Stadt · meine Städte", "die Stadt, die Städte", "plural with umlaut + -e — a city · my cities"],
         ["das Kind → die Kinder — ein Kind · viele Kinder", "das Kind, die Kinder", "plural with -er — one child · many children"],
+        ["das Buch → die Bücher — ein Buch · viele Bücher", "das Buch, die Bücher", "neuter plural with umlaut + -er — one book · many books"],
+        ["das Baby → die Babys — ein Baby · viele Babys", "das Baby, die Babys", "loanword plural with -s — one baby · many babies"],
+        ["Maskuline Endungen — -er · -ling · -ismus · -ig · -ich · -ist · -or", "der Lehrer, der Lehrling, der Optimismus", "masculine clues — useful patterns, not absolute rules"],
+        ["Neutrale Endungen — -chen · -lein · -ment · -tum · -um · -o", "das Mädchen, das Instrument, das Museum", "neuter clues — useful patterns, not absolute rules"],
+        ["Feminine Endungen — -ung · -heit · -keit · -schaft · -tät · -e", "die Wohnung, die Freiheit, die Universität", "feminine clues — useful patterns, not absolute rules"],
         ["Plural ohne ein — Kinder · keine Kinder · meine Kinder", "Kinder, keine Kinder, meine Kinder", "plural has no indefinite article"]
       ], "Every German noun has a gender. Learn the article together with the noun; the article later changes to show the noun's case."],
-      ["E", "Nominativ · Akkusativ · Dativ", [
+      ["E", "Nominativ · Akkusativ · Dativ · Genitiv", [
         ["Nominativ · wer/was? — Der Mann kauft einen Apfel.", "Der Mann kauft einen Apfel.", "subject: who acts? — The man buys an apple."],
         ["Akkusativ · wen/was? — Der Mann kauft einen Apfel.", "Der Mann kauft einen Apfel.", "direct object: what is affected? — The man buys an apple."],
         ["Dativ · wem? — Ich helfe dem Mann.", "Ich helfe dem Mann.", "recipient or affected person: to whom? — I help the man."],
-        ["Maskulin — der → den → dem", "der, den, dem", "masculine — nominative → accusative → dative"],
-        ["Feminin — die → die → der", "die, die, der", "feminine — nominative → accusative → dative"],
-        ["Neutrum — das → das → dem", "das, das, dem", "neuter — nominative → accusative → dative"],
-        ["Plural — die → die → den (+n)", "die, die, den", "plural — often add -n to the noun in the dative"],
-        ["Maskulin mit ein — ein → einen → einem", "ein, einen, einem", "masculine with a/an — nominative → accusative → dative"],
-        ["Feminin mit eine — eine → eine → einer", "eine, eine, einer", "feminine with a/an — nominative → accusative → dative"],
-        ["Neutrum mit ein — ein → ein → einem", "ein, ein, einem", "neuter with a/an — nominative → accusative → dative"],
+        ["Maskulin — der → den → dem → des", "der, den, dem, des", "masculine — nominative → accusative → dative → genitive"],
+        ["Feminin — die → die → der → der", "die, die, der, der", "feminine — nominative → accusative → dative → genitive"],
+        ["Neutrum — das → das → dem → des", "das, das, dem, des", "neuter — nominative → accusative → dative → genitive"],
+        ["Plural — die → die → den (+n) → der", "die, die, den, der", "plural — nominative → accusative → dative → genitive"],
+        ["Maskulin mit ein — ein → einen → einem → eines", "ein, einen, einem, eines", "masculine with a/an — nominative → accusative → dative → genitive"],
+        ["Feminin mit eine — eine → eine → einer → einer", "eine, eine, einer, einer", "feminine with a/an — nominative → accusative → dative → genitive"],
+        ["Neutrum mit ein — ein → ein → einem → eines", "ein, ein, einem, eines", "neuter with a/an — nominative → accusative → dative → genitive"],
         ["Possessiv im Plural — meine → meine → meinen", "meine, meine, meinen", "plural possessive — nominative → accusative → dative"]
       ], "A case tells you the job of a noun in the sentence. The subject is nominative, a direct object is usually accusative, and a recipient or the object of certain prepositions is dative."],
       ["F", "Präpositionen und Fälle", [
         ["Immer Akkusativ — für · ohne · durch · gegen · um", "für, ohne, durch, gegen, um", "always accusative"],
-        ["Immer Dativ — aus · bei · mit · nach · seit · von · zu", "aus, bei, mit, nach, seit, von, zu", "always dative"],
+        ["Immer Dativ — aus · außer · bei · gegenüber · mit · nach · seit · von · zu", "aus, außer, bei, gegenüber, mit, nach, seit, von, zu", "always dative"],
+        ["Meist Dativ — Ab nächstem Montag lerne ich jeden Tag.", "Ab nächstem Montag lerne ich jeden Tag.", "usually dative — Starting next Monday, I study every day."],
+        ["Wechselpräpositionen — an · auf · hinter · in · neben · über · unter · vor · zwischen", "an, auf, hinter, in, neben, über, unter, vor, zwischen", "two-way: dative for location, accusative for destination"],
         ["Wo? · Dativ — Ich bin in der Stadt.", "Ich bin in der Stadt.", "location + dative — I am in the city."],
         ["Wohin? · Akkusativ — Ich fahre in die Stadt.", "Ich fahre in die Stadt.", "destination + accusative — I travel into the city."],
         ["Kurzformen — am · im · zum · zur", "am, im, zum, zur", "an dem · in dem · zu dem · zu der"],
@@ -988,8 +999,17 @@
       ["H", "Verben und Zeitformen", [
         ["Präsens · jetzt — Ich lerne heute Deutsch.", "Ich lerne heute Deutsch.", "present — I am learning German today."],
         ["Präsens · Zukunft — Morgen fahre ich nach Berlin.", "Morgen fahre ich nach Berlin.", "present + time word can express the future"],
+        ["Präsensendungen — ich -e · du -st · er/sie/es -t · wir/sie/Sie -en · ihr -t", "ich lerne, du lernst, er lernt, wir lernen, ihr lernt", "regular present endings"],
+        ["Regelmäßiges Präteritum — ich/er/sie/es -te · du -test · wir/sie/Sie -ten · ihr -tet", "ich lernte, du lerntest, wir lernten, ihr lerntet", "regular simple-past endings"],
+        ["Partizip II — ge- + Stamm + -t", "machen, gemacht; lernen, gelernt", "regular past participle formula"],
         ["Perfekt mit haben — Ich habe Deutsch gelernt.", "Ich habe Deutsch gelernt.", "spoken past for most verbs"],
         ["Perfekt mit sein — Ich bin nach Berlin gefahren.", "Ich bin nach Berlin gefahren.", "spoken past for movement or change"],
+        ["Futur mit werden — Ich werde morgen arbeiten.", "Ich werde morgen arbeiten.", "future: conjugated werden + infinitive at the end"],
+        ["werden — ich werde · du wirst · er/sie/es wird", "ich werde, du wirst, er wird", "future helper — singular forms"],
+        ["werden — wir/sie/Sie werden · ihr werdet", "wir werden, ihr werdet, sie werden", "future helper — plural forms"],
+        ["Konjunktiv II mit würden — Ich würde gern reisen.", "Ich würde gern reisen.", "conditional: conjugated würden + infinitive at the end"],
+        ["würden — ich/er/sie/es würde · du würdest", "ich würde, du würdest, er würde", "conditional helper — singular forms"],
+        ["würden — wir/sie/Sie würden · ihr würdet", "wir würden, ihr würdet, sie würden", "conditional helper — plural forms"],
         ["Präteritum von sein — Früher war ich in Berlin.", "Früher war ich in Berlin.", "simple past of sein"],
         ["Präteritum von haben — Ich hatte keine Zeit.", "Ich hatte keine Zeit.", "simple past of haben"],
         ["Modalverb im Präteritum — Ich musste arbeiten.", "Ich musste arbeiten.", "common spoken past with a modal verb"],
@@ -1004,8 +1024,27 @@
         ["dass — Ich glaube, dass er heute kommt.", "Ich glaube, dass er heute kommt.", "that sends the verb to the end"],
         ["Komparativ + als — Berlin ist größer als Bonn.", "Berlin ist größer als Bonn.", "comparative + than for a difference"],
         ["so ... wie — Bonn ist nicht so groß wie Berlin.", "Bonn ist nicht so groß wie Berlin.", "as ... as for an equal comparison"],
-        ["Adjektivendung — ein gutes Hotel · eine gute Idee", "ein gutes Hotel, eine gute Idee", "the adjective ending follows gender, case, and article"]
-      ], "These small words let an A2 speaker connect ideas instead of listing them. Learn adjective endings gradually in useful noun phrases rather than trying to memorize every table at once."]
+        ["Adjektivendung — ein gutes Hotel · eine gute Idee", "ein gutes Hotel, eine gute Idee", "the adjective ending follows gender, case, and article"],
+        ["Nach der/die/das · Maskulin — -e · -en · -en · -en", "der gute Mann, den guten Mann, dem guten Mann, des guten Mannes", "after the definite article: masculine nominative · accusative · dative · genitive"],
+        ["Nach der/die/das · Neutrum — -e · -e · -en · -en", "das gute Kind, das gute Kind, dem guten Kind, des guten Kindes", "after the definite article: neuter nominative · accusative · dative · genitive"],
+        ["Nach der/die/das · Feminin — -e · -e · -en · -en", "die gute Frau, die gute Frau, der guten Frau, der guten Frau", "after the definite article: feminine nominative · accusative · dative · genitive"],
+        ["Nach der/die/das · Plural — -en · -en · -en · -en", "die guten Leute, die guten Leute, den guten Leuten, der guten Leute", "after the definite article: plural nominative · accusative · dative · genitive"],
+        ["Nach ein/eine · Maskulin — -er · -en · -en · -en", "ein guter Mann, einen guten Mann, einem guten Mann, eines guten Mannes", "after the indefinite article: masculine nominative · accusative · dative · genitive"],
+        ["Nach ein/eine · Neutrum — -es · -es · -en · -en", "ein gutes Kind, ein gutes Kind, einem guten Kind, eines guten Kindes", "after the indefinite article: neuter nominative · accusative · dative · genitive"],
+        ["Nach ein/eine · Feminin — -e · -e · -en · -en", "eine gute Frau, eine gute Frau, einer guten Frau, einer guten Frau", "after the indefinite article: feminine nominative · accusative · dative · genitive"],
+        ["Ohne Artikel · Maskulin — -er · -en · -em · -en", "guter Wein, guten Wein, gutem Wein, guten Weines", "without an article: masculine nominative · accusative · dative · genitive"],
+        ["Ohne Artikel · Neutrum — -es · -es · -em · -en", "gutes Brot, gutes Brot, gutem Brot, guten Brotes", "without an article: neuter nominative · accusative · dative · genitive"],
+        ["Ohne Artikel · Feminin — -e · -e · -er · -er", "gute Milch, gute Milch, guter Milch, guter Milch", "without an article: feminine nominative · accusative · dative · genitive"],
+        ["Ohne Artikel · Plural — -e · -e · -en · -er", "gute Freunde, gute Freunde, guten Freunden, guter Freunde", "without an article: plural nominative · accusative · dative · genitive"]
+      ], "These small words let an A2 speaker connect ideas instead of listing them. Learn adjective endings gradually in useful noun phrases rather than trying to memorize every table at once."],
+      ["J", "Modalverben im Präsens", [
+        ["ich / er / sie / es — will · soll · darf · kann · muss · mag", "ich will, soll, darf, kann, muss, mag", "want · should · may · can · must · like"],
+        ["du — willst · sollst · darfst · kannst · musst · magst", "du willst, sollst, darfst, kannst, musst, magst", "you want · should · may · can · must · like"],
+        ["wir / sie / Sie — wollen · sollen · dürfen · können · müssen · mögen", "wir wollen, sollen, dürfen, können, müssen, mögen", "we/they/formal you want · should · may · can · must · like"],
+        ["ihr — wollt · sollt · dürft · könnt · müsst · mögt", "ihr wollt, sollt, dürft, könnt, müsst, mögt", "you all want · should · may · can · must · like"],
+        ["können — Ich kann heute kommen.", "Ich kann heute kommen.", "can — I can come today."],
+        ["müssen — Wir müssen jetzt gehen.", "Wir müssen jetzt gehen.", "must — We have to leave now."]
+      ], "A modal verb is conjugated in position two. The other verb stays in the infinitive at the end of the sentence."]
     ];
     const questionsFor = lesson => uniqueEntries([
       ...lesson.phrases,
@@ -1050,7 +1089,7 @@
     console.assert(grammarTopics.length === course.length && grammarTopics.every(([, rule, examples]) => rule && examples.length >= 3), "Each class needs a grammar note and examples");
     console.assert(pronunciationTopics.length === course.length && pronunciationTopics.every(Boolean), "Each class needs a pronunciation focus");
     console.assert(Object.keys(reviewPrompts).length === 8, "Every four-class unit needs a conversation review");
-    console.assert(basicsGroups.length === 9 && basicsGroups.every(([, , lines]) => lines.length >= 6), "A1–A2 grammar reference should stay complete");
+    console.assert(basicsGroups.length === 10 && basicsGroups.every(([, , lines]) => lines.length >= 6), "A1–A2 grammar reference should stay complete");
 
     function save() {
       state.lesson = lessonIndex;
