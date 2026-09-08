@@ -207,7 +207,37 @@
     body.hide-english .basics-table .english { display: block; }
     .basics-audio { width: 54px; text-align: center !important; }
     .basics-line { width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
-    .basics-line:hover { border-color: var(--green); background: #f2f7f4; }
+     .basics-line:hover { border-color: var(--green); background: #f2f7f4; }
+     .revision-dialog { width: min(960px, calc(100% - 32px)); max-height: 92vh; padding: 0; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #0005; }
+     .revision-dialog::backdrop { background: #10251dcc; }
+     .revision-head { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border-bottom: 1px solid var(--line); background: var(--card); }
+     .revision-head .eyebrow { margin-bottom: 4px; }
+     .revision-head h2 { margin: 0; }
+     .revision-head p { margin: 5px 0 0; }
+     .revision-actions { display: flex; gap: 9px; }
+     .revision-content { display: grid; gap: 18px; padding: 22px 24px 28px; }
+     .revision-intro { padding: 18px 20px; border: 1px solid #cbded5; border-radius: 14px; color: #40564c; background: #f2f7f4; }
+     .revision-intro p { margin: 0; }
+     .revision-section { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+     .revision-section h3 { margin: 0; padding: 16px 18px; border-bottom: 1px solid var(--line); background: #faf8f2; font-size: 19px; }
+     .revision-section > p { margin: 0; padding: 14px 18px 0; color: #526159; font-size: 15px; }
+     .revision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 16px 18px 18px; }
+     .revision-rule { padding: 14px; border: 1px solid var(--line); border-radius: 11px; background: #fffdf8; }
+     .revision-rule strong { display: block; margin-bottom: 5px; }
+     .revision-rule p { margin: 0; color: #526159; font-size: 15px; }
+     .revision-example { margin-top: 8px !important; color: var(--green) !important; font-weight: 800; }
+     .word-count { float: right; color: var(--muted); font-size: 13px; font-weight: 600; }
+     .word-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 16px 18px 18px; }
+     .word-group { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; }
+     .word-group h4 { margin: 0; padding: 10px 12px; color: var(--dark); background: #f2f7f4; font-size: 14px; }
+     .word-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+     .word-table td { padding: 8px 12px; border-top: 1px solid var(--line); }
+     .word-table td:last-child { color: var(--muted); text-align: right; }
+     .word-line { width: 28px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
+     .word-line:hover { border-color: var(--green); background: #f2f7f4; }
+     .exam-checklist { display: grid; gap: 9px; padding: 16px 18px 18px; }
+     .exam-check { display: flex; gap: 10px; align-items: flex-start; color: #526159; font-size: 15px; }
+     .exam-check input { width: 18px; height: 18px; flex: 0 0 auto; margin: 2px 0 0; accent-color: var(--green); }
 
     @media (max-width: 1050px) {
       .app { grid-template-columns: 1fr; }
@@ -223,7 +253,11 @@
       .top-actions { display: grid; grid-template-columns: 1fr 1fr; }
       .basics-head { align-items: flex-start; flex-direction: column; padding: 20px; }
       .basics-actions { width: 100%; }
-      .basics-actions > *, .basics-actions form, .basics-actions .button { flex: 1; width: 100%; }
+       .basics-actions > *, .basics-actions form, .basics-actions .button { flex: 1; width: 100%; }
+       .revision-head { align-items: flex-start; flex-direction: column; padding: 20px; }
+       .revision-actions { width: 100%; }
+       .revision-actions > *, .revision-actions form, .revision-actions .button { flex: 1; width: 100%; }
+       .revision-content { padding: 12px; }
       .basics-tables { padding: 12px; }
       .basics-table th, .basics-table td { padding: 10px; }
       .hero { min-height: 0; grid-template-columns: 1fr; }
@@ -234,7 +268,8 @@
       .english { text-align: left; }
       .reading-line { grid-template-columns: 1fr; gap: 3px; }
       .prompt-cards { grid-template-columns: repeat(2, 1fr); }
-      .reading-list { margin-left: 0; }
+       .reading-list { margin-left: 0; }
+       .revision-grid, .word-groups { grid-template-columns: 1fr; padding-left: 12px; padding-right: 12px; }
       .turn { max-width: 96%; }
       .challenge-top, .checklist { padding-left: 22px; padding-right: 22px; }
     }
@@ -263,7 +298,7 @@
       <header class="topbar">
         <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
         <div class="top-actions">
-          <button class="button" id="openBasics" type="button">Sammys Grammatik-Hilfe</button>
+          <button class="button" id="openRevision" type="button">Grammatik &amp; A1.2-Prüfung</button>
           <button class="button" id="englishToggle" type="button">Englisch anzeigen</button>
           <button class="button" type="button" onclick="window.print()">Stunde drucken</button>
         </div>
@@ -329,14 +364,15 @@
     </main>
   </div>
 
-  <dialog class="basics-dialog" id="basicsDialog" aria-labelledby="basicsTitle">
-    <header class="basics-head">
-      <div><p class="eyebrow">Nachschlagen und hören</p><h2 id="basicsTitle">Sammys Deutsch-Grammatik A1–A2</h2><p class="subtle">Pronomen · Fälle · Artikel · Präpositionen · Verben · Adjektive</p></div>
-      <div class="basics-actions">
-        <button class="button" id="listenBasics" type="button">🔊 Thema hören</button>
+  <dialog class="revision-dialog" id="revisionDialog" aria-labelledby="revisionTitle">
+    <header class="revision-head">
+      <div><p class="eyebrow">Nachschlagen &amp; Prüfungsvorbereitung</p><h2 id="revisionTitle">Sammys Deutsch-Grammatik A1–A2</h2><p class="subtle">A1.2-Grammatik · 200 Wörter · Prüfung sicherer machen</p></div>
+      <div class="revision-actions">
+        <button class="button" id="listenRevision" type="button">🔊 Thema hören</button>
         <form method="dialog"><button class="button" type="submit">Schließen</button></form>
       </div>
     </header>
+    <div class="revision-content" id="revisionContent"></div>
     <div class="basics-tables" id="basicsTables"></div>
   </dialog>
 
@@ -906,6 +942,52 @@
     };
 
     const uniqueEntries = items => [...new Map(items.map(([de, en]) => [de, [de, en]])).values()];
+    const revisionGrammar = [
+      ["Verb auf Position 2", "Im Hauptsatz steht das konjugierte Verb an zweiter Stelle. Beginnt der Satz mit Zeit oder Ort, kommt das Subjekt danach.", "In a main clause, the conjugated verb is in position two. If time or place comes first, the subject follows the verb.", "Heute lerne ich Deutsch."],
+      ["Fragen", "Bei W-Fragen steht das Fragewort zuerst und das Verb an zweiter Stelle. Bei Ja/Nein-Fragen steht das Verb zuerst.", "In W-questions, the question word comes first and the verb second. In yes/no questions, the verb comes first.", "Wann kommst du? / Kommst du heute?"],
+      ["Akkusativ", "Das direkte Objekt steht im Akkusativ. Nur maskuline Artikel ändern sich sichtbar: der → den, ein → einen, mein → meinen.", "The direct object takes the accusative. Only masculine articles visibly change: der to den, ein to einen, and mein to meinen.", "Ich kaufe einen Tee. Ich sehe den Mann."],
+      ["Dativ nach Präpositionen", "mit, nach, aus, bei, von und zu stehen mit dem Dativ. Lerne die Verbindung als festen Ausdruck.", "Mit, nach, aus, bei, von, and zu take the dative. Learn each preposition together with its phrase.", "Ich fahre mit dem Bus. Ich komme aus der Stadt."],
+      ["Wo oder wohin?", "Bei einem festen Ort steht nach in, an, auf, neben usw. der Dativ. Bei Bewegung zu einem Ziel steht der Akkusativ.", "For a fixed location after in, an, auf, neben, and similar prepositions, use the dative. For movement toward a destination, use the accusative.", "Ich bin in der Küche. Ich gehe in die Küche."],
+      ["Modalverben", "Das Modalverb ist konjugiert auf Position 2. Der zweite Infinitiv steht am Satzende.", "The modal verb is conjugated in position two. The second verb stays in the infinitive at the end.", "Ich muss heute arbeiten. Kannst du mir helfen?"],
+      ["Trennbare Verben", "Im Hauptsatz steht der Präfix am Ende. Mit einem Modalverb bleibt das Verb zusammen.", "In a main clause, the separable prefix moves to the end. With a modal verb, the verb stays together.", "Ich stehe um sieben auf. Ich muss früh aufstehen."],
+      ["Perfekt", "Für vergangene Gespräche benutzt man meistens haben oder sein + Partizip II. sein steht oft bei Bewegung oder Veränderung.", "For past conversations, use haben or sein plus the past participle. sein is common with movement or change.", "Ich habe gearbeitet. Ich bin nach Berlin gefahren."],
+      ["weil und dass", "Nach weil und dass steht das konjugierte Verb am Ende des Nebensatzes.", "After weil and dass, the conjugated verb moves to the end of the subordinate clause.", "Ich lerne, weil ich die Prüfung bestehen möchte."],
+      ["nicht und kein", "nicht verneint ein Verb, Adjektiv oder eine Information. kein steht vor einem Nomen ohne bestimmten Artikel.", "Use nicht to negate a verb, adjective, or idea. Use kein before a noun that would otherwise have ein or eine.", "Ich komme heute nicht. Ich habe kein Auto."],
+      ["Adjektive vergleichen", "Für einen Unterschied nutzt man Komparativ + als. Für Gleichheit nutzt man so ... wie.", "Use the comparative plus als for a difference. Use so ... wie for equality.", "Der Zug ist schneller als der Bus. Beide sind so teuer wie ein Taxi."],
+      ["Höflich sprechen", "Für Bitten und Wünsche helfen bitte, ich hätte gern, könnte ich ...? und würden Sie ...?.", "Use bitte, ich hätte gern, könnte ich ...?, and würden Sie ...? to make requests and wishes polite.", "Ich hätte gern einen Kaffee. Könnten Sie das wiederholen?"]
+    ];
+    const usefulWordGroups = [
+      ["Menschen & Pronomen", [["ich","I"],["du","you"],["er","he"],["sie","she / they"],["es","it"],["wir","we"],["ihr","you all"],["Sie","you formal"],["man","one / people"],["jemand","someone"]]],
+      ["Fragewörter", [["wer","who"],["was","what"],["wo","where"],["woher","where from"],["wohin","where to"],["wann","when"],["wie","how"],["warum","why"],["welcher","which"],["wie viel","how much / many"]]],
+      ["Kernverben 1", [["sein","to be"],["haben","to have"],["werden","to become"],["machen","to do / make"],["gehen","to go"],["kommen","to come"],["wohnen","to live"],["arbeiten","to work"],["lernen","to learn"],["sprechen","to speak"]]],
+      ["Kernverben 2", [["heißen","to be called"],["sagen","to say"],["fragen","to ask"],["antworten","to answer"],["verstehen","to understand"],["wissen","to know a fact"],["kennen","to know / be familiar"],["finden","to find / think"],["brauchen","to need"],["geben","to give"]]],
+      ["Alltagsverben", [["essen","to eat"],["trinken","to drink"],["kaufen","to buy"],["bezahlen","to pay"],["nehmen","to take"],["bringen","to bring"],["öffnen","to open"],["helfen","to help"],["warten","to wait"],["suchen","to look for"]]],
+      ["Bewegung & Reise", [["fahren","to travel / drive"],["fliegen","to fly"],["laufen","to walk / run"],["bleiben","to stay"],["einsteigen","to get on"],["aussteigen","to get off"],["umsteigen","to change transport"],["ankommen","to arrive"],["abfahren","to depart"],["reservieren","to reserve"]]],
+      ["Modalverben", [["können","can / be able"],["müssen","must / have to"],["wollen","to want"],["möchten","would like"],["sollen","should / be supposed"],["dürfen","may / be allowed"],["mögen","to like"],["könnte","could"],["sollte","should"],["möglich","possible"]]],
+      ["Zeit", [["heute","today"],["morgen","tomorrow"],["gestern","yesterday"],["jetzt","now"],["später","later"],["früh","early"],["spät","late"],["der Tag","day"],["die Woche","week"],["das Wochenende","weekend"]]],
+      ["Zeitangaben", [["Montag","Monday"],["Dienstag","Tuesday"],["Mittwoch","Wednesday"],["Donnerstag","Thursday"],["Freitag","Friday"],["Samstag","Saturday"],["Sonntag","Sunday"],["die Uhr","clock / time"],["die Stunde","hour"],["die Minute","minute"]]],
+      ["Menschen & Beziehungen", [["der Mann","man"],["die Frau","woman"],["das Kind","child"],["die Familie","family"],["der Freund","male friend"],["die Freundin","female friend"],["die Eltern","parents"],["die Mutter","mother"],["der Vater","father"],["das Paar","couple"]]],
+      ["Zuhause", [["das Haus","house"],["die Wohnung","apartment"],["das Zimmer","room"],["die Küche","kitchen"],["das Bad","bathroom"],["das Wohnzimmer","living room"],["das Schlafzimmer","bedroom"],["der Tisch","table"],["der Stuhl","chair"],["die Tür","door"]]],
+      ["Essen & Trinken", [["das Brot","bread"],["das Brötchen","bread roll"],["der Käse","cheese"],["die Milch","milk"],["das Wasser","water"],["der Kaffee","coffee"],["der Tee","tea"],["der Apfel","apple"],["das Gemüse","vegetables"],["das Essen","food / meal"]]],
+      ["Einkaufen", [["der Supermarkt","supermarket"],["das Geschäft","shop"],["der Preis","price"],["das Geld","money"],["die Karte","card"],["die Größe","size"],["die Farbe","colour"],["die Jacke","jacket"],["die Hose","trousers"],["die Rechnung","bill"]]],
+      ["Orte & Verkehr", [["die Stadt","city"],["das Land","country"],["die Straße","street"],["der Bahnhof","station"],["die Haltestelle","stop"],["der Bus","bus"],["der Zug","train"],["das Auto","car"],["der Weg","way / path"],["der Park","park"]]],
+      ["Gesundheit", [["der Arzt","doctor"],["die Ärztin","female doctor"],["der Kopf","head"],["der Hals","throat"],["der Bauch","stomach"],["der Rücken","back"],["der Schmerz","pain"],["das Fieber","fever"],["krank","ill"],["gesund","healthy"]]],
+      ["Eigenschaften", [["gut","good"],["schlecht","bad"],["groß","big / tall"],["klein","small / short"],["neu","new"],["alt","old"],["schön","beautiful / nice"],["einfach","easy / simple"],["richtig","correct"],["falsch","wrong"]]],
+      ["Gefühle & Meinungen", [["gern","gladly"],["lieber","preferably"],["sehr","very"],["auch","also"],["leider","unfortunately"],["wirklich","really"],["glauben","to believe"],["denken","to think"],["hoffen","to hope"],["gefallen","to please / like"]]],
+      ["Verbindungen", [["und","and"],["aber","but"],["oder","or"],["denn","because"],["weil","because"],["dass","that"],["dann","then"],["danach","afterwards"],["zuerst","first"],["zum Schluss","finally"]]],
+      ["Präpositionen", [["in","in"],["an","at / on"],["auf","on"],["mit","with / by"],["ohne","without"],["für","for"],["aus","from / out of"],["nach","to / after"],["bei","at / with"],["zu","to"]]],
+      ["Prüfungswörter", [["die Frage","question"],["die Antwort","answer"],["das Beispiel","example"],["das Problem","problem"],["die Lösung","solution"],["der Termin","appointment"],["die Einladung","invitation"],["der Plan","plan"],["die Hilfe","help"],["die Prüfung","test / exam"]]]
+    ];
+    const examChecklist = [
+      "Ich kann mich vorstellen und mindestens drei Rückfragen stellen.",
+      "Ich kann eine Einladung machen, annehmen oder höflich ablehnen.",
+      "Ich kann einen Termin, eine Bestellung oder eine Reiseinformation bestätigen.",
+      "Ich kann über gestern sprechen und fünf Ereignisse verbinden.",
+      "Ich kann um Wiederholung bitten und ein Missverständnis reparieren.",
+      "Ich kann eine kurze Nachricht lesen und die wichtigsten Details finden.",
+      "Ich kann ein Formular mit Name, Adresse, Datum und Telefonnummer ausfüllen.",
+      "Ich kann eine kurze E-Mail mit Anrede, Bitte und Gruß schreiben."
+    ];
     const basicsGroups = [
       ["A", "W-Fragen", [
         ["Wer? — Wer ist das?", "Wer ist das?", "Who? — Who is that?"],
@@ -1090,6 +1172,7 @@
     console.assert(pronunciationTopics.length === course.length && pronunciationTopics.every(Boolean), "Each class needs a pronunciation focus");
     console.assert(Object.keys(reviewPrompts).length === 8, "Every four-class unit needs a conversation review");
     console.assert(basicsGroups.length === 10 && basicsGroups.every(([, , lines]) => lines.length >= 6), "A1–A2 grammar reference should stay complete");
+    console.assert(usefulWordGroups.flatMap(([, group]) => group).length === 200, "The A1.2 vocabulary list should contain 200 words");
 
     function save() {
       state.lesson = lessonIndex;
@@ -1127,6 +1210,14 @@
         const [englishWord, englishExample] = splitBasic(en);
         return `<tr><td class="basics-word"><strong>${word}</strong><small class="english">${englishWord}</small></td><td><strong>${example}</strong><small class="english">${englishExample}</small></td><td class="basics-audio"><button class="basics-line" type="button" data-speak="${spoken}" aria-label="${spoken} anhören">🔊</button></td></tr>`;
       }).join("")}</tbody></table></details>`;
+    }
+    function renderRevision() {
+      const words = usefulWordGroups.flatMap(([, group]) => group);
+      $("revisionContent").innerHTML = `
+        <div class="revision-intro"><p><b>So lernst du damit:</b> Lerne Nomen immer mit Artikel, sprich jedes Verb in einem kurzen Satz und übe die Wörter anschließend in den 32 Gesprächsstunden. Für die Prüfung zählt verständliche Kommunikation: fragen, reagieren, bestätigen und weitersprechen.</p></div>
+        <section class="revision-section"><h3>Die wichtigsten A1.2-Grammatikregeln</h3><p>Verstehe die Funktion zuerst, dann lerne das Beispiel als ganzen Satz.</p><div class="revision-grid">${revisionGrammar.map(([title, rule, english, example]) => `<article class="revision-rule"><strong>${title}</strong><p>${rule}</p><p><b>English:</b> ${english}</p><p class="revision-example">${example}</p></article>`).join("")}</div></section>
+        <section class="revision-section"><h3>200 nützliche Wörter <span class="word-count">${words.length} Wörter · 20 Themen</span></h3><p>Nomen stehen mit Artikel. Klicke auf 🔊, höre das Wort und bilde sofort einen eigenen Satz.</p><div class="word-groups">${usefulWordGroups.map(([title, group]) => `<div class="word-group"><h4>${title}</h4><table class="word-table"><tbody>${group.map(([de, en]) => `<tr><td><b>${de}</b></td><td>${en}</td><td><button class="word-line" type="button" data-speak="${de}" aria-label="${de} anhören">🔊</button></td></tr>`).join("")}</tbody></table></div>`).join("")}</div></section>
+        <section class="revision-section"><h3>A1.2-Selbstcheck</h3><div class="exam-checklist">${examChecklist.map((item, index) => `<label class="exam-check"><input type="checkbox" data-exam-check="${index}">${item}</label>`).join("")}</div></section>`;
     }
 
     function renderNavigation() {
@@ -1181,7 +1272,8 @@
     }
 
     $("basicsTables").innerHTML = basicsGroups.map(group => basicsTable(...group)).join("");
-    $("openBasics").addEventListener("click", () => $("basicsDialog").showModal());
+    renderRevision();
+    $("openRevision").addEventListener("click", () => $("revisionDialog").showModal());
     $("lessonNav").addEventListener("click", event => {
       const button = event.target.closest("[data-lesson]");
       if (button) chooseLesson(button.dataset.lesson);
@@ -1189,12 +1281,13 @@
     $("mobileSelect").addEventListener("change", event => chooseLesson(event.target.value));
     $("listenPhrases").addEventListener("click", () => speakGerman(course[lessonIndex].phrases.map(([de]) => de)));
     $("listenDialogue").addEventListener("click", () => speakGerman(course[lessonIndex].dialogue.map(([, de]) => de)));
-    $("listenBasics").addEventListener("click", () => {
-      const openGroup = document.querySelector(".basics-group[open]")?.dataset.basicsGroup || "A";
-      speakGerman(basicsGroups.find(([number]) => number === openGroup)[2].map(([, spoken]) => spoken));
-    });
+    $("listenRevision").addEventListener("click", () => speakGerman(revisionGrammar.map(([, , , example]) => example)));
     $("basicsTables").addEventListener("click", event => {
       const line = event.target.closest(".basics-line");
+      if (line) speakGerman([line.dataset.speak]);
+    });
+    $("revisionContent").addEventListener("click", event => {
+      const line = event.target.closest(".word-line");
       if (line) speakGerman([line.dataset.speak]);
     });
     const speakLine = event => {
@@ -1234,7 +1327,7 @@
 
     $("listenPhrases").hidden = !canSpeak;
     $("listenDialogue").hidden = !canSpeak;
-    $("listenBasics").hidden = !canSpeak;
+    $("listenRevision").hidden = !canSpeak;
     renderLesson();
   </script>
 </body>
