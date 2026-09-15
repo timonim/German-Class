@@ -120,6 +120,50 @@
     h1 { margin: 0 0 14px; font-size: clamp(38px, 5vw, 58px); line-height: 1.04; letter-spacing: -1.7px; }
     .hero-art { z-index: 1; display: grid; place-items: center; font-size: 105px; filter: drop-shadow(0 10px 20px #0003); }
 
+     .sentence-lab { padding: 30px 34px 34px; border: 1px solid #cbded5; border-radius: 18px; background: #f2f7f4; }
+     .sentence-lab .panel-head { margin-bottom: 20px; }
+     .sentence-lab .eyebrow { color: var(--green); }
+     .sentence-tabs { display: grid; gap: 13px; margin-bottom: 22px; }
+     .sentence-tab-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+     .sentence-tab-group-label { margin: 0 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .9px; text-transform: uppercase; }
+     .sentence-tab { padding: 8px 13px; border: 1px solid #bfd2c9; border-radius: 999px; color: #526159; background: #fffdf8; font-size: 14px; font-weight: 800; cursor: pointer; }
+     .sentence-tab:hover { border-color: var(--green); }
+     .sentence-tab.active { border-color: var(--dark); color: #fff; background: var(--dark); }
+     .sentence-display { padding: 21px 20px 18px; border: 1px solid #cbded5; border-radius: 14px; background: var(--card); }
+     .sentence-line { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+     .sentence-token { position: relative; display: inline-flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 10px 7px; border-bottom: 3px solid var(--token-color); border-radius: 8px 8px 3px 3px; background: var(--token-bg); font-size: 19px; font-weight: 850; line-height: 1.15; }
+     .sentence-token small { color: var(--token-color); font-size: 10px; font-weight: 900; letter-spacing: .6px; text-transform: uppercase; }
+     .sentence-token.verb { --token-color: #b65d28; --token-bg: #fff0df; }
+     .sentence-token.subject { --token-color: #216b50; --token-bg: #e4f1e9; }
+     .sentence-token.object { --token-color: #4a6797; --token-bg: #e8eef9; }
+     .sentence-token.adverb { --token-color: #785c91; --token-bg: #eee7f8; }
+     .sentence-token.connector { --token-color: #8a6a22; --token-bg: #fff4c9; }
+     .sentence-note { margin: 17px 0 0; color: #526159; font-size: 15px; }
+     .sentence-english { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
+     .sentence-note b { color: var(--ink); }
+     .sentence-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; color: #526159; font-size: 13px; font-weight: 700; }
+     .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+     .legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--legend-color); }
+     .legend-dot.verb { --legend-color: #b65d28; }
+     .legend-dot.subject { --legend-color: #216b50; }
+     .legend-dot.object { --legend-color: #4a6797; }
+     .legend-dot.adverb { --legend-color: #785c91; }
+     .legend-dot.connector { --legend-color: #8a6a22; }
+     .sentence-builder { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+     .sentence-builder-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+     .sentence-builder h3 { margin: 0; font-size: 16px; }
+     .sentence-builder p { margin: 0; color: var(--muted); font-size: 13px; }
+     .builder-answer { min-height: 51px; display: flex; flex-wrap: wrap; align-items: center; gap: 7px; padding: 8px; border: 1px dashed #aabcb3; border-radius: 10px; background: #faf8f2; }
+     .builder-answer:empty::before { content: "Choose the words in the right order"; color: #84928c; font-size: 14px; }
+     .builder-words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+     .builder-word { padding: 7px 10px; border: 1px solid #bfd2c9; border-radius: 8px; color: var(--dark); background: var(--card); font-size: 14px; font-weight: 800; cursor: pointer; }
+     .builder-word:hover { border-color: var(--green); background: #e4f1e9; }
+     .builder-word:disabled { opacity: .42; cursor: default; }
+     .builder-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 12px; }
+     .builder-actions .button { padding: 8px 13px; font-size: 14px; }
+     .builder-feedback { margin: 0; color: #526159; font-size: 14px; font-weight: 700; }
+     .builder-feedback.correct { color: var(--green); }
+
     .panel { padding: 34px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
     .panel-head { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 26px; }
     h2 { margin: 0; font-size: 25px; letter-spacing: -.5px; }
@@ -265,6 +309,11 @@
       .hero-art { display: none; }
       h1 { font-size: 40px; }
       .panel { padding: 25px 21px; }
+       .sentence-lab { padding: 25px 21px; }
+       .sentence-line { gap: 6px; }
+       .sentence-token { font-size: 17px; }
+       .sentence-tab-group { align-items: flex-start; }
+       .sentence-tab-group-label { width: 100%; }
       .english { text-align: left; }
       .reading-line { grid-template-columns: 1fr; gap: 3px; }
       .prompt-cards { grid-template-columns: repeat(2, 1fr); }
@@ -1144,6 +1193,20 @@
       ];
     };
     const cardIcons = ["💬", "❓", "🗣️", "🔁", "✅", "🧭", "🤝", "🎯"];
+    const sentencePatterns = [
+       { group: "Basic order", label: "Statement", sentence: "Heute lerne ich Deutsch.", translation: "Today I am learning German.", english: "In a main clause, the conjugated verb is in position 2. Another sentence element can come first.", tokens: [["Heute", "adverb", "Time"], ["lerne", "verb", "Verb · 2"], ["ich", "subject", "Subject"], ["Deutsch", "object", "Object"]] },
+       { group: "Basic order", label: "W-question", sentence: "Wann kommst du?", translation: "When are you coming?", english: "In a W-question, the question word comes first, followed by the conjugated verb.", tokens: [["Wann", "connector", "Question word"], ["kommst", "verb", "Verb · 2"], ["du", "subject", "Subject"]] },
+       { group: "Basic order", label: "Yes/no question", sentence: "Kommst du heute?", translation: "Are you coming today?", english: "In a yes/no question, the conjugated verb comes first.", tokens: [["Kommst", "verb", "Verb · 1"], ["du", "subject", "Subject"], ["heute", "adverb", "Time"]] },
+       { group: "Verb patterns", label: "Modal verb", sentence: "Ich muss heute arbeiten.", translation: "I have to work today.", english: "The modal verb is in position 2. The infinitive moves to the end of the sentence.", tokens: [["Ich", "subject", "Subject"], ["muss", "verb", "Modal · 2"], ["heute", "adverb", "Time"], ["arbeiten", "verb", "Infinitive · End"]] },
+       { group: "Verb patterns", label: "Separable verb", sentence: "Ich stehe früh auf.", translation: "I get up early.", english: "The conjugated verb stays in position 2, while the separable prefix moves to the end.", tokens: [["Ich", "subject", "Subject"], ["stehe", "verb", "Verb · 2"], ["früh", "adverb", "Time"], ["auf", "connector", "Prefix · End"]] },
+       { group: "Verb patterns", label: "Perfect tense", sentence: "Ich habe Deutsch gelernt.", translation: "I learned German.", english: "The helper verb is in position 2, while the past participle moves to the end.", tokens: [["Ich", "subject", "Subject"], ["habe", "verb", "Helper · 2"], ["Deutsch", "object", "Object"], ["gelernt", "verb", "Participle · End"]] },
+       { group: "Clauses", label: "weil clause", sentence: "..., weil ich heute arbeite.", translation: "..., because I am working today.", english: "After weil (because), the conjugated verb moves to the end of the subordinate clause.", tokens: [["weil", "connector", "Connector"], ["ich", "subject", "Subject"], ["heute", "adverb", "Time"], ["arbeite", "verb", "Verb · End"]] },
+       { group: "Clauses", label: "dass clause", sentence: "Ich glaube, dass er heute kommt.", translation: "I think that he is coming today.", english: "After dass (that), the conjugated verb moves to the end of the subordinate clause.", tokens: [["Ich", "subject", "Subject"], ["glaube", "verb", "Verb · 2"], ["dass", "connector", "Connector"], ["er", "subject", "Subject"], ["heute", "adverb", "Time"], ["kommt", "verb", "Verb · End"]] },
+       { group: "More patterns", label: "Time · manner · place", sentence: "Ich fahre morgen mit dem Bus nach Berlin.", translation: "I am travelling to Berlin by bus tomorrow.", english: "A common order is time, then manner, then place: when, how, where.", tokens: [["Ich", "subject", "Subject"], ["fahre", "verb", "Verb · 2"], ["morgen", "adverb", "Time"], ["mit dem Bus", "adverb", "Manner"], ["nach Berlin", "adverb", "Place"]] },
+       { group: "More patterns", label: "Imperative", sentence: "Komm bitte herein!", translation: "Please come in!", english: "In a command, the verb usually comes first. Bitte makes the request more polite.", tokens: [["Komm", "verb", "Verb · 1"], ["bitte", "connector", "Politeness"], ["herein", "adverb", "Direction"]] },
+       { group: "More patterns", label: "Dative + accusative", sentence: "Ich gebe dem Mann den Schlüssel.", translation: "I give the man the key.", english: "The dative object is the recipient. The accusative object is the thing being given.", tokens: [["Ich", "subject", "Subject"], ["gebe", "verb", "Verb · 2"], ["dem Mann", "object", "Dative · Recipient"], ["den Schlüssel", "object", "Accusative · Thing"]] },
+       { group: "More patterns", label: "Reflexive verb", sentence: "Ich treffe mich um acht.", translation: "I am meeting at eight.", english: "A reflexive pronoun refers back to the subject. Here, mich means myself.", tokens: [["Ich", "subject", "Subject"], ["treffe", "verb", "Verb · 2"], ["mich", "object", "Reflexive"], ["um acht", "adverb", "Time"]] }
+    ];
     const stateKey = "sprechen-a1-a2-32";
     const shiftProgress = (saved, start, offset) => {
       const shift = index => index >= start ? index + offset : index;
@@ -1203,6 +1266,17 @@
       return `<div class="plan-step grammar-note"><div class="plan-head"><span class="plan-number">💬</span><h3>Grammatik im Gespräch · ${title}</h3></div><p><b>Mini-Regel:</b> ${rule}</p>${lineList(examples.map(([de, en]) => [de, de, en]))}</div>`;
     }
 
+    let sentencePatternIndex = 0;
+    let sentenceBuilderWords = [];
+    let sentenceBuilderFeedback = "";
+    function renderSentenceLab() {
+      const pattern = sentencePatterns[sentencePatternIndex];
+      const groups = [...new Set(sentencePatterns.map(item => item.group))];
+      const shuffledIndexes = pattern.tokens.map((_, index) => index).sort((a, b) => ((a * 5 + 2) % pattern.tokens.length) - ((b * 5 + 2) % pattern.tokens.length));
+      $("sentenceTabs").innerHTML = groups.map(group => `<div class="sentence-tab-group"><p class="sentence-tab-group-label">${group}</p>${sentencePatterns.map((item, index) => item.group === group ? `<button class="sentence-tab ${index === sentencePatternIndex ? "active" : ""}" type="button" role="tab" aria-selected="${index === sentencePatternIndex}" data-sentence-pattern="${index}">${item.label}</button>` : "").join("")}</div>`).join("");
+      $("sentenceDisplay").innerHTML = `<div class="sentence-line">${pattern.tokens.map(([word, type, role]) => `<span class="sentence-token ${type}">${word}<small>${role}</small></span>`).join("")}</div><p class="sentence-note"><b>${pattern.sentence}</b> <span class="subtle">${pattern.translation}</span></p><p class="sentence-english">${pattern.english}</p><div class="sentence-legend"><span class="legend-item"><i class="legend-dot subject"></i>Subject</span><span class="legend-item"><i class="legend-dot verb"></i>Verb</span><span class="legend-item"><i class="legend-dot object"></i>Object</span><span class="legend-item"><i class="legend-dot adverb"></i>Time / place</span><span class="legend-item"><i class="legend-dot connector"></i>Connector</span></div><div class="sentence-builder"><div class="sentence-builder-head"><h3>Build the sentence</h3><p>Put the chunks in order.</p></div><div class="builder-answer">${sentenceBuilderWords.map(index => `<span class="sentence-token ${pattern.tokens[index][1]}">${pattern.tokens[index][0]}</span>`).join("")}</div><div class="builder-words">${shuffledIndexes.map(index => `<button class="builder-word" type="button" data-builder-word="${index}" ${sentenceBuilderWords.includes(index) ? "disabled" : ""}>${pattern.tokens[index][0]}</button>`).join("")}</div><div class="builder-actions"><button class="button primary" type="button" data-builder-check>Check answer</button><button class="button" type="button" data-builder-reset>Reset</button><p class="builder-feedback ${sentenceBuilderFeedback === "Correct." ? "correct" : ""}">${sentenceBuilderFeedback}</p></div></div>`;
+    }
+
     const splitBasic = text => text.split(text.includes(" — ") ? " — " : " · ");
     function basicsTable(number, title, lines, explanation = "") {
       return `<details class="basics-group" name="basics-topic" data-basics-group="${number}" ${number === "A" ? "open" : ""}><summary><span class="plan-number">${number}</span>${title}</summary>${explanation ? `<p class="basics-explanation">${explanation}</p>` : ""}<table class="basics-table" aria-label="${title}"><thead><tr><th>Form</th><th>Beispiel</th><th class="basics-audio">Audio</th></tr></thead><tbody>${lines.map(([de, spoken, en]) => {
@@ -1215,6 +1289,7 @@
       const words = usefulWordGroups.flatMap(([, group]) => group);
       $("revisionContent").innerHTML = `
         <div class="revision-intro"><p><b>So lernst du damit:</b> Lerne Nomen immer mit Artikel, sprich jedes Verb in einem kurzen Satz und übe die Wörter anschließend in den 32 Gesprächsstunden. Für die Prüfung zählt verständliche Kommunikation: fragen, reagieren, bestätigen und weitersprechen.</p></div>
+        <section class="sentence-lab" aria-labelledby="sentenceLabTitle"><div class="panel-head"><div><p class="eyebrow">Sentence structure</p><h2 id="sentenceLabTitle">How German sentences are built</h2></div><button class="button" id="listenSentence" type="button">🔊 Listen</button></div><div class="sentence-tabs" id="sentenceTabs" role="tablist" aria-label="Sentence patterns"></div><div class="sentence-display" id="sentenceDisplay" aria-live="polite"></div></section>
         <section class="revision-section"><h3>Die wichtigsten A1.2-Grammatikregeln</h3><p>Verstehe die Funktion zuerst, dann lerne das Beispiel als ganzen Satz.</p><div class="revision-grid">${revisionGrammar.map(([title, rule, english, example]) => `<article class="revision-rule"><strong>${title}</strong><p>${rule}</p><p><b>English:</b> ${english}</p><p class="revision-example">${example}</p></article>`).join("")}</div></section>
         <section class="revision-section"><h3>200 nützliche Wörter <span class="word-count">${words.length} Wörter · 20 Themen</span></h3><p>Nomen stehen mit Artikel. Klicke auf 🔊, höre das Wort und bilde sofort einen eigenen Satz.</p><div class="word-groups">${usefulWordGroups.map(([title, group]) => `<div class="word-group"><h4>${title}</h4><table class="word-table"><tbody>${group.map(([de, en]) => `<tr><td><b>${de}</b></td><td>${en}</td><td><button class="word-line" type="button" data-speak="${de}" aria-label="${de} anhören">🔊</button></td></tr>`).join("")}</tbody></table></div>`).join("")}</div></section>
         <section class="revision-section"><h3>A1.2-Selbstcheck</h3><div class="exam-checklist">${examChecklist.map((item, index) => `<label class="exam-check"><input type="checkbox" data-exam-check="${index}">${item}</label>`).join("")}</div></section>`;
@@ -1273,6 +1348,16 @@
 
     $("basicsTables").innerHTML = basicsGroups.map(group => basicsTable(...group)).join("");
     renderRevision();
+    renderSentenceLab();
+    $("sentenceTabs").addEventListener("click", event => {
+      const tab = event.target.closest("[data-sentence-pattern]");
+      if (!tab) return;
+      sentencePatternIndex = Number(tab.dataset.sentencePattern);
+      sentenceBuilderWords = [];
+      sentenceBuilderFeedback = "";
+      renderSentenceLab();
+    });
+    $("listenSentence").addEventListener("click", () => speakGerman([sentencePatterns[sentencePatternIndex].sentence.replace("..., ", "")]));
     $("openRevision").addEventListener("click", () => $("revisionDialog").showModal());
     $("lessonNav").addEventListener("click", event => {
       const button = event.target.closest("[data-lesson]");
@@ -1289,6 +1374,23 @@
     $("revisionContent").addEventListener("click", event => {
       const line = event.target.closest(".word-line");
       if (line) speakGerman([line.dataset.speak]);
+      const word = event.target.closest("[data-builder-word]");
+      if (word) {
+        sentenceBuilderWords.push(Number(word.dataset.builderWord));
+        sentenceBuilderFeedback = "";
+        renderSentenceLab();
+      }
+      if (event.target.closest("[data-builder-reset]")) {
+        sentenceBuilderWords = [];
+        sentenceBuilderFeedback = "";
+        renderSentenceLab();
+      }
+      if (event.target.closest("[data-builder-check]")) {
+        const expected = sentencePatterns[sentencePatternIndex].tokens.map(([word]) => word).join(" ");
+        const answer = sentenceBuilderWords.map(index => sentencePatterns[sentencePatternIndex].tokens[index][0]).join(" ");
+        sentenceBuilderFeedback = answer === expected ? "Correct." : "Not quite. Check the verb position and try again.";
+        renderSentenceLab();
+      }
     });
     const speakLine = event => {
       const line = event.target.closest(".reading-line");
@@ -1328,6 +1430,7 @@
     $("listenPhrases").hidden = !canSpeak;
     $("listenDialogue").hidden = !canSpeak;
     $("listenRevision").hidden = !canSpeak;
+    $("listenSentence").hidden = !canSpeak;
     renderLesson();
   </script>
 </body>
