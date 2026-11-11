@@ -33,7 +33,7 @@ window.PRACTICE_DATA = (() => {
       practice: { gaps: "praesens", table: "regelmaessig" }
     },
     {
-      id: "vokalwechsel", icon: "🔀", level: "A1", title: "Verben mit Vokalwechsel",
+      id: "vokalwechsel", icon: "🔀", level: "A1", title: "Verbs with a vowel change",
       summary: "Some very common verbs change their vowel — but <b>only</b> in the <b>du</b> and <b>er/sie/es</b> forms.",
       sections: [
         { h: "Three types", p: "<b>e → i</b>: sprechen, essen, geben, nehmen, helfen, treffen · <b>e → ie</b>: lesen, sehen · <b>a → ä / au → äu</b>: fahren, schlafen, tragen, laufen.",
@@ -76,7 +76,7 @@ window.PRACTICE_DATA = (() => {
       practice: { gaps: "nominativ", table: "artikel-def", artikel: true }
     },
     {
-      id: "akkusativ", icon: "🎯", level: "A1", title: "Nominativ & Akkusativ",
+      id: "akkusativ", icon: "🎯", level: "A1", title: "Nominative & accusative",
       summary: "The <b>subject</b> (who does it?) is in the Nominativ. The <b>direct object</b> (whom/what?) is in the Akkusativ. Good news: only <b>masculine</b> words change.",
       sections: [
         { h: "Only der → den", p: "In the Akkusativ, masculine <b>der → den</b>, <b>ein → einen</b>, <b>kein → keinen</b>, <b>mein → meinen</b>. Feminine, neuter and plural stay exactly the same as in the Nominativ.",
@@ -134,7 +134,7 @@ window.PRACTICE_DATA = (() => {
       practice: { gaps: "negation", table: "artikel-kein" }
     },
     {
-      id: "modalverben", icon: "💪", level: "A1", title: "Modalverben",
+      id: "modalverben", icon: "💪", level: "A1", title: "Modal verbs",
       summary: "können, müssen, wollen, dürfen, sollen and möchten change the meaning of another verb. The modal is in position 2, the <b>infinitive goes to the end</b>.",
       sections: [
         { h: "Meaning", p: "<b>können</b> can / be able · <b>müssen</b> must / have to · <b>wollen</b> want · <b>dürfen</b> may / be allowed · <b>sollen</b> should (someone else wants it) · <b>möchten</b> would like (polite).",
@@ -182,7 +182,7 @@ window.PRACTICE_DATA = (() => {
           examples: [["Gestern war ich am Meer.", "Yesterday I was at the sea."], ["Ich hatte keine Zeit.", "I didn't have time."]] }
       ],
       mistakes: [["Ich habe nach Berlin gefahren.", "Ich bin nach Berlin gefahren.", "Movement → sein."], ["Ich habe gemacht das.", "Ich habe das gemacht.", "Participle at the end."], ["Ich habe gebezahlt.", "Ich habe bezahlt.", "be- verbs take no ge-."]],
-      tip: "Learn new verbs in three parts: <i>fahren – fährt – ist gefahren</i>. The Karten deck “Partizip II” trains exactly this.",
+      tip: "Learn new verbs in three parts: <i>fahren – fährt – ist gefahren</i>. The flashcard deck “Perfect tense: past participles” trains exactly this.",
       practice: { gaps: "perfekt", table: "perfekt" }
     },
     {
@@ -236,7 +236,7 @@ window.PRACTICE_DATA = (() => {
       ["Ihr [spielt] gern Fußball.", "spielen"], ["Was [machst] du am Wochenende?", "machen"], ["Sie [arbeitet] in Tel Aviv.", "arbeiten"], ["Du [arbeitest] sehr viel.", "arbeiten"],
       ["Wie [heißt] du?", "heißen"], ["Wann [beginnt] der Kurs?", "beginnen"], ["Wir [kaufen] Brot und Käse.", "kaufen"], ["[Trinkst] du gern Kaffee?", "trinken"]
     ]},
-    { id: "vokalwechsel", title: "Verben mit Vokalwechsel", icon: "🔀", items: [
+    { id: "vokalwechsel", title: "Verbs with a vowel change", icon: "🔀", items: [
       ["[Sprichst] du Englisch?", "sprechen"], ["Er [isst] gern Pizza.", "essen"], ["Sie [liest] ein Buch.", "lesen"], ["Du [fährst] mit dem Bus.", "fahren"],
       ["Was [nimmst] du?", "nehmen"], ["Mein Bruder [schläft] lange.", "schlafen"], ["[Siehst] du das Haus?", "sehen"], ["Sie [gibt] mir das Buch.", "geben"],
       ["Er [läuft] jeden Morgen.", "laufen"], ["Ich [weiß] das nicht.", "wissen"], ["Anna [hilft] ihrer Mutter.", "helfen"], ["Wir [sprechen] Deutsch.", "sprechen"]
@@ -268,7 +268,7 @@ window.PRACTICE_DATA = (() => {
       ["Wir haben [keinen] Hund.", "nicht / kein"], ["Ich trinke [keinen] Kaffee.", "nicht / kein"], ["Sie kommt [nicht] aus Berlin.", "nicht / kein"], ["Das ist [kein] Problem.", "nicht / kein"],
       ["Ich verstehe das [nicht].", "nicht / kein"], ["Ich habe heute [keine] Zeit.", "nicht / kein"], ["Hast du keinen Hunger? – [Doch], ich habe Hunger.", "Ja / Nein / Doch"]
     ]},
-    { id: "modalverben", title: "Modalverben", icon: "💪", items: [
+    { id: "modalverben", title: "Modal verbs", icon: "💪", items: [
       ["Ich [kann] gut schwimmen.", "können"], ["[Kannst] du mir helfen?", "können"], ["Wir [müssen] jetzt gehen.", "müssen"], ["Er [muss] heute arbeiten.", "müssen"],
       ["Ich [möchte] einen Tee.", "möchten"], ["[Möchtest] du etwas trinken?", "möchten"], ["Hier [darf] man nicht rauchen.", "dürfen"], ["Sie [will] Ärztin werden.", "wollen"],
       ["[Wollt] ihr ins Kino gehen?", "wollen"], ["Du [sollst] mehr Wasser trinken.", "sollen"], ["Ich kann heute nicht [kommen].", "kommen"], ["Wir müssen morgen früh [aufstehen].", "aufstehen"]
@@ -295,7 +295,7 @@ window.PRACTICE_DATA = (() => {
       ["[Wann] beginnt der Film?", "— Um acht Uhr."], ["[Was] machst du gern?", "— Ich lese gern."], ["[Wer] ist das?", "— Das ist meine Schwester."], ["[Wohin] fährst du?", "— Nach München."],
       ["[Wie] viel kostet das?", "— Drei Euro."], ["[Warum] lernst du Deutsch?", "— Weil ich in Berlin arbeiten möchte."], ["[Welche] Sprachen sprichst du?", "— Hebräisch und Englisch."]
     ]},
-    { id: "imperativ", title: "Imperativ", icon: "📣", items: [
+    { id: "imperativ", title: "Imperative (commands)", icon: "📣", items: [
       ["[Komm] bitte her!", "kommen · du"], ["[Nimm] den Bus!", "nehmen · du"], ["[Lies] den Text!", "lesen · du"], ["[Kommen] Sie bitte herein!", "kommen · Sie"],
       ["[Wartet] hier!", "warten · ihr"], ["[Sei] bitte leise!", "sein · du"], ["[Sprechen] Sie bitte langsam!", "sprechen · Sie"], ["[Mach|Mache] das Fenster [auf]!", "aufmachen · du"],
       ["[Fahr|Fahre] vorsichtig!", "fahren · du"]
@@ -313,33 +313,33 @@ window.PRACTICE_DATA = (() => {
 
   /* ---------------------------------------------------------------- Fill-in tables */
   const tables = [
-    { id: "artikel-def", group: "Kasus", title: "der / die / das", note: "Bestimmter Artikel in Nominativ, Akkusativ und Dativ.",
+    { id: "artikel-def", group: "Kasus", title: "der / die / das", note: "The definite article (the) in the nominative, accusative and dative.",
       head: ["", "maskulin", "feminin", "neutral", "Plural"], rows: [["Nominativ", "der", "die", "das", "die"], ["Akkusativ", "den", "die", "das", "die"], ["Dativ", "dem", "der", "dem", "den"]] },
-    { id: "artikel-ein", group: "Kasus", title: "ein / eine", note: "Unbestimmter Artikel. Im Plural gibt es kein „ein“.",
+    { id: "artikel-ein", group: "Kasus", title: "ein / eine", note: "The indefinite article (a / an). The plural has no “ein”.",
       head: ["", "maskulin", "feminin", "neutral"], rows: [["Nominativ", "ein", "eine", "ein"], ["Akkusativ", "einen", "eine", "ein"], ["Dativ", "einem", "einer", "einem"]] },
-    { id: "artikel-kein", group: "Kasus", title: "kein / keine", note: "Negativartikel — dieselben Endungen wie ein, plus Plural.",
+    { id: "artikel-kein", group: "Kasus", title: "kein / keine", note: "The negative article (no / not a) — same endings as ein, plus a plural.",
       head: ["", "maskulin", "feminin", "neutral", "Plural"], rows: [["Nominativ", "kein", "keine", "kein", "keine"], ["Akkusativ", "keinen", "keine", "kein", "keine"], ["Dativ", "keinem", "keiner", "keinem", "keinen"]] },
-    { id: "possessiv", group: "Kasus", title: "mein / meine", note: "Possessivartikel — dieselben Endungen wie kein.",
+    { id: "possessiv", group: "Kasus", title: "mein / meine", note: "The possessive article (my) — same endings as kein.",
       head: ["", "maskulin", "feminin", "neutral", "Plural"], rows: [["Nominativ", "mein", "meine", "mein", "meine"], ["Akkusativ", "meinen", "meine", "mein", "meine"], ["Dativ", "meinem", "meiner", "meinem", "meinen"]] },
-    { id: "possessiv-person", group: "Kasus", title: "Wem gehört es?", note: "Welcher Possessivartikel passt zur Person? (Nominativ, maskulin)",
+    { id: "possessiv-person", group: "Kasus", title: "Who owns it?", note: "Which possessive article matches each person? (nominative, masculine)",
       head: ["Person", "Possessiv"], rows: [["ich", "mein"], ["du", "dein"], ["er", "sein"], ["sie (she)", "ihr"], ["es", "sein"], ["wir", "unser"], ["ihr", "euer"], ["sie (they)", "ihr"], ["Sie", "Ihr"]] },
-    { id: "pronomen", group: "Kasus", title: "Personalpronomen", note: "Nominativ, Akkusativ und Dativ.",
+    { id: "pronomen", group: "Kasus", title: "Personal pronouns", note: "Nominative, accusative and dative.",
       head: ["", "Nominativ", "Akkusativ", "Dativ"], rows: [["I", "ich", "mich", "mir"], ["you", "du", "dich", "dir"], ["he", "er", "ihn", "ihm"], ["she", "sie", "sie", "ihr"], ["it", "es", "es", "ihm"], ["we", "wir", "uns", "uns"], ["you all", "ihr", "euch", "euch"], ["they", "sie", "sie", "ihnen"], ["you (formal)", "Sie", "Sie", "Ihnen"]] },
-    { id: "sein-haben", group: "Konjugation", title: "sein · haben · werden", note: "Die wichtigsten unregelmäßigen Verben.",
+    { id: "sein-haben", group: "Konjugation", title: "sein · haben · werden", note: "The most important irregular verbs.",
       head: ["", "sein", "haben", "werden"], rows: [[P[0], "bin", "habe", "werde"], [P[1], "bist", "hast", "wirst"], [P[2], "ist", "hat", "wird"], [P[3], "sind", "haben", "werden"], [P[4], "seid", "habt", "werdet"], [P[5], "sind", "haben", "werden"]] },
-    { id: "regelmaessig", group: "Konjugation", title: "Regelmäßige Verben", note: "Endungen: -e, -st, -t, -en, -t, -en. Achtung bei arbeiten und heißen!",
+    { id: "regelmaessig", group: "Konjugation", title: "Regular verbs", note: "Endings: -e, -st, -t, -en, -t, -en. Watch out for arbeiten and heißen!",
       head: ["", "wohnen", "lernen", "arbeiten", "heißen"], rows: [[P[0], "wohne", "lerne", "arbeite", "heiße"], [P[1], "wohnst", "lernst", "arbeitest", "heißt"], [P[2], "wohnt", "lernt", "arbeitet", "heißt"], [P[3], "wohnen", "lernen", "arbeiten", "heißen"], [P[4], "wohnt", "lernt", "arbeitet", "heißt"], [P[5], "wohnen", "lernen", "arbeiten", "heißen"]] },
-    { id: "vokalwechsel", group: "Konjugation", title: "Verben mit Vokalwechsel", note: "Nur du und er/sie/es ändern den Vokal.",
+    { id: "vokalwechsel", group: "Konjugation", title: "Verbs with a vowel change", note: "Only du and er/sie/es change the vowel.",
       head: ["", "sprechen", "essen", "lesen", "fahren", "nehmen"], rows: [[P[0], "spreche", "esse", "lese", "fahre", "nehme"], [P[1], "sprichst", "isst", "liest", "fährst", "nimmst"], [P[2], "spricht", "isst", "liest", "fährt", "nimmt"], [P[3], "sprechen", "essen", "lesen", "fahren", "nehmen"], [P[4], "sprecht", "esst", "lest", "fahrt", "nehmt"], [P[5], "sprechen", "essen", "lesen", "fahren", "nehmen"]] },
-    { id: "modalverben", group: "Konjugation", title: "Modalverben", note: "ich und er/sie/es haben dieselbe Form — ohne Endung.",
+    { id: "modalverben", group: "Konjugation", title: "Modal verbs", note: "ich and er/sie/es have the same form — with no ending.",
       head: ["", "können", "müssen", "wollen", "dürfen", "möchten"], rows: [[P[0], "kann", "muss", "will", "darf", "möchte"], [P[1], "kannst", "musst", "willst", "darfst", "möchtest"], [P[2], "kann", "muss", "will", "darf", "möchte"], [P[3], "können", "müssen", "wollen", "dürfen", "möchten"], [P[4], "könnt", "müsst", "wollt", "dürft", "möchtet"], [P[5], "können", "müssen", "wollen", "dürfen", "möchten"]] },
-    { id: "wissen-moegen", group: "Konjugation", title: "wissen · mögen · sollen", note: "Weitere wichtige Verben für A1.",
+    { id: "wissen-moegen", group: "Konjugation", title: "wissen · mögen · sollen", note: "More important A1 verbs.",
       head: ["", "wissen", "mögen", "sollen"], rows: [[P[0], "weiß", "mag", "soll"], [P[1], "weißt", "magst", "sollst"], [P[2], "weiß", "mag", "soll"], [P[3], "wissen", "mögen", "sollen"], [P[4], "wisst", "mögt", "sollt"], [P[5], "wissen", "mögen", "sollen"]] },
-    { id: "praeteritum", group: "Konjugation", title: "war · hatte", note: "Präteritum von sein und haben.",
+    { id: "praeteritum", group: "Konjugation", title: "war · hatte", note: "Simple past of sein and haben.",
       head: ["", "sein", "haben"], rows: [[P[0], "war", "hatte"], [P[1], "warst", "hattest"], [P[2], "war", "hatte"], [P[3], "waren", "hatten"], [P[4], "wart", "hattet"], [P[5], "waren", "hatten"]] },
-    { id: "perfekt", group: "Konjugation", title: "Perfekt: Hilfsverb + Partizip II", note: "hat oder ist? Und wie heißt das Partizip?",
+    { id: "perfekt", group: "Konjugation", title: "Perfect tense: helper verb + past participle", note: "hat or ist? And what is the past participle?",
       head: ["Infinitiv", "Hilfsverb", "Partizip II"], rows: [["machen", "hat", "gemacht"], ["lernen", "hat", "gelernt"], ["arbeiten", "hat", "gearbeitet"], ["kaufen", "hat", "gekauft"], ["spielen", "hat", "gespielt"], ["essen", "hat", "gegessen"], ["trinken", "hat", "getrunken"], ["schlafen", "hat", "geschlafen"], ["sehen", "hat", "gesehen"], ["lesen", "hat", "gelesen"], ["schreiben", "hat", "geschrieben"], ["sprechen", "hat", "gesprochen"], ["treffen", "hat", "getroffen"], ["fahren", "ist", "gefahren"], ["gehen", "ist", "gegangen"], ["kommen", "ist", "gekommen"], ["fliegen", "ist", "geflogen"], ["bleiben", "ist", "geblieben"], ["aufstehen", "ist", "aufgestanden"], ["einkaufen", "hat", "eingekauft"], ["anrufen", "hat", "angerufen"], ["bezahlen", "hat", "bezahlt"], ["verstehen", "hat", "verstanden"], ["telefonieren", "hat", "telefoniert"]] },
-    { id: "imperativ", group: "Konjugation", title: "Imperativ", note: "du-Form ohne -st, ihr-Form wie Präsens, Sie-Form mit Sie.",
+    { id: "imperativ", group: "Konjugation", title: "Imperative (commands)", note: "du-form without -st, ihr-form like the present tense, Sie-form with Sie.",
       head: ["Infinitiv", "du", "ihr", "Sie"], rows: [["kommen", "komm", "kommt", "kommen Sie"], ["nehmen", "nimm", "nehmt", "nehmen Sie"], ["lesen", "lies", "lest", "lesen Sie"], ["sprechen", "sprich", "sprecht", "sprechen Sie"], ["fahren", "fahr|fahre", "fahrt", "fahren Sie"], ["warten", "warte", "wartet", "warten Sie"], ["aufstehen", "steh auf|stehe auf", "steht auf", "stehen Sie auf"], ["sein", "sei", "seid", "seien Sie"]] }
   ];
 
@@ -429,7 +429,7 @@ window.PRACTICE_DATA = (() => {
   ];
 
   const schreiben = {
-    intro: "Ihre Freundin Maria Rossi möchte einen Deutschkurs machen. Sie ist 34 Jahre alt, kommt aus Italien und wohnt jetzt in der Gartenstraße 12 in 10115 Berlin. Sie spricht Italienisch und Englisch. Sie möchte am Abend lernen und bezahlt bar. Füllen Sie das Formular für Maria aus.",
+    intro: "Read the text and fill in the form. — Ihre Freundin Maria Rossi möchte einen Deutschkurs machen. Sie ist 34 Jahre alt, kommt aus Italien und wohnt jetzt in der Gartenstraße 12 in 10115 Berlin. Sie spricht Italienisch und Englisch. Sie möchte am Abend lernen und bezahlt bar. Füllen Sie das Formular für Maria aus.",
     fields: [
       { label: "Familienname", a: ["Rossi"] },
       { label: "Alter", a: ["34", "vierunddreißig", "34 Jahre"] },
@@ -441,17 +441,17 @@ window.PRACTICE_DATA = (() => {
       { label: "Zahlung (bar / Karte)", a: ["bar"] }
     ],
     letter: {
-      task: "Sie haben am Freitag einen Termin beim Arzt, aber Sie können nicht kommen. Schreiben Sie eine E-Mail an die Praxis (ca. 30 Wörter): Entschuldigen Sie sich. Nennen Sie einen Grund. Bitten Sie um einen neuen Termin.",
-      checks: ["Anrede (Sehr geehrte Damen und Herren,)", "Entschuldigung (Leider kann ich … nicht kommen.)", "Grund (… denn ich muss arbeiten.)", "Bitte (Können Sie mir bitte einen neuen Termin geben?)", "Gruß + Name (Mit freundlichen Grüßen …)"],
+      task: "Task (as in the exam, in German): Sie haben am Freitag einen Termin beim Arzt, aber Sie können nicht kommen. Schreiben Sie eine E-Mail an die Praxis (ca. 30 Wörter): Entschuldigen Sie sich. Nennen Sie einen Grund. Bitten Sie um einen neuen Termin.  — In English: you have a doctor’s appointment on Friday but cannot go. Write an email to the practice: apologise, give a reason, and ask for a new appointment.",
+      checks: ["Greeting: Sehr geehrte Damen und Herren,", "Apology: Leider kann ich … nicht kommen.", "Reason: … denn ich muss arbeiten.", "Request: Können Sie mir bitte einen neuen Termin geben?", "Closing + name: Mit freundlichen Grüßen …"],
       model: "Sehr geehrte Damen und Herren,\nleider kann ich am Freitag nicht zum Termin kommen, denn ich muss arbeiten. Können Sie mir bitte einen neuen Termin geben? Am Montag oder Dienstag habe ich Zeit.\nMit freundlichen Grüßen\nMotia Cohen"
     }
   };
 
   const sprechen = {
-    teil1: { title: "Teil 1 · Sich vorstellen", prompts: ["Name?", "Alter?", "Land?", "Wohnort?", "Sprachen?", "Beruf?", "Hobby?"],
+    teil1: { title: "Part 1 · Introduce yourself (Sich vorstellen)", prompts: ["Name?", "Alter?", "Land?", "Wohnort?", "Sprachen?", "Beruf?", "Hobby?"],
       model: "Ich heiße Motia. Ich bin dreißig Jahre alt. Ich komme aus Israel und wohne in Haifa. Ich spreche Hebräisch, Englisch und ein bisschen Deutsch. Ich bin Ingenieurin von Beruf. Mein Hobby ist Lesen." ,
       extra: ["Buchstabieren Sie bitte Ihren Namen.", "Wie ist Ihre Telefonnummer?"] },
-    teil2: { title: "Teil 2 · Fragen stellen und antworten", cards: [
+    teil2: { title: "Part 2 · Ask and answer questions (Fragen stellen und antworten)", cards: [
       ["Essen und Trinken", "Frühstück", "Was isst du zum Frühstück?", "Ich esse Brot mit Käse und trinke Kaffee."],
       ["Essen und Trinken", "Lieblingsessen", "Was ist dein Lieblingsessen?", "Mein Lieblingsessen ist Pizza."],
       ["Essen und Trinken", "Getränke", "Was trinkst du gern?", "Ich trinke gern Tee."],
@@ -469,7 +469,7 @@ window.PRACTICE_DATA = (() => {
       ["Reisen", "Urlaub", "Wohin fährst du im Urlaub?", "Im Urlaub fahre ich nach Italien."],
       ["Reisen", "Verkehrsmittel", "Wie fährst du zur Arbeit?", "Ich fahre mit dem Bus zur Arbeit."]
     ] },
-    teil3: { title: "Teil 3 · Bitten formulieren und reagieren", cards: [
+    teil3: { title: "Part 3 · Make requests and react (Bitten formulieren und reagieren)", cards: [
       ["🪟", "Fenster", "Kannst du bitte das Fenster öffnen?", "Ja, gern."],
       ["🧂", "Salz", "Gibst du mir bitte das Salz?", "Hier, bitte."],
       ["✏️", "Kugelschreiber", "Haben Sie einen Kugelschreiber für mich?", "Ja, hier bitte."],
