@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A 32-class A1–A2 German conversation course for one-to-one lessons.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="description" content="A 32-class A1–A2 German conversation course with flashcards, gap exercises, grammar and an A1 mock exam.">
+  <meta name="theme-color" content="#f5f2ea">
+  <meta name="color-scheme" content="light">
   <title>Sprechen! — Motias Deutschstunden</title>
   <style>
     :root {
@@ -72,7 +74,7 @@
       background: transparent;
       cursor: pointer;
     }
-    .lesson-nav:hover { background: #ffffff0e; }
+    @media (hover: hover) and (pointer: fine) { .lesson-nav:hover { background: #ffffff0e; } }
     .lesson-nav.active { color: #fff; background: #ffffff1f; }
     .lesson-number { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #ffffff13; }
     .lesson-nav.active .lesson-number { background: var(--lime); }
@@ -95,9 +97,9 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .button:hover { border-color: #c6bcac; }
+    @media (hover: hover) and (pointer: fine) { .button:hover { border-color: #c6bcac; } }
     .button.primary { color: #fff; border-color: var(--green); background: var(--green); }
-    .button.primary:hover { background: var(--dark); }
+    @media (hover: hover) and (pointer: fine) { .button.primary:hover { background: var(--dark); } }
     .button.done { color: var(--dark); border-color: var(--lime); background: var(--lime); }
     .mobile-select { display: none; }
 
@@ -127,7 +129,7 @@
      .sentence-tab-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
      .sentence-tab-group-label { margin: 0 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .9px; text-transform: uppercase; }
      .sentence-tab { padding: 8px 13px; border: 1px solid #bfd2c9; border-radius: 999px; color: #526159; background: #fffdf8; font-size: 14px; font-weight: 800; cursor: pointer; }
-     .sentence-tab:hover { border-color: var(--green); }
+     @media (hover: hover) and (pointer: fine) { .sentence-tab:hover { border-color: var(--green); } }
      .sentence-tab.active { border-color: var(--dark); color: #fff; background: var(--dark); }
      .sentence-display { padding: 21px 20px 18px; border: 1px solid #cbded5; border-radius: 14px; background: var(--card); }
      .sentence-line { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
@@ -157,7 +159,7 @@
      .builder-answer:empty::before { content: "Choose the words in the right order"; color: #84928c; font-size: 14px; }
      .builder-words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
      .builder-word { padding: 7px 10px; border: 1px solid #bfd2c9; border-radius: 8px; color: var(--dark); background: var(--card); font-size: 14px; font-weight: 800; cursor: pointer; }
-     .builder-word:hover { border-color: var(--green); background: #e4f1e9; }
+     @media (hover: hover) and (pointer: fine) { .builder-word:hover { border-color: var(--green); background: #e4f1e9; } }
      .builder-word:disabled { opacity: .42; cursor: default; }
      .builder-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 12px; }
      .builder-actions .button { padding: 8px 13px; font-size: 14px; }
@@ -181,7 +183,7 @@
     .grammar-note > p { margin: 10px 0 0 44px; color: #526159; }
     .reading-list { display: grid; gap: 8px; margin: 14px 0 0 44px; padding: 0; list-style: none; }
     .reading-line { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 9px; text-align: left; background: var(--card); font-size: 17px; font-weight: 750; cursor: pointer; }
-    .reading-line:hover { border-color: #adbbb5; }
+    @media (hover: hover) and (pointer: fine) { .reading-line:hover { border-color: #adbbb5; } }
     .english { color: var(--muted); text-align: right; }
     body.hide-english .english { display: none; }
     body.hide-english .reading-line.revealed .english,
@@ -251,7 +253,7 @@
     body.hide-english .basics-table .english { display: block; }
     .basics-audio { width: 54px; text-align: center !important; }
     .basics-line { width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
-     .basics-line:hover { border-color: var(--green); background: #f2f7f4; }
+     @media (hover: hover) and (pointer: fine) { .basics-line:hover { border-color: var(--green); background: #f2f7f4; } }
      .revision-dialog { width: min(960px, calc(100% - 32px)); max-height: 92vh; padding: 0; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #0005; }
      .revision-dialog::backdrop { background: #10251dcc; }
      .revision-head { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border-bottom: 1px solid var(--line); background: var(--card); }
@@ -278,7 +280,7 @@
      .word-table td { padding: 8px 12px; border-top: 1px solid var(--line); }
      .word-table td:last-child { color: var(--muted); text-align: right; }
      .word-line { width: 28px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
-     .word-line:hover { border-color: var(--green); background: #f2f7f4; }
+     @media (hover: hover) and (pointer: fine) { .word-line:hover { border-color: var(--green); background: #f2f7f4; } }
      .exam-checklist { display: grid; gap: 9px; padding: 16px 18px 18px; }
      .exam-check { display: flex; gap: 10px; align-items: flex-start; color: #526159; font-size: 15px; }
      .exam-check input { width: 18px; height: 18px; flex: 0 0 auto; margin: 2px 0 0; accent-color: var(--green); }
@@ -330,11 +332,21 @@
       body.hide-english .english { display: block !important; color: var(--muted) !important; background: transparent !important; }
     }
   </style>
+  <link rel="stylesheet" href="assets/practice.css">
 </head>
 <body class="hide-english">
+  <a class="skip-link" href="#main" onclick="document.getElementById('main').focus()">Skip to content</a>
   <div class="app">
     <aside>
-      <div class="brand"><span class="brand-mark">S!</span> Sprechen, Motia!</div>
+      <a class="brand" href="#/start"><span class="brand-mark">S!</span> Sprechen, Motia!</a>
+      <nav class="mode-nav" aria-label="Sections">
+        <a href="#/start" data-route="start"><span aria-hidden="true">🏠</span>Home</a>
+        <a href="#/stunden" data-route="stunden"><span aria-hidden="true">🗣️</span>Lessons</a>
+        <a href="#/karten" data-route="karten"><span aria-hidden="true">🃏</span>Flashcards</a>
+        <a href="#/ueben" data-route="ueben"><span aria-hidden="true">✏️</span>Practice</a>
+        <a href="#/test" data-route="test"><span aria-hidden="true">🎓</span>Test &amp; exam</a>
+        <a href="#/grammatik" data-route="grammatik"><span aria-hidden="true">📘</span>Grammar</a>
+      </nav>
       <section class="progress-card">
         <p>A1 → A2 · 32 Gesprächsstunden</p>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -343,9 +355,21 @@
       <nav id="lessonNav" aria-label="Gesprächsstunden"></nav>
     </aside>
 
-    <main>
+    <main id="main" tabindex="-1">
+      <header class="appbar">
+        <a class="brand" href="#/start"><span class="brand-mark">S!</span><span>Sprechen!</span></a>
+        <span class="appbar-title" id="appbarTitle"></span>
+      </header>
+
+      <section class="view" id="view-start" aria-label="Home"></section>
+      <section class="view" id="view-cards" aria-label="Flashcards"></section>
+      <section class="view" id="view-practice" aria-label="Practice"></section>
+      <section class="view" id="view-quiz" aria-label="Test"></section>
+      <section class="view" id="view-grammar" aria-label="Grammar"></section>
+
+      <section class="view" id="view-lessons" aria-label="Lessons">
       <header class="topbar">
-        <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
+        <select class="mobile-select" id="mobileSelect" aria-label="Choose a lesson"></select>
         <div class="top-actions">
           <button class="button" id="openRevision" type="button">Grammatik &amp; A1.2-Prüfung</button>
           <button class="button" id="englishToggle" type="button">Englisch anzeigen</button>
@@ -410,8 +434,18 @@
         <button class="button primary complete-button" id="completeButton" type="button">Stunde als fertig markieren</button>
 
       </div>
+      </section>
     </main>
   </div>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a href="#/start" data-route="start"><span aria-hidden="true">🏠</span>Home</a>
+    <a href="#/stunden" data-route="stunden"><span aria-hidden="true">🗣️</span>Lessons</a>
+    <a href="#/karten" data-route="karten"><span aria-hidden="true">🃏</span>Cards</a>
+    <a href="#/ueben" data-route="ueben"><span aria-hidden="true">✏️</span>Practice</a>
+    <a href="#/test" data-route="test"><span aria-hidden="true">🎓</span>Test</a>
+    <a href="#/grammatik" data-route="grammatik"><span aria-hidden="true">📘</span>Grammar</a>
+  </nav>
 
   <dialog class="revision-dialog" id="revisionDialog" aria-labelledby="revisionTitle">
     <header class="revision-head">
@@ -1433,5 +1467,7 @@
     $("listenSentence").hidden = !canSpeak;
     renderLesson();
   </script>
+  <script src="assets/practice-data.js"></script>
+  <script src="assets/practice.js"></script>
 </body>
 </html>
