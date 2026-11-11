@@ -38,6 +38,7 @@
   const ROUTES = ["start", "stunden", "karten", "ueben", "test", "grammatik"];
   const TITLES = { start: "Home", stunden: "Lessons", karten: "Flashcards", ueben: "Practice", test: "Test", grammatik: "Grammar" };
   let currentView = "";
+  let firstRoute = true;
   function route() {
     const [rawName, sub, id] = location.hash.replace(/^#\/?/, "").split("/").map(decodeURIComponent);
     const name = ROUTES.includes(rawName) ? rawName : "start";
@@ -53,7 +54,15 @@
     if (title) title.textContent = TITLES[name];
     if (audioOK && changed) window.speechSynthesis.cancel();
     ({ start: renderStart, karten: renderCards, ueben: () => renderPractice(sub, id), test: () => renderQuizHome(sub), grammatik: () => renderGrammar(sub) })[name]?.();
-    if (changed && name !== "stunden") window.scrollTo({ top: 0 });
+    document.title = `${TITLES[name]} — Sprechen!`;
+    if (changed) {
+      if (name !== "stunden") window.scrollTo({ top: 0 });
+      if (firstRoute) firstRoute = false;
+      else {
+        const heading = document.querySelector(name === "stunden" ? "#lessonTitle" : `#view-${{ start: "start", karten: "cards", ueben: "practice", test: "quiz", grammatik: "grammar" }[name]} h1`);
+        if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+      }
+    }
   }
   const go = hash => { if (location.hash === hash) route(); else location.hash = hash; };
 
@@ -235,7 +244,7 @@
     const el = byId("view-practice");
     el.innerHTML = `
       <header class="view-head"><p class="eyebrow">Write · Remember · Check</p><h1>Practice</h1><p class="lead">Type the missing words in sentences, complete the case and verb tables, and train der / die / das. Press <b>Check</b> to see your score — your best result for each exercise is saved.</p></header>
-      <div class="tabs" role="tablist">${[["luecken", "✏️ Gap sentences"], ["tabellen", "▦ Tables"], ["artikel", "🎨 Articles"]].map(([k, l]) => `<a class="tab ${k === tab ? "active" : ""}" role="tab" aria-selected="${k === tab}" href="#/ueben/${k}">${l}</a>`).join("")}</div>
+      <div class="tabs" role="tablist">${[["luecken", "✏️ Gaps"], ["tabellen", "▦ Tables"], ["artikel", "🎨 Articles"]].map(([k, l]) => `<a class="tab ${k === tab ? "active" : ""}" role="tab" aria-selected="${k === tab}" href="#/ueben/${k}">${l}</a>`).join("")}</div>
       <div id="practiceBody"></div>`;
     if (tab === "luecken") renderGapHome(id);
     if (tab === "tabellen") renderTableHome(id);
@@ -278,8 +287,9 @@
         <div class="exercise-head"><h2>${esc(title)}</h2><button class="button small" type="button" data-gap-new>🔀 New round</button></div>
         ${withBank ? `<div class="word-bank" aria-label="Word bank">${bank.map(w => `<button type="button" class="bank-word" data-bank="${esc(w)}">${esc(w)}</button>`).join("")}</div>` : `<p class="subtle"><b>Task:</b> type the missing German word in each gap. The hint in brackets shows the base verb, the rule, or what the gap asks for.</p>`}
         <ol class="gap-list">${items.map(item => `<li class="gap-item"><div class="gap-line">${gapSentence(item.s)}</div><div class="gap-hint">${withBank ? `<span class="english-hint">${esc(item.hint)}</span>` : `(${esc(item.hint)})`}</div><div class="gap-feedback"></div></li>`).join("")}</ol>
-        <div class="sticky-actions">${umlautBar()}<div class="action-row"><button class="button primary" type="button" data-gap-check>Check</button><button class="button" type="button" data-gap-reveal>Show answers</button></div><p class="result-line" aria-live="polite"></p></div>
+        <div class="sticky-actions">${umlautBar()}<div class="action-row"><button class="button primary" type="button" data-gap-check>Check</button><button class="button" type="button" data-gap-reveal>Show answers</button></div><p class="result-line" role="status" aria-live="polite"></p></div>
       </section>`;
+    byId("gapExercise").querySelectorAll(".gap-item").forEach((item, n) => item.querySelectorAll(".gap-input").forEach((input, k, all) => input.setAttribute("aria-label", `Sentence ${n + 1}${all.length > 1 ? `, gap ${k + 1}` : ""}`)));
   }
   function checkGaps(container, key) {
     let right = 0, total = 0;
@@ -295,6 +305,8 @@
         if (ok) right += 1;
         input.classList.toggle("is-ok", ok);
         input.classList.toggle("is-wrong", !ok);
+        input.setAttribute("aria-invalid", String(!ok));
+        if (!ok && !input.closest(".gap-item")) input.title = `Correct: ${alts[0]}`;
         const cell = input.closest("td");
         if (cell) { if (ok) delete cell.dataset.solution; else cell.dataset.solution = alts[0]; }
         if (judgeNote[verdict]) notes.push(`<span class="note">${esc(alts[0])}: ${judgeNote[verdict]}</span>`);
@@ -310,6 +322,7 @@
       saveProgress();
     }
     const line = container.querySelector(".result-line");
+    if (line) line.setAttribute("role", "status");
     if (line) line.innerHTML = `<b>${right} / ${total}</b> correct · ${score}% ${score === 100 ? "🎉 Perfect!" : score >= 80 ? "👍 Very good!" : score >= 50 ? "Keep going!" : "Study the corrections, then try a new round."}`;
   }
   function revealGaps(container) {

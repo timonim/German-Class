@@ -530,3 +530,53 @@ body:not([data-view]) #view-lessons { display: block; }
   .tabbar, .appbar, .mode-nav { display: none !important; }
   body { padding: 0 !important; background: #fff; }
 }
+
+/* ------------------------------------------------------------------ accessibility & polish pass */
+:root { --muted: #566660; --faint: #66746e; --focus: #0b6b4a; }
+.skip-link { position: fixed; z-index: 100; top: 8px; left: 8px; padding: 10px 16px; border-radius: 10px; color: #fff; background: var(--dark); font-weight: 850; text-decoration: none; transform: translateY(-200%); }
+.skip-link:focus { transform: none; outline: 3px solid var(--lime); }
+/* focus ring: dark green + white halo on light surfaces, lime on dark ones (>= 3:1 everywhere) */
+button:focus-visible, select:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [role="button"]:focus-visible, .flashcard:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; box-shadow: 0 0 0 5px #fff; }
+aside a:focus-visible, aside button:focus-visible, .tabbar a:focus-visible, .start-hero a:focus-visible, .start-hero button:focus-visible, .hero button:focus-visible, .feature-card.accent:focus-visible { outline-color: var(--lime); box-shadow: 0 0 0 5px #0006; }
+h1:focus { outline: none; }
+/* low-contrast greys -> readable */
+.kbd-hint, .flash-tap { color: var(--faint); }
+.score-badge.none { color: #5b6862; background: #e8e3d7; }
+.chip-card.active .score-badge.none { color: #fff; background: #ffffff33; }
+.art-das, .das { color: #1b7243; }
+.card-label, .nav-level { letter-spacing: 1px; }
+/* touch targets: at least 44 x 44 */
+.button, .tab, .seg button, .umlaut-bar button, .bank-word, .art-btn, .option, .rate { min-height: 44px; }
+.button.small { min-height: 44px; padding-block: 9px; }
+.icon-btn { width: 44px; height: 44px; }
+.umlaut-bar button { min-width: 44px; }
+.fill-table td input, .gap-input, .form-field input { min-height: 44px; }
+.help-box summary, .transcript summary { display: flex; align-items: center; min-height: 44px; }
+.appbar .brand { min-height: 44px; }
+.check-item input, .exam-check input { min-width: 24px; min-height: 24px; }
+.exam-check { min-height: 44px; align-items: center; }
+.seg button { padding-inline: 16px; }
+/* scroll affordance for horizontal chip rows */
+@media (max-width: 1050px) {
+  .chip-grid, .chapter-list { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .chip-grid, .tabs { scroll-padding-inline: 20px; }
+}
+@media (max-width: 680px) {
+  .tabs { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+  .tab { padding-inline: 6px; font-size: 14px; }
+  .umlaut-bar button { min-height: 44px; }
+  .sticky-actions .action-row .button { min-height: 46px; }
+  .top-actions .button { min-height: 44px; }
+}
+/* respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .stat-tile:hover, .feature-card:hover, .unit-card:hover, .flashcard:hover, .prompt-card:hover { transform: none; }
+}
+@media (forced-colors: active) {
+  .gap-input, .fill-table input, .form-field input { border: 2px solid CanvasText; }
+  .is-ok, .is-wrong, .is-revealed { border: 2px solid Highlight !important; }
+}
+.chapter-link { min-height: 44px; }
+.pager a { display: inline-flex; align-items: center; min-height: 44px; }
+.back-link { display: inline-flex; align-items: center; min-height: 44px; }

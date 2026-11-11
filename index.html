@@ -334,6 +334,7 @@
   <link rel="stylesheet" href="assets/practice.css">
 </head>
 <body class="hide-english">
+  <a class="skip-link" href="#main" onclick="document.getElementById('main').focus()">Skip to content</a>
   <div class="app">
     <aside>
       <a class="brand" href="#/start"><span class="brand-mark">S!</span> Sprechen, Motia!</a>
@@ -353,7 +354,7 @@
       <nav id="lessonNav" aria-label="Gesprächsstunden"></nav>
     </aside>
 
-    <main>
+    <main id="main" tabindex="-1">
       <header class="appbar">
         <a class="brand" href="#/start"><span class="brand-mark">S!</span><span>Sprechen!</span></a>
         <span class="appbar-title" id="appbarTitle"></span>
