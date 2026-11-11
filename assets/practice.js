@@ -776,6 +776,59 @@
     }
   });
 
+  /* ================================================================ In-page picker
+     Replaces the browser's native <select> popup (which some browsers draw in the wrong place,
+     unstyled) with a sheet inside the page. The <select> stays in the DOM as the source of truth. */
+  const PICKABLE = "#mobileSelect, #deckSelect, #newPerDay, #gapLessonSelect";
+  const iosNativePicker = "ongesturestart" in window; // Safari's wheel picker is already good: leave it alone
+  let pickerDialog = null, pickerSelect = null;
+  function ensurePicker() {
+    if (pickerDialog) return;
+    pickerDialog = document.createElement("dialog");
+    pickerDialog.className = "picker";
+    pickerDialog.setAttribute("aria-labelledby", "pickerTitle");
+    pickerDialog.innerHTML = `<div class="picker-head"><h2 id="pickerTitle"></h2><button class="icon-btn" type="button" data-picker-close aria-label="Close">✕</button></div><div class="picker-list" id="pickerList" role="listbox" aria-labelledby="pickerTitle"></div>`;
+    document.body.appendChild(pickerDialog);
+    pickerDialog.addEventListener("click", event => {
+      if (event.target === pickerDialog || event.target.closest("[data-picker-close]")) { pickerDialog.close(); return; }
+      const option = event.target.closest("[data-picker-value]");
+      if (!option || !pickerSelect) return;
+      const select = pickerSelect;
+      const changed = select.value !== option.dataset.pickerValue;
+      select.value = option.dataset.pickerValue;
+      pickerDialog.close();
+      if (changed) select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    pickerDialog.addEventListener("close", () => { if (pickerSelect && document.body.contains(pickerSelect)) pickerSelect.focus({ preventScroll: true }); });
+  }
+  function openPicker(select) {
+    ensurePicker();
+    pickerSelect = select;
+    const title = select.getAttribute("aria-label") || select.closest("label")?.querySelector("span")?.textContent || "Choose";
+    byId("pickerTitle").textContent = title;
+    const row = o => `<button type="button" role="option" class="picker-option" data-picker-value="${esc(o.value)}" aria-selected="${o.selected}"><span>${esc(o.textContent)}</span>${o.selected ? `<span class="picker-check" aria-hidden="true">✓</span>` : ""}</button>`;
+    byId("pickerList").innerHTML = [...select.children].map(child => child.tagName === "OPTGROUP"
+      ? `<div role="group" aria-label="${esc(child.label)}"><p class="picker-group">${esc(child.label)}</p>${[...child.children].map(row).join("")}</div>`
+      : row(child)).join("");
+    pickerDialog.showModal();
+    const current = byId("pickerList").querySelector('[aria-selected="true"]') || byId("pickerList").querySelector(".picker-option");
+    current?.scrollIntoView({ block: "center" });
+    current?.focus({ preventScroll: true });
+  }
+  if (!iosNativePicker) {
+    // Stop the native popup from opening, then open ours.
+    document.addEventListener("mousedown", event => { if (event.target.closest?.(PICKABLE)) event.preventDefault(); });
+    document.addEventListener("click", event => {
+      const select = event.target.closest?.(PICKABLE);
+      if (select) { event.preventDefault(); select.focus({ preventScroll: true }); openPicker(select); }
+    });
+    document.addEventListener("keydown", event => {
+      if (pickerDialog?.open) return;
+      const select = event.target.closest?.(PICKABLE);
+      if (select && (event.key === "Enter" || event.key === " " || (event.altKey && event.key === "ArrowDown"))) { event.preventDefault(); openPicker(select); }
+    });
+  }
+
   window.addEventListener("hashchange", route);
   buildDecks();
   route();
