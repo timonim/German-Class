@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A 32-class A1–A2 German conversation course for one-to-one lessons.">
+  <meta name="description" content="A 32-class A1–A2 German conversation course with flashcards, gap exercises, grammar and an A1 mock exam.">
+  <meta name="theme-color" content="#174b39">
   <title>Sprechen! — Motias Deutschstunden</title>
   <style>
     :root {
@@ -330,11 +331,20 @@
       body.hide-english .english { display: block !important; color: var(--muted) !important; background: transparent !important; }
     }
   </style>
+  <link rel="stylesheet" href="assets/practice.css">
 </head>
 <body class="hide-english">
   <div class="app">
     <aside>
-      <div class="brand"><span class="brand-mark">S!</span> Sprechen, Motia!</div>
+      <a class="brand" href="#/start"><span class="brand-mark">S!</span> Sprechen, Motia!</a>
+      <nav class="mode-nav" aria-label="Bereiche">
+        <a href="#/start" data-route="start"><span aria-hidden="true">🏠</span>Übersicht</a>
+        <a href="#/stunden" data-route="stunden"><span aria-hidden="true">🗣️</span>Stunden</a>
+        <a href="#/karten" data-route="karten"><span aria-hidden="true">🃏</span>Karteikarten</a>
+        <a href="#/ueben" data-route="ueben"><span aria-hidden="true">✏️</span>Üben</a>
+        <a href="#/test" data-route="test"><span aria-hidden="true">🎓</span>Test &amp; Prüfung</a>
+        <a href="#/grammatik" data-route="grammatik"><span aria-hidden="true">📘</span>Grammatik</a>
+      </nav>
       <section class="progress-card">
         <p>A1 → A2 · 32 Gesprächsstunden</p>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -344,6 +354,18 @@
     </aside>
 
     <main>
+      <header class="appbar">
+        <a class="brand" href="#/start"><span class="brand-mark">S!</span><span>Sprechen!</span></a>
+        <span class="appbar-title" id="appbarTitle"></span>
+      </header>
+
+      <section class="view" id="view-start" aria-label="Übersicht"></section>
+      <section class="view" id="view-cards" aria-label="Karteikarten"></section>
+      <section class="view" id="view-practice" aria-label="Üben"></section>
+      <section class="view" id="view-quiz" aria-label="Test"></section>
+      <section class="view" id="view-grammar" aria-label="Grammatik"></section>
+
+      <section class="view" id="view-lessons" aria-label="Stunden">
       <header class="topbar">
         <select class="mobile-select" id="mobileSelect" aria-label="Stunde auswählen"></select>
         <div class="top-actions">
@@ -410,8 +432,18 @@
         <button class="button primary complete-button" id="completeButton" type="button">Stunde als fertig markieren</button>
 
       </div>
+      </section>
     </main>
   </div>
+
+  <nav class="tabbar" aria-label="Bereiche">
+    <a href="#/start" data-route="start"><span aria-hidden="true">🏠</span>Start</a>
+    <a href="#/stunden" data-route="stunden"><span aria-hidden="true">🗣️</span>Stunden</a>
+    <a href="#/karten" data-route="karten"><span aria-hidden="true">🃏</span>Karten</a>
+    <a href="#/ueben" data-route="ueben"><span aria-hidden="true">✏️</span>Üben</a>
+    <a href="#/test" data-route="test"><span aria-hidden="true">🎓</span>Test</a>
+    <a href="#/grammatik" data-route="grammatik"><span aria-hidden="true">📘</span>Grammatik</a>
+  </nav>
 
   <dialog class="revision-dialog" id="revisionDialog" aria-labelledby="revisionTitle">
     <header class="revision-head">
@@ -1433,5 +1465,7 @@
     $("listenSentence").hidden = !canSpeak;
     renderLesson();
   </script>
+  <script src="assets/practice-data.js"></script>
+  <script src="assets/practice.js"></script>
 </body>
 </html>
