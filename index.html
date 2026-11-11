@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="description" content="A 32-class A1–A2 German conversation course with flashcards, gap exercises, grammar and an A1 mock exam.">
-  <meta name="theme-color" content="#174b39">
+  <meta name="theme-color" content="#f5f2ea">
+  <meta name="color-scheme" content="light">
   <title>Sprechen! — Motias Deutschstunden</title>
   <style>
     :root {
@@ -73,7 +74,7 @@
       background: transparent;
       cursor: pointer;
     }
-    .lesson-nav:hover { background: #ffffff0e; }
+    @media (hover: hover) and (pointer: fine) { .lesson-nav:hover { background: #ffffff0e; } }
     .lesson-nav.active { color: #fff; background: #ffffff1f; }
     .lesson-number { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #ffffff13; }
     .lesson-nav.active .lesson-number { background: var(--lime); }
@@ -96,9 +97,9 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .button:hover { border-color: #c6bcac; }
+    @media (hover: hover) and (pointer: fine) { .button:hover { border-color: #c6bcac; } }
     .button.primary { color: #fff; border-color: var(--green); background: var(--green); }
-    .button.primary:hover { background: var(--dark); }
+    @media (hover: hover) and (pointer: fine) { .button.primary:hover { background: var(--dark); } }
     .button.done { color: var(--dark); border-color: var(--lime); background: var(--lime); }
     .mobile-select { display: none; }
 
@@ -128,7 +129,7 @@
      .sentence-tab-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
      .sentence-tab-group-label { margin: 0 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .9px; text-transform: uppercase; }
      .sentence-tab { padding: 8px 13px; border: 1px solid #bfd2c9; border-radius: 999px; color: #526159; background: #fffdf8; font-size: 14px; font-weight: 800; cursor: pointer; }
-     .sentence-tab:hover { border-color: var(--green); }
+     @media (hover: hover) and (pointer: fine) { .sentence-tab:hover { border-color: var(--green); } }
      .sentence-tab.active { border-color: var(--dark); color: #fff; background: var(--dark); }
      .sentence-display { padding: 21px 20px 18px; border: 1px solid #cbded5; border-radius: 14px; background: var(--card); }
      .sentence-line { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
@@ -158,7 +159,7 @@
      .builder-answer:empty::before { content: "Choose the words in the right order"; color: #84928c; font-size: 14px; }
      .builder-words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
      .builder-word { padding: 7px 10px; border: 1px solid #bfd2c9; border-radius: 8px; color: var(--dark); background: var(--card); font-size: 14px; font-weight: 800; cursor: pointer; }
-     .builder-word:hover { border-color: var(--green); background: #e4f1e9; }
+     @media (hover: hover) and (pointer: fine) { .builder-word:hover { border-color: var(--green); background: #e4f1e9; } }
      .builder-word:disabled { opacity: .42; cursor: default; }
      .builder-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 12px; }
      .builder-actions .button { padding: 8px 13px; font-size: 14px; }
@@ -182,7 +183,7 @@
     .grammar-note > p { margin: 10px 0 0 44px; color: #526159; }
     .reading-list { display: grid; gap: 8px; margin: 14px 0 0 44px; padding: 0; list-style: none; }
     .reading-line { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 9px; text-align: left; background: var(--card); font-size: 17px; font-weight: 750; cursor: pointer; }
-    .reading-line:hover { border-color: #adbbb5; }
+    @media (hover: hover) and (pointer: fine) { .reading-line:hover { border-color: #adbbb5; } }
     .english { color: var(--muted); text-align: right; }
     body.hide-english .english { display: none; }
     body.hide-english .reading-line.revealed .english,
@@ -252,7 +253,7 @@
     body.hide-english .basics-table .english { display: block; }
     .basics-audio { width: 54px; text-align: center !important; }
     .basics-line { width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
-     .basics-line:hover { border-color: var(--green); background: #f2f7f4; }
+     @media (hover: hover) and (pointer: fine) { .basics-line:hover { border-color: var(--green); background: #f2f7f4; } }
      .revision-dialog { width: min(960px, calc(100% - 32px)); max-height: 92vh; padding: 0; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #0005; }
      .revision-dialog::backdrop { background: #10251dcc; }
      .revision-head { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border-bottom: 1px solid var(--line); background: var(--card); }
@@ -279,7 +280,7 @@
      .word-table td { padding: 8px 12px; border-top: 1px solid var(--line); }
      .word-table td:last-child { color: var(--muted); text-align: right; }
      .word-line { width: 28px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--card); cursor: pointer; }
-     .word-line:hover { border-color: var(--green); background: #f2f7f4; }
+     @media (hover: hover) and (pointer: fine) { .word-line:hover { border-color: var(--green); background: #f2f7f4; } }
      .exam-checklist { display: grid; gap: 9px; padding: 16px 18px 18px; }
      .exam-check { display: flex; gap: 10px; align-items: flex-start; color: #526159; font-size: 15px; }
      .exam-check input { width: 18px; height: 18px; flex: 0 0 auto; margin: 2px 0 0; accent-color: var(--green); }

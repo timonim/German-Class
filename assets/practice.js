@@ -626,6 +626,7 @@
   }
 
   /* ================================================================ Start / dashboard */
+  let homeShown = false;
   function renderStart() {
     if (!decks.length) buildDecks();
     const a1Done = state.complete.filter(i => i < 20).length;
@@ -662,6 +663,8 @@
       <h2 class="section-title">What the A1 exam looks like</h2>
       <section class="exam-grid">${D.examInfo.map(([icon, title, time, text]) => `<article class="exam-part"><span class="exam-icon">${icon}</span><div><b>${title}</b> <span class="subtle">${time}</span><p>${text}</p></div></article>`).join("")}</section>
       <p class="subtle center">You pass with 60 out of 100 points. Your progress is saved only in this browser.</p>`;
+    byId("view-start").classList.toggle("start-anim", !homeShown);
+    homeShown = true;
   }
 
   /* ================================================================ Events */
