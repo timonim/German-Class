@@ -134,6 +134,12 @@
     });
     return { fresh, newToday: Math.min(fresh, Math.max(0, srs.newPerDay - srs.newCount)), learning, due, mature, total: deck.cards.length };
   }
+  function nextDueNote() {
+    const dues = currentDeck().cards.map(c => srs.cards[c.id]).filter(s => s && !s.learning).map(s => s.due);
+    if (!dues.length) return "Due cards are cards you have already learned and need to repeat. You have none yet, because you started today. They show up here automatically, starting tomorrow.";
+    const days = Math.max(1, Math.ceil((Math.min(...dues) - Date.now()) / DAY));
+    return `Nothing is due right now. Your next review cards appear here automatically in ${days === 1 ? "about a day" : days + " days"} — there is no separate due screen.`;
+  }
   let lastCardId = null;
   function nextCard() {
     resetDay();
@@ -164,9 +170,9 @@
         <div class="field"><span>Direction</span><div class="seg" role="group" aria-label="Direction"><button type="button" data-dir="de" class="${srs.dir === "de" ? "active" : ""}">DE → EN</button><button type="button" data-dir="en" class="${srs.dir === "en" ? "active" : ""}">EN → DE</button></div></div>
         <label class="field"><span>New cards / day</span><select id="newPerDay">${[5, 10, 15, 20, 30, 50].map(n => `<option ${n === srs.newPerDay ? "selected" : ""}>${n}</option>`).join("")}</select></label>
       </div>
-      <div class="srs-counts" aria-live="polite"><span class="count new"><b>${stats.newToday}</b> new</span><span class="count learn"><b>${stats.learning}</b> learning</span><span class="count due"><b>${stats.due}</b> due</span><span class="count mature"><b>${stats.mature}</b>/${stats.total} mastered</span></div>
+      <div class="srs-counts" aria-live="polite"><span class="count new"><b>${stats.newToday}</b> new</span><span class="count learn" title="Cards you saw today that come back within minutes"><b>${stats.learning}</b> learning</span><span class="count due" title="Cards you already learned that are ready to repeat today"><b>${stats.due}</b> due</span><span class="count mature"><b>${stats.mature}</b>/${stats.total} mastered</span></div>
       <div id="cardStage"></div>
-      <details class="help-box"><summary>How does this work?</summary><ol><li>Read the front of the card and say the answer <b>out loud</b>.</li><li>Flip the card (tap it, or press space) and compare.</li><li>Rate yourself: <b>Again</b> = wrong, <b>Hard</b> = remembered with effort, <b>Good</b> = correct, <b>Easy</b> = instant. Keys 1–4.</li><li>Come back every day for about 10 minutes — the <b>due</b> cards matter most. The time under each button shows when you will see the card next.</li></ol></details>
+      <details class="help-box"><summary>How does this work?</summary><ol><li>Read the front of the card and say the answer <b>out loud</b>.</li><li>Flip the card (tap it, or press space) and compare.</li><li>Rate yourself: <b>Again</b> = wrong, <b>Hard</b> = remembered with effort, <b>Good</b> = correct, <b>Easy</b> = instant. Keys 1–4.</li><li><b>Due</b> = cards you learned earlier that are ready to repeat. They appear automatically in this same stack, before new cards — there is no separate screen. On your first day it shows 0; the first due cards arrive the next day.</li><li>Come back every day for about 10 minutes — the <b>due</b> cards matter most. The time under each button shows when you will see the card next.</li></ol></details>
       </div>`;
     renderCardStage();
   }
@@ -177,7 +183,7 @@
     cardFlipped = false;
     if (!activeCard) {
       const stats = deckStats(currentDeck());
-      stage.innerHTML = `<div class="empty-state"><div class="empty-icon">🎉</div><h2>Done for today!</h2><p>${stats.fresh ? `${stats.fresh} new cards are still waiting in this deck.` : "You have seen every card in this deck."} Come back tomorrow for your due reviews.</p>${stats.fresh ? `<button class="button primary" type="button" data-more-new>Learn 10 more new cards</button>` : ""}</div>`;
+      stage.innerHTML = `<div class="empty-state"><div class="empty-icon">🎉</div><h2>Done for today!</h2><p>${stats.fresh ? `${stats.fresh} new cards are still waiting in this deck.` : "You have seen every card in this deck."}</p><p class="subtle">${nextDueNote()}</p>${stats.fresh ? `<button class="button primary" type="button" data-more-new>Learn 10 more new cards</button>` : ""}</div>`;
       return;
     }
     stage.innerHTML = cardHTML();
