@@ -443,7 +443,7 @@ window.PRACTICE_DATA = (() => {
     letter: {
       task: "Task (as in the exam, in German): Sie haben am Freitag einen Termin beim Arzt, aber Sie können nicht kommen. Schreiben Sie eine E-Mail an die Praxis (ca. 30 Wörter): Entschuldigen Sie sich. Nennen Sie einen Grund. Bitten Sie um einen neuen Termin.  — In English: you have a doctor’s appointment on Friday but cannot go. Write an email to the practice: apologise, give a reason, and ask for a new appointment.",
       checks: ["Greeting: Sehr geehrte Damen und Herren,", "Apology: Leider kann ich … nicht kommen.", "Reason: … denn ich muss arbeiten.", "Request: Können Sie mir bitte einen neuen Termin geben?", "Closing + name: Mit freundlichen Grüßen …"],
-      model: "Sehr geehrte Damen und Herren,\nleider kann ich am Freitag nicht zum Termin kommen, denn ich muss arbeiten. Können Sie mir bitte einen neuen Termin geben? Am Montag oder Dienstag habe ich Zeit.\nMit freundlichen Grüßen\nMotia Cohen"
+      model: "Sehr geehrte Damen und Herren,\nleider kann ich am Freitag nicht zum Termin kommen, denn ich muss arbeiten. Können Sie mir bitte einen neuen Termin geben? Am Montag oder Dienstag habe ich Zeit.\nMit freundlichen Grüßen\nMotia H"
     }
   };
 

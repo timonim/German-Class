@@ -6,7 +6,7 @@
   <meta name="description" content="A 32-class A1–A2 German conversation course with flashcards, gap exercises, grammar and an A1 mock exam.">
   <meta name="theme-color" content="#f5f2ea">
   <meta name="color-scheme" content="light">
-  <title>Sprechen! — Motias Deutschstunden</title>
+  <title>Sprechen! — Deutschstunden für Motia H</title>
   <style>
     :root {
       --ink: #18231f;
@@ -170,17 +170,6 @@
     .panel-head { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 26px; }
     h2 { margin: 0; font-size: 25px; letter-spacing: -.5px; }
     .subtle { color: var(--muted); font-size: 14px; }
-    .timeline { display: grid; gap: 18px; }
-    .plan-step { padding: 22px 24px; border: 1px solid var(--line); border-radius: 14px; background: #faf8f2; }
-    .plan-head { display: flex; align-items: center; gap: 11px; }
-    .plan-number { display: grid; flex: 0 0 auto; width: 33px; height: 33px; place-items: center; border-radius: 50%; color: var(--dark); background: var(--blue); font-size: 14px; font-weight: 900; }
-    .plan-step:nth-child(2) .plan-number { background: var(--lime); }
-    .plan-step:nth-child(3) .plan-number { background: #ffd9c4; }
-    .plan-step:nth-child(4) .plan-number { background: #e7dcff; }
-    .plan-step:nth-child(5) .plan-number { background: #ffe9a5; }
-    .plan-step h3 { margin: 0; font-size: 18px; }
-    .grammar-note { background: #f2f7f4; border-color: #cbded5; }
-    .grammar-note > p { margin: 10px 0 0 44px; color: #526159; }
     .reading-list { display: grid; gap: 8px; margin: 14px 0 0 44px; padding: 0; list-style: none; }
     .reading-line { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 9px; text-align: left; background: var(--card); font-size: 17px; font-weight: 750; cursor: pointer; }
     @media (hover: hover) and (pointer: fine) { .reading-line:hover { border-color: #adbbb5; } }
@@ -333,12 +322,13 @@
     }
   </style>
   <link rel="stylesheet" href="assets/practice.css">
+  <link rel="stylesheet" href="assets/lesson-plans.css">
 </head>
 <body class="hide-english">
   <a class="skip-link" href="#main" onclick="document.getElementById('main').focus()">Skip to content</a>
   <div class="app">
     <aside>
-      <a class="brand" href="#/start"><span class="brand-mark">S!</span> Sprechen, Motia!</a>
+      <a class="brand" href="#/start"><span class="brand-mark">S!</span> Sprechen, Motia H!</a>
       <nav class="mode-nav" aria-label="Sections">
         <a href="#/start" data-route="start"><span aria-hidden="true">🏠</span>Home</a>
         <a href="#/stunden" data-route="stunden"><span aria-hidden="true">🗣️</span>Lessons</a>
@@ -387,47 +377,56 @@
           <div class="hero-art" id="lessonIcon" aria-hidden="true"></div>
         </section>
 
-        <section class="panel">
+        <section class="panel lesson-grammar" aria-labelledby="lessonGrammarTitle">
           <div class="panel-head">
-            <div><p class="eyebrow">Übungen 1–4 · Grammatik · Aussprache</p><h2>Redemittel lesen und sprechen</h2></div>
+            <div><p class="eyebrow">Grammatik im Gespräch</p><h2 id="lessonGrammarTitle"></h2></div>
+          </div>
+          <div id="lessonGrammar"></div>
+        </section>
+
+        <section class="panel lesson-activity" aria-labelledby="lessonActivityTitle">
+          <div class="panel-head">
+            <div><p class="eyebrow">Jetzt sprechen</p><h2 id="lessonActivityTitle" lang="en"></h2></div>
+          </div>
+          <p id="lessonActivity" lang="en"></p>
+        </section>
+
+        <details class="panel lesson-resource print-resource">
+          <summary>Redemittel, Ziele &amp; Aussprache</summary>
+          <div class="lesson-resource-body">
             <button class="button" id="listenPhrases" type="button">🔊 Alle Sätze hören</button>
+            <div class="mini-exercises" id="lessonBrief"></div>
+            <div id="timeline"></div>
           </div>
-          <div class="mini-exercises" id="lessonBrief"></div>
-          <div class="timeline" id="timeline"></div>
-        </section>
+        </details>
 
-        <section class="panel">
-          <div class="panel-head">
-            <div><p class="eyebrow">Übung 5</p><h2 id="dialogueTitle"></h2></div>
+        <details class="panel lesson-resource print-resource">
+          <summary id="dialogueTitle"></summary>
+          <div class="lesson-resource-body">
             <button class="button" id="listenDialogue" type="button">🔊 Dialog hören</button>
+            <div class="dialogue" id="dialogue"></div>
           </div>
-          <div class="dialogue" id="dialogue"></div>
-        </section>
+        </details>
 
-        <section class="panel">
-          <div class="panel-head">
-            <div><p class="eyebrow">Übungen 6–7</p><h2>Hören, erkennen, erinnern</h2></div>
+        <details class="panel lesson-resource no-print">
+          <summary>Hören &amp; erinnern</summary>
+          <div class="lesson-resource-body">
             <button class="button" id="resetCards" type="button">Karten zurücksetzen</button>
+            <p>Hören → nachsprechen → umdrehen</p>
+            <div class="prompt-cards" id="promptCards"></div>
           </div>
-          <div class="mini-exercises">
-            <div class="mini-exercise"><span>6</span><p><b>Hören → nachsprechen → umdrehen</b></p></div>
-            <div class="mini-exercise"><span>7</span><p><b>Hören → Satz erinnern → kontrollieren</b></p></div>
-          </div>
-          <div class="prompt-cards" id="promptCards"></div>
-        </section>
+        </details>
 
         <section class="panel challenge">
-          <div class="challenge-top">
-            <p class="eyebrow">Übungen 8–9</p>
-            <h2>Neue Versionen</h2>
+          <details class="challenge-top lesson-resource print-resource">
+            <summary>Wenn noch Zeit ist</summary>
             <p id="challenge"></p>
-          </div>
+          </details>
           <div class="checklist" id="checklist"></div>
         </section>
 
         <section class="panel homework">
-          <p class="eyebrow">Übung 10</p>
-          <h2>60 Sekunden sprechen</h2>
+          <h2>Für zu Hause</h2>
           <p id="homework"></p>
         </section>
 
@@ -459,6 +458,7 @@
     <div class="basics-tables" id="basicsTables"></div>
   </dialog>
 
+  <script src="assets/lesson-plans.js"></script>
   <script>
     const course = [
       {
@@ -494,8 +494,8 @@
         phrases: [["Wie schreibt man das?", "How do you spell that?"], ["Kannst du das buchstabieren?", "Can you spell that?"], ["M–O–T–I–A.", "M–O–T–I–A."], ["Wie alt bist du?", "How old are you?"], ["Ich bin dreißig Jahre alt.", "I'm thirty years old."], ["Wie ist deine Telefonnummer?", "What's your phone number?"], ["Meine Nummer ist …", "My number is …"], ["Wie war die Nummer noch einmal?", "What was the number again?"], ["Wie ist deine E-Mail-Adresse?", "What's your email address?"], ["Stimmt das?", "Is that correct?"]],
         coach: "Speech focus: group long numbers into pairs and leave a short pause between them; the listener repeats everything back.",
         dialogueTitle: "Exchanging contact details",
-        dialogue: [["A", "Wie heißt du?", "What's your name?"], ["B", "Ich heiße Motia Cohen.", "My name is Motia Cohen."], ["A", "Kannst du Cohen buchstabieren?", "Can you spell Cohen?"], ["B", "Ja: C–O–H–E–N.", "Yes: C–O–H–E–N."], ["A", "Danke. Wie ist deine Telefonnummer?", "Thanks. What's your phone number?"], ["B", "Meine Nummer ist null fünf vier, drei zwei eins, neun acht sieben.", "My number is 054, 321, 987."], ["A", "Also: null fünf vier, drei zwei eins, neun acht sieben?", "So: 054, 321, 987?"], ["B", "Ja, das stimmt.", "Yes, that's correct."]],
-        variations: ["Spell a city and surname", "Exchange imaginary phone numbers", "Add an email address"],
+        dialogue: [["A", "Wie heißt du?", "What's your name?"], ["B", "Ich heiße Motia H.", "My name is Motia H."], ["A", "Kannst du deinen Vornamen buchstabieren?", "Can you spell your first name?"], ["B", "Ja: M–O–T–I–A.", "Yes: M–O–T–I–A."], ["A", "Danke. Wie ist deine Telefonnummer?", "Thanks. What's your phone number?"], ["B", "Meine Nummer ist null fünf vier, drei zwei eins, neun acht sieben.", "My number is 054, 321, 987."], ["A", "Also: null fünf vier, drei zwei eins, neun acht sieben?", "So: 054, 321, 987?"], ["B", "Ja, das stimmt.", "Yes, that's correct."]],
+        variations: ["Spell a city and first name", "Exchange imaginary phone numbers", "Add an email address"],
         challenge: "Exchange a full name, age, phone number, and email address. Spell and repeat every detail until both versions match.",
         checks: ["I spelled clearly", "I understood the key numbers", "I asked for repetition", "I confirmed the details"],
         homework: "Record your name, spelling, age, and a fictional phone number. Leave pauses so a listener could repeat every detail back."
@@ -780,7 +780,7 @@
         phrases: [["Ich habe ein Zimmer reserviert.", "I've reserved a room."], ["Auf welchen Namen?", "Under what name?"], ["Ich bleibe drei Nächte.", "I'm staying for three nights."], ["Ist das Frühstück inklusive?", "Is breakfast included?"], ["Wie lautet das WLAN-Passwort?", "What is the Wi-Fi password?"], ["Wann muss ich auschecken?", "When do I have to check out?"], ["Die Heizung funktioniert nicht.", "The heating doesn't work."], ["Im Bad gibt es kein warmes Wasser.", "There is no hot water in the bathroom."], ["Könnte ich ein anderes Zimmer bekommen?", "Could I get another room?"], ["Wir kümmern uns sofort darum.", "We'll take care of it immediately."]],
         coach: "Speech focus: lead with the problem, then add one detail and one requested solution. Short sentences work best at a reception desk.",
         dialogueTitle: "A problem at reception",
-        dialogue: [["A", "Guten Abend. Was kann ich für Sie tun?", "Good evening. What can I do for you?"], ["B", "Ich habe ein Zimmer reserviert, auf den Namen Cohen.", "I've reserved a room under the name Cohen."], ["A", "Ja, für drei Nächte. Hier ist Ihre Schlüsselkarte.", "Yes, for three nights. Here is your key card."], ["B", "Danke. Ist das Frühstück inklusive?", "Thank you. Is breakfast included?"], ["A", "Ja, von sieben bis zehn Uhr.", "Yes, from seven until ten."], ["B", "Entschuldigung, in meinem Zimmer funktioniert die Heizung nicht.", "Excuse me, the heating in my room doesn't work."], ["A", "Das tut mir leid. Wir kümmern uns sofort darum.", "I'm sorry. We'll take care of it immediately."], ["B", "Vielen Dank.", "Thank you very much."]],
+        dialogue: [["A", "Guten Abend. Was kann ich für Sie tun?", "Good evening. What can I do for you?"], ["B", "Ich habe ein Zimmer reserviert, auf den Namen Motia H.", "I've reserved a room under the name Motia H."], ["A", "Ja, für drei Nächte. Hier ist Ihre Schlüsselkarte.", "Yes, for three nights. Here is your key card."], ["B", "Danke. Ist das Frühstück inklusive?", "Thank you. Is breakfast included?"], ["A", "Ja, von sieben bis zehn Uhr.", "Yes, from seven until ten."], ["B", "Entschuldigung, in meinem Zimmer funktioniert die Heizung nicht.", "Excuse me, the heating in my room doesn't work."], ["A", "Das tut mir leid. Wir kümmern uns sofort darum.", "I'm sorry. We'll take care of it immediately."], ["B", "Vielen Dank.", "Thank you very much."]],
         variations: ["Ask three check-in questions", "Report a different room problem", "The hotel offers two solutions"],
         challenge: "Check in, get three pieces of information, then report a room problem and agree on a practical solution.",
         checks: ["I gave the booking details", "I asked about useful services", "I described the problem specifically", "I asked for and accepted a solution"],
@@ -803,10 +803,10 @@
         level: "A2.2", icon: "📞", title: "Kann ich etwas ausrichten?", topic: "Phone calls",
         intro: "Open and close a phone call, ask for someone, leave a clear message, and confirm names and numbers.",
         goals: ["manage a simple phone opening", "leave or take a message", "confirm spelling and a phone number"],
-        phrases: [["Guten Tag, hier ist Motia Cohen.", "Good afternoon, this is Motia Cohen."], ["Kann ich bitte mit Frau Klein sprechen?", "May I speak with Ms Klein, please?"], ["Einen Moment, bitte.", "One moment, please."], ["Sie ist leider nicht da.", "Unfortunately she isn't here."], ["Kann ich etwas ausrichten?", "Can I take a message?"], ["Sagen Sie ihr bitte, dass …", "Please tell her that …"], ["Können Sie den Namen buchstabieren?", "Can you spell the name?"], ["Wie war die Nummer noch einmal?", "What was the number again?"], ["Sie soll mich bitte zurückrufen.", "She should call me back, please."], ["Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
+        phrases: [["Guten Tag, hier ist Motia H.", "Good afternoon, this is Motia H."], ["Kann ich bitte mit Frau Klein sprechen?", "May I speak with Ms Klein, please?"], ["Einen Moment, bitte.", "One moment, please."], ["Sie ist leider nicht da.", "Unfortunately she isn't here."], ["Kann ich etwas ausrichten?", "Can I take a message?"], ["Sagen Sie ihr bitte, dass …", "Please tell her that …"], ["Können Sie den Namen buchstabieren?", "Can you spell the name?"], ["Wie war die Nummer noch einmal?", "What was the number again?"], ["Sie soll mich bitte zurückrufen.", "She should call me back, please."], ["Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
         coach: "Speech focus: without gestures, names and numbers need extra space. Group the number, repeat it, and ask for confirmation.",
         dialogueTitle: "Leaving a message",
-        dialogue: [["A", "Praxis Wagner, guten Tag.", "Wagner practice, good afternoon."], ["B", "Guten Tag, hier ist Motia Cohen. Kann ich mit Frau Wagner sprechen?", "Good afternoon, this is Motia Cohen. May I speak with Ms Wagner?"], ["A", "Sie ist leider nicht da. Kann ich etwas ausrichten?", "Unfortunately she isn't here. Can I take a message?"], ["B", "Ja, sagen Sie ihr bitte, dass ich morgen nicht kommen kann.", "Yes, please tell her that I can't come tomorrow."], ["A", "Gern. Wie war Ihr Nachname noch einmal?", "Gladly. What was your surname again?"], ["B", "Cohen: C-O-H-E-N.", "Cohen: C-O-H-E-N."], ["A", "Danke. Frau Wagner ruft Sie zurück.", "Thank you. Ms Wagner will call you back."], ["B", "Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
+        dialogue: [["A", "Praxis Wagner, guten Tag.", "Wagner practice, good afternoon."], ["B", "Guten Tag, hier ist Motia H. Kann ich mit Frau Wagner sprechen?", "Good afternoon, this is Motia H. May I speak with Ms Wagner?"], ["A", "Sie ist leider nicht da. Kann ich etwas ausrichten?", "Unfortunately she isn't here. Can I take a message?"], ["B", "Ja, sagen Sie ihr bitte, dass ich morgen nicht kommen kann.", "Yes, please tell her that I can't come tomorrow."], ["A", "Gern. Wie war Ihr Name noch einmal?", "Gladly. What was your name again?"], ["B", "Motia H. Mein Vorname: M–O–T–I–A.", "Motia H. My first name: M–O–T–I–A."], ["A", "Danke. Frau Wagner ruft Sie zurück.", "Thank you. Ms Wagner will call you back."], ["B", "Vielen Dank. Auf Wiederhören.", "Thank you. Goodbye."]],
         variations: ["Leave a new message", "Confirm a six-digit number", "The connection is bad"],
         challenge: "Handle two phone calls: leave one complete message, then take a message and repeat every detail back accurately.",
         checks: ["I identified myself clearly", "My message included who, what, and when", "I checked spelling and numbers", "I closed the call naturally"],
@@ -928,7 +928,7 @@
       ["Häufigkeitswörter", "Words such as normalerweise, oft, manchmal and nie usually sit near the conjugated verb. When one comes first, the verb remains second.", [
         ["Normalerweise stehe ich um sieben auf.", "I normally get up at seven."], ["Ich koche oft am Abend.", "I often cook in the evening."], ["Am Sonntag arbeite ich nie.", "I never work on Sunday."]
       ]],
-      ["Modalverben und Satzklammer", "A conjugated modal verb goes in second position; the other verb stays as an infinitive at the end.", [
+      ["Modalverben und Satzklammer", "In a statement, the conjugated modal verb goes in second position. In a yes/no question, it goes first. The other verb stays as an infinitive at the end.", [
         ["Wollen wir zusammen kochen?", "Shall we cook together?"], ["Ich kann am Samstag kommen.", "I can come on Saturday."], ["Möchtest du ins Kino gehen?", "Would you like to go to the cinema?"]
       ]],
       ["formelles Sie, am und um", "Formal Sie is capitalized and takes the plural verb form. Ihnen is its dative form, used here because passen describes to whom a time suits. Use am for days and um for clock times.", [
@@ -1211,21 +1211,6 @@
         ["müssen — Wir müssen jetzt gehen.", "Wir müssen jetzt gehen.", "must — We have to leave now."]
       ], "A modal verb is conjugated in position two. The other verb stays in the infinitive at the end of the sentence."]
     ];
-    const questionsFor = lesson => uniqueEntries([
-      ...lesson.phrases,
-      ...lesson.dialogue.map(([, de, en]) => [de, en]),
-      ["Und du?", "And you?"], ["Wo?", "Where?"], ["Wann?", "When?"], ["Mit wem?", "With whom?"], ["Wie oft?", "How often?"], ["Warum?", "Why?"]
-    ].filter(([de]) => de.includes("?"))).slice(0, 6).map(([de, en]) => [de, de, en]);
-    const readingExercises = lesson => {
-      const phrases = lesson.phrases.map(([de, en]) => [de, de, en]);
-      const statements = uniqueEntries([...lesson.phrases, ...lesson.dialogue.map(([, de, en]) => [de, en])].filter(([de]) => !de.includes("?"))).slice(0, 6);
-      return [
-        ["Redemittel A", phrases.slice(0, 5)],
-        ["Redemittel B", phrases.slice(5, 10)],
-        ["W-Fragen zum Thema", questionsFor(lesson)],
-        ["Antworten", statements.map(([de, en]) => [de, de, en])]
-      ];
-    };
     const cardIcons = ["💬", "❓", "🗣️", "🔁", "✅", "🧭", "🤝", "🎯"];
     const sentencePatterns = [
        { group: "Basic order", label: "Statement", sentence: "Heute lerne ich Deutsch.", translation: "Today I am learning German.", english: "In a main clause, the conjugated verb is in position 2. Another sentence element can come first.", tokens: [["Heute", "adverb", "Time"], ["lerne", "verb", "Verb · 2"], ["ich", "subject", "Subject"], ["Deutsch", "object", "Object"]] },
@@ -1264,7 +1249,7 @@
     console.assert(course.length === 32, "The course should contain 32 classes");
     console.assert(course.slice(0, 14).every(lesson => lesson.level === "A1.1") && course[14].level === "A1.2", "A1.1 foundations should come first");
     console.assert(course.every(lesson => lesson.phrases.length >= 8 && lesson.dialogue.length >= 6), "Each class needs enough spoken language");
-    console.assert(readingExercises(course[0]).length === 4, "Each class should render four phrase-building exercises");
+    console.assert(lessonPlans.length === course.length, "Each class needs a visual and a speaking activity");
     console.assert(grammarTopics.length === course.length && grammarTopics.every(([, rule, examples]) => rule && examples.length >= 3), "Each class needs a grammar note and examples");
     console.assert(pronunciationTopics.length === course.length && pronunciationTopics.every(Boolean), "Each class needs a pronunciation focus");
     console.assert(Object.keys(reviewPrompts).length === 8, "Every four-class unit needs a conversation review");
@@ -1286,18 +1271,22 @@
     }
 
     function lineList(lines) {
-      return `<ul class="reading-list">${lines.map(item => {
-        const [visible, spoken, english] = Array.isArray(item) ? item : [item, item, ""];
-        return `<li><button class="reading-line" type="button" data-speak="${spoken}"><span>${visible}</span>${english ? `<span class="english">${english}</span>` : ""}</button></li>`;
-      }).join("")}</ul>`;
+      return `<ul class="reading-list">${lines.map(([de, en]) =>
+        `<li><button class="reading-line" type="button" data-speak="${de}"><span lang="de">${de}</span><span class="english" lang="en">${en}</span></button></li>`
+      ).join("")}</ul>`;
     }
 
-    function materialBlock(number, title, lines) {
-      return `<div class="plan-step"><div class="plan-head"><span class="plan-number">${number}</span><h3>${title}</h3></div>${lineList(lines)}</div>`;
-    }
-
-    function grammarBlock([title, rule, examples]) {
-      return `<div class="plan-step grammar-note"><div class="plan-head"><span class="plan-number">💬</span><h3>Grammatik im Gespräch · ${title}</h3></div><p><b>Mini-Regel:</b> ${rule}</p>${lineList(examples.map(([de, en]) => [de, de, en]))}</div>`;
+    function grammarBlock([, rule, examples], visual) {
+      const rows = visual.map(([label, sentence]) => {
+        const chunks = sentence.split("|").map((part, index) => index % 2 ? `<mark>${part}</mark>` : part).join("");
+        return `<div><dt lang="en">${label}</dt><dd lang="de">${chunks}</dd></div>`;
+      }).join("");
+      return `<p lang="en">${rule}</p>
+        <dl class="grammar-visual">${rows}</dl>
+        <details class="lesson-resource">
+          <summary>Weitere Beispiele</summary>
+          ${lineList(examples)}
+        </details>`;
     }
 
     let sentencePatternIndex = 0;
@@ -1345,6 +1334,12 @@
 
     function renderLesson() {
       const lesson = course[lessonIndex];
+      const { visual, activity } = lessonPlans[lessonIndex];
+      const grammar = grammarTopics[lessonIndex];
+      $("lessonGrammarTitle").textContent = grammar[0];
+      $("lessonGrammar").innerHTML = grammarBlock(grammar, visual);
+      $("lessonActivityTitle").textContent = activity[0];
+      $("lessonActivity").textContent = activity[1];
       $("lessonLabel").textContent = `${lesson.level} · Stunde ${lessonIndex + 1}`;
       $("lessonTitle").textContent = lesson.title;
       $("lessonIntro").textContent = lesson.intro;
@@ -1354,9 +1349,9 @@
         <div class="mini-exercise"><span>💡</span><p><b>Sprechtipp:</b> ${lesson.coach}</p></div>
         <div class="mini-exercise"><span>🔊</span><p><b>Aussprache:</b> ${pronunciationTopics[lessonIndex]}</p></div>
         ${reviewPrompts[lessonIndex] ? `<div class="mini-exercise"><span>↩</span><p><b>Gesprächsrückblick:</b> ${reviewPrompts[lessonIndex]}</p></div>` : ""}`;
-      $("timeline").innerHTML = readingExercises(lesson).map(([title, lines], index) => materialBlock(index + 1, title, lines)).join("") + grammarBlock(grammarTopics[lessonIndex]);
-      $("dialogueTitle").textContent = lesson.dialogueTitle;
-      $("dialogue").innerHTML = lesson.dialogue.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
+      $("timeline").innerHTML = lineList(lesson.phrases);
+      $("dialogueTitle").textContent = `Dialog: ${lesson.dialogueTitle}`;
+      $("dialogue").innerHTML = lesson.dialogue.map(([speaker, de, en]) => `<div class="turn"><span class="speaker">${speaker === "A" ? "Tim" : "Motia H"}</span><div class="turn-copy">${de}<small class="english">${en}</small></div></div>`).join("");
       $("promptCards").innerHTML = lesson.phrases.slice(0, 8).map(([de, en], index) => `
         <button class="prompt-card" type="button" aria-pressed="false" aria-label="Deutschen Satz hören und anzeigen" data-german="${de}">
           <span class="card-face card-front"><span class="card-icon">${cardIcons[index]}</span><span class="card-label">Hören</span><span class="card-word">▶ Satz ${index + 1}</span></span>
@@ -1364,17 +1359,22 @@
         </button>`).join("");
       $("challenge").innerHTML = `<b>${lesson.challenge}</b><br><br>${lesson.variations.map((variation, index) => `${index + 1}. ${variation}`).join("<br>")}`;
       const lessonChecks = state.checks[lessonIndex] || [];
-      $("checklist").innerHTML = `<p class="eyebrow">Übung 9 · Selbstcheck</p><div class="mini-exercises">${lesson.checks.map((check, index) => `<label class="mini-exercise check-item"><input type="checkbox" data-check="${index}" ${lessonChecks.includes(index) ? "checked" : ""}><p>${check}</p></label>`).join("")}</div>`;
+      $("checklist").innerHTML = `<p class="eyebrow">Selbstcheck</p><div class="mini-exercises">${lesson.checks.map((check, index) => `<label class="mini-exercise check-item"><input type="checkbox" data-check="${index}" ${lessonChecks.includes(index) ? "checked" : ""}><p>${check}</p></label>`).join("")}</div>`;
       $("homework").textContent = lesson.homework;
-      const complete = state.complete.includes(lessonIndex);
-      $("completeButton").textContent = complete ? "✓ Stunde abgeschlossen — gut gemacht!" : "Stunde als fertig markieren";
-      $("completeButton").classList.toggle("done", complete);
+      renderCompletion();
       renderNavigation();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    function renderCompletion() {
+      const complete = state.complete.includes(lessonIndex);
+      $("completeButton").textContent = complete ? "✓ Stunde abgeschlossen — gut gemacht!" : "Stunde als fertig markieren";
+      $("completeButton").classList.toggle("done", complete);
+    }
+
     function chooseLesson(index) {
       if (canSpeak) window.speechSynthesis.cancel();
+      document.querySelectorAll(".lesson-shell details[open]").forEach(detail => { detail.open = false; });
       lessonIndex = Number(index);
       save();
       renderLesson();
@@ -1433,6 +1433,17 @@
       line.classList.toggle("revealed");
     };
     $("timeline").addEventListener("click", speakLine);
+    $("lessonGrammar").addEventListener("click", speakLine);
+
+    let printDetails = [];
+    window.addEventListener("beforeprint", () => {
+      printDetails = [...document.querySelectorAll(".print-resource:not([open])")];
+      printDetails.forEach(detail => { detail.open = true; });
+    });
+    window.addEventListener("afterprint", () => {
+      printDetails.forEach(detail => { detail.open = false; });
+      printDetails = [];
+    });
     $("checklist").addEventListener("change", event => {
       if (!event.target.matches("[data-check]")) return;
       state.checks[lessonIndex] = [...document.querySelectorAll("#checklist [data-check]:checked")].map(input => Number(input.dataset.check));
@@ -1458,7 +1469,8 @@
     $("completeButton").addEventListener("click", () => {
       state.complete = state.complete.includes(lessonIndex) ? state.complete.filter(index => index !== lessonIndex) : [...state.complete, lessonIndex].sort((a, b) => a - b);
       save();
-      renderLesson();
+      renderCompletion();
+      renderNavigation();
     });
 
     $("listenPhrases").hidden = !canSpeak;

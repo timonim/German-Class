@@ -1,0 +1,91 @@
+.lesson-grammar .panel-head,
+.lesson-activity .panel-head {
+  margin-bottom: 12px;
+}
+
+#lessonGrammar > p,
+#lessonActivity {
+  margin: 0;
+}
+
+.grammar-visual {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.grammar-visual > div {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) minmax(0, 2fr);
+  align-items: baseline;
+  gap: 8px 16px;
+  background: var(--paper, #f8f5ee);
+  border: 1px solid var(--line, #ddd8cb);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.grammar-visual dt {
+  font-weight: 700;
+}
+
+.grammar-visual dd {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.7;
+}
+
+.grammar-visual mark {
+  background: #fde7ce;
+  color: #713c20;
+  border-radius: 4px;
+  font-weight: 800;
+  box-decoration-break: clone;
+}
+
+.lesson-resource > summary {
+  padding-block: 13px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+details.lesson-resource.panel {
+  padding: 0;
+}
+
+details.panel > summary,
+.lesson-resource-body {
+  padding-inline: clamp(20px, 4vw, 34px);
+}
+
+.lesson-resource-body {
+  padding-bottom: 20px;
+  padding-top: 4px;
+}
+
+.lesson-resource-body > .button:not([hidden]) {
+  margin-bottom: 12px;
+}
+
+.lesson-resource-body .reading-list,
+.lesson-grammar .reading-list {
+  margin-left: 0;
+}
+
+@media (max-width: 580px) {
+  .grammar-visual > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+}
+
+@media print {
+  .no-print,
+  .lesson-resource-body > button {
+    display: none !important;
+  }
+
+  .grammar-visual mark {
+    text-decoration: underline;
+  }
+}

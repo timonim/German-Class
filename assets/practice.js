@@ -222,7 +222,7 @@
   }
 
   /* ================================================================ Practice: gaps, tables, articles */
-  const NAMES = new Set(["Tim", "Motia", "Maya", "Cohen", "Anna", "Lena", "Sara"]);
+  const NAMES = new Set(["Tim", "Motia", "Maya", "Anna", "Lena", "Sara"]);
   function gapWord(sentence, seed = 0) {
     const tokens = sentence.split(" ");
     const options = tokens.map((t, i) => [i, t.replace(/^[„“"(¿¡]+|[.,!?;:…“”")]+$/g, "")]).filter(([, w]) => w.length >= 3 && /^[A-Za-zÄÖÜäöüß-]+$/.test(w) && !NAMES.has(w));
