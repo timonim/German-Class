@@ -222,16 +222,6 @@
   }
 
   /* ================================================================ Practice: gaps, tables, articles */
-  const NAMES = new Set(["Tim", "Motia", "Maya", "Anna", "Lena", "Sara"]);
-  function gapWord(sentence, seed = 0) {
-    const tokens = sentence.split(" ");
-    const options = tokens.map((t, i) => [i, t.replace(/^[„“"(¿¡]+|[.,!?;:…“”")]+$/g, "")]).filter(([, w]) => w.length >= 3 && /^[A-Za-zÄÖÜäöüß-]+$/.test(w) && !NAMES.has(w));
-    if (!options.length) return null;
-    const ranked = [...options].sort((a, b) => b[1].length - a[1].length).slice(0, 3);
-    const [index, word] = ranked[seed % ranked.length];
-    tokens[index] = tokens[index].replace(word, `[${word}]`);
-    return { text: tokens.join(" "), word };
-  }
   const gapParts = sentence => sentence.split(/\[([^\]]+)\]/);
   function gapSentence(sentence) {
     return gapParts(sentence).map((part, i) => {
@@ -282,8 +272,8 @@
   }
   function startLessonGaps(index) {
     const lesson = course[index];
-    const lines = uniqBy([...lesson.dialogue.map(([, de, en]) => [de, en]), ...lesson.phrases], ([de]) => de);
-    const items = lines.map(([de, en], i) => { const g = gapWord(de, i); return g && { s: g.text, hint: en, word: g.word }; }).filter(Boolean).slice(0, 12);
+    if (!lesson) return;
+    const items = shuffle(lessonGaps[index]).map(([s, hint]) => ({ s, hint, word: gapParts(s)[1] }));
     startGapExercise("stunde-" + index, `Lesson ${index + 1}: ${lesson.title}`, items, true);
   }
   function startGapExercise(key, title, items, withBank) {
@@ -397,25 +387,20 @@
   const distract = (pool, answer, n = 3) => sample(uniqBy(pool.filter(x => x !== answer), x => x), n);
 
   function unitQuestions(u) {
-    const lessons = course.slice(u * 4, u * 4 + 4);
-    const phrases = uniqBy(lessons.flatMap(l => l.phrases), ([de]) => de);
-    const deList = phrases.map(([de]) => de), enList = phrases.map(([, en]) => en);
-    const qs = [];
-    sample(phrases, 4).forEach(([de, en]) => qs.push(mcQ("Phrases", `How do you say this in German?<br><span class="q-big">${esc(en)}</span>`, de, distract(deList, de), "", { say: de })));
-    sample(phrases, 3).forEach(([de, en]) => qs.push(mcQ("Meaning", `What does this mean?<br><span class="q-big">${esc(de)}</span>`, en, distract(enList, en), "", { sayPrompt: de })));
-    const allLines = lessons.flatMap(l => l.dialogue.map(([, de]) => de));
-    sample(lessons, 3).forEach(lesson => {
-      const k = Math.floor(Math.random() * (lesson.dialogue.length - 1));
-      const ask = lesson.dialogue[k][1], reply = lesson.dialogue[k + 1][1];
-      qs.push(mcQ("Dialogue", `<span class="speaker-chip">A</span> ${esc(ask)}<br>Which reply fits best?`, reply, distract(allLines.filter(l => l !== ask), reply), `From the dialogue “${esc(lesson.dialogueTitle)}”.`, { sayPrompt: ask }));
-    });
-    const clozePool = phrases.map(([de], i) => ({ de, g: gapWord(de, i) })).filter(x => x.g);
-    const clozeWords = clozePool.map(x => x.g.word);
-    sample(clozePool, 3).forEach(({ de, g }) => qs.push(mcQ("Gap", `Which word is missing?<br><span class="q-big">${esc(g.text).replace(/\[[^\]]+\]/, "____")}</span>`, g.word, distract(clozeWords, g.word), `Full sentence: ${esc(de)}`, { say: de })));
-    const grammarPool = D.mc.filter(m => m.unit === u);
-    (grammarPool.length ? sample(grammarPool, 5) : sample(D.mc, 5)).forEach(m => qs.push(mcQ("Grammar", esc(m.q).replace("___", "<span class=\"blank-line\">____</span>").replace("___", "<span class=\"blank-line\">____</span>"), m.o[0], m.o.slice(1), esc(m.x))));
-    return shuffle(qs);
+    const { from, to } = UNITS[u];
+    const lessons = unitQuizLessons.slice(from, to + 1);
+    return shuffle(lessons.flatMap(lesson => lesson.map(([prompt, answer, explain, distractors]) =>
+      distractors
+        ? mcQ("In context", esc(prompt), answer, distractors, esc(explain))
+        : { type: "written", section: "Write in German", prompt: esc(prompt), answer, explain: esc(explain) }
+    )));
   }
+
+  const unitQuizKey = u => `unit${u}-applied`;
+  function startUnitQuiz(u) {
+    startQuiz(unitQuizKey(u), `Einheit ${u + 1}`, unitQuestions(u), { unit: u });
+  }
+
   function vocabQuestions() {
     const groups = usefulWordGroups;
     return Array.from({ length: 20 }, (_, i) => {
@@ -456,8 +441,8 @@
         <a class="feature-card" href="#/test/schreiben"><span class="feature-icon">✉️</span><b>Writing practice</b><span>Write a short email, tick off the checklist, then compare with a model answer</span></a>
       </section>
       <h2 class="section-title">Unit quizzes</h2>
-      <p class="subtle">Each quiz mixes phrases, dialogues, gap sentences and grammar questions from four lessons. For the A1 exam, units 1–5 matter most.</p>
-      <div class="unit-grid">${UNITS.map(({ u, from, to, level }) => `<button class="unit-card ${level.startsWith("A2") ? "a2" : ""}" type="button" data-start-unit="${u}"><span class="unit-level">${level}</span><b>Unit ${u + 1}</b><span class="unit-range">Lessons ${from + 1}–${to + 1}</span><span class="unit-titles">${course.slice(from, to + 1).map(l => l.icon).join(" ")}</span>${scoreBadge(best("unit" + u))}</button>`).join("")}</div>`;
+      <p class="subtle">Write missing forms, rebuild German sentences, and choose replies that fit the situation. Each quiz covers all four lessons. For the A1 exam, units 1–5 matter most.</p>
+      <div class="unit-grid">${UNITS.map(({ u, from, to, level }) => `<button class="unit-card ${level.startsWith("A2") ? "a2" : ""}" type="button" data-start-unit="${u}"><span class="unit-level">${level}</span><b>Unit ${u + 1}</b><span class="unit-range">Lessons ${from + 1}–${to + 1}</span><span class="unit-titles">${course.slice(from, to + 1).map(l => l.icon).join(" ")}</span>${scoreBadge(best(unitQuizKey(u)))}${best("unit" + u) != null ? `<span class="unit-range">Previous format: ${esc(best("unit" + u))}%</span>` : ""}</button>`).join("")}</div>`;
   }
   function renderQuizQuestion() {
     const el = byId("view-quiz");
@@ -473,7 +458,7 @@
     if (q.type === "form") {
       body = `${q.context}<div class="form-grid">${q.fields.map((f, i) => `<label class="form-field"><span>${esc(f.label)}</span><input type="text" data-field="${i}" autocomplete="off" autocorrect="off" spellcheck="false" ${quiz.answered ? "disabled" : ""}><small class="form-feedback"></small></label>`).join("")}</div>`;
     } else if (q.context) body += q.context;
-    const options = q.type === "form" ? "" : `<div class="options ${q.options.length === 2 ? "two" : ""}">${q.options.map((o, i) => `<button class="option" type="button" data-option="${i}"><span class="option-key">${String.fromCharCode(65 + i)}</span><span>${esc(o)}</span></button>`).join("")}</div>`;
+    const options = !q.options ? "" : `<div class="options ${q.options.length === 2 ? "two" : ""}">${q.options.map((o, i) => `<button class="option" type="button" data-option="${i}"><span class="option-key">${String.fromCharCode(65 + i)}</span><span>${esc(o)}</span></button>`).join("")}</div>`;
     el.innerHTML = `
       <section class="quiz-shell">
         ${progressBar}
@@ -482,7 +467,8 @@
           ${body}
           <div class="quiz-prompt">${q.prompt} ${q.sayPrompt ? speakBtn(q.sayPrompt) : ""}</div>
           ${options}
-          ${q.type === "form" ? `<div class="sticky-actions">${umlautBar()}<button class="button primary wide" type="button" data-form-check>Check</button></div>` : ""}
+          ${q.type === "written" ? `<label class="form-field"><span>Your answer in German</span><input type="text" lang="de" data-field="0" autocomplete="off" autocorrect="off" spellcheck="false" required></label>` : ""}
+          ${q.type === "form" || q.type === "written" ? `<div class="sticky-actions">${umlautBar()}<button class="button primary wide" type="button" data-form-check>Check</button></div>` : ""}
           <div class="quiz-feedback" aria-live="polite"></div>
         </div>
       </section>`;
@@ -507,6 +493,10 @@
   function checkForm() {
     if (!quiz || quiz.answered) return;
     const q = quiz.questions[quiz.i];
+    if (q.type === "written") {
+      checkWrittenAnswer(q);
+      return;
+    }
     let right = 0;
     const misses = [];
     q.fields.forEach((f, i) => {
@@ -522,6 +512,27 @@
     quiz.score += right;
     if (right < q.fields.length) quiz.wrong.push({ q: { prompt: `Form fields: ${misses.join(", ")}`, answer: "see the corrections in the form" }, chosen: `${right}/${q.fields.length}` });
     showQuizFeedback(right === q.fields.length, `${right} of ${q.fields.length} fields correct.`, "Read the text carefully and copy numbers, names and places exactly.");
+  }
+  function checkWrittenAnswer(q) {
+    const field = byId("view-quiz").querySelector("[data-field]");
+    const chosen = field.value.trim();
+    if (!chosen) {
+      field.value = "";
+      field.reportValidity();
+      return;
+    }
+    const verdict = judge(chosen, [q.answer]);
+    const ok = verdict !== "wrong";
+    quiz.answered = true;
+    if (ok) quiz.score += 1; else quiz.wrong.push({ q, chosen });
+    field.disabled = true;
+    field.classList.add(ok ? "is-ok" : "is-wrong");
+    const model = `<b>${esc(q.answer)}</b>`;
+    const message = ok
+      ? (verdict === "ok" ? "Correct!" : `Correct form: ${model}`)
+      : `The expected answer is: ${model}`;
+    const explain = [judgeNote[verdict], q.explain].filter(Boolean).join(" ");
+    showQuizFeedback(ok, message, explain);
   }
   function showQuizFeedback(ok, message, explain) {
     const last = quiz.i === quiz.questions.length - 1;
@@ -541,7 +552,7 @@
           <div class="ring" style="--p:${score}"><span>${score}%</span></div>
           <div><p class="eyebrow">${esc(finished.title)}</p><h2>${score >= 90 ? "Excellent!" : score >= passMark ? (finished.key === "mock" ? "Passed! 🎉" : "Well done!") : "A bit more practice needed"}</h2><p>${finished.score} of ${finished.max} points${finished.key === "mock" ? ` · pass mark: 60%` : ""}</p></div>
         </div>
-        ${finished.wrong.length ? `<h3 class="section-title">Review these</h3><ul class="review-list">${finished.wrong.map(({ q, chosen }) => `<li><div class="review-q">${q.prompt}</div><div class="review-a"><span class="bad">✗ ${esc(chosen)}</span><span class="good">✔ ${esc(q.answer)}</span></div></li>`).join("")}</ul>` : ""}
+        ${finished.wrong.length ? `<h3 class="section-title">Review these</h3><ul class="review-list">${finished.wrong.map(({ q, chosen }) => `<li><div class="review-q">${q.prompt}</div><div class="review-a"><span class="bad">✗ ${esc(chosen)}</span><span class="good">✔ ${esc(q.answer)}</span></div>${q.explain ? `<p class="subtle">${q.explain}</p>` : ""}</li>`).join("")}</ul>` : ""}
         <div class="action-row"><button class="button primary" type="button" data-quiz-again>Try again</button><a class="button" href="#/test">Back to tests</a><a class="button" href="#/grammatik">Review grammar</a></div>
       </section>`;
     quiz = { ...finished, restart: true };
@@ -680,7 +691,8 @@
     if (say) { event.stopPropagation(); speak(say.dataset.say); return; }
     const insert = t.closest("[data-insert]");
     if (insert) {
-      const field = document.activeElement?.matches?.("input[type=text], textarea") ? document.activeElement : lastGapInput;
+      const writtenField = insert.closest(".quiz-card")?.querySelector('input[lang="de"][data-field]');
+      const field = writtenField || (document.activeElement?.matches?.("input[type=text], textarea") ? document.activeElement : lastGapInput);
       if (field && document.body.contains(field) && !field.disabled) {
         const s = field.selectionStart ?? field.value.length, e = field.selectionEnd ?? field.value.length;
         field.value = field.value.slice(0, s) + insert.dataset.insert + field.value.slice(e);
@@ -729,7 +741,7 @@
     if (t.closest("[data-artikel-next]")) { const s = practiceState.artikel; s.i += 1; s.answered = null; renderArtikel(); return; }
 
     // quiz
-    if (t.closest("[data-start-unit]")) { const u = Number(t.closest("[data-start-unit]").dataset.startUnit); startQuiz("unit" + u, `Einheit ${u + 1}`, unitQuestions(u)); return; }
+    if (t.closest("[data-start-unit]")) { const u = Number(t.closest("[data-start-unit]").dataset.startUnit); startUnitQuiz(u); return; }
     if (t.closest("[data-start-vocab]")) { startQuiz("vocab", "Wortschatz-Sprint", vocabQuestions()); return; }
     if (t.closest("[data-start-mock]")) { startQuiz("mock", "A1-Probeprüfung", mockQuestions()); return; }
     if (t.closest("[data-option]")) { answerOption(Number(t.closest("[data-option]").dataset.option)); return; }
@@ -741,7 +753,7 @@
       const k = quiz.key;
       if (k === "mock") startQuiz("mock", "A1-Probeprüfung", mockQuestions());
       else if (k === "vocab") startQuiz("vocab", "Wortschatz-Sprint", vocabQuestions());
-      else startQuiz(k, quiz.title, unitQuestions(Number(k.slice(4))));
+      else startUnitQuiz(quiz.unit);
       return;
     }
     if (t.closest("[data-speak-teil]")) { speakState = { teil: Number(t.closest("[data-speak-teil]").dataset.speakTeil), i: 0, shown: false, order: [] }; renderSpeaking(); return; }
